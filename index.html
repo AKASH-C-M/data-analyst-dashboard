@@ -84,33 +84,36 @@ Based on the provided dataset, here are the key statistics and patterns, top 3 m
 
 
 Key Statistics and Patterns:
-- The dataset contains 1000 rows and 15 columns, including product information, sales data, customer details, and regional information.
+- The dataset contains 1000 rows and 15 columns, providing a comprehensive overview of sales data.
 - The 'Sales_Amount' column ranges from $198.25 to $9638.64, indicating a wide range of sales values.
-- The 'Quantity_Sold' column ranges from 1 to 47, indicating varying quantities sold.
-- The 'Unit_Cost' and 'Unit_Price' columns show a range of costs and prices for different products.
+- The 'Quantity_Sold' column ranges from 1 to 47, showing varying quantities sold.
+- The 'Unit_Cost' and 'Unit_Price' columns have a wide range of values, suggesting different pricing strategies for various products.
+- The 'Discount' column ranges from 0 to 0.3, indicating different discount levels applied to sales.
 
 
 Top 3 Most Important Insights:
-1. The 'Sales_Amount' is highest for the 'Furniture' category, indicating a significant revenue source.
-2. The 'Region' column shows that the 'West' region has the most sales, followed by the 'South' and 'North' regions.
-3. The 'Customer_Type' column indicates that 'Returning' customers have a higher average sales amount than 'New' customers.
+1. The 'Sales_Amount' is highest for the 'Furniture' product category, indicating a significant revenue generator.
+2. The 'Region' column shows that the 'West' region has the highest number of sales, followed by the 'South' region.
+3. The 'Sales_Channel' column reveals that 'Online' sales are more prevalent than 'Retail' sales.
 
 
 Anomalies or Outliers:
-- Row 47 has a very low 'Sales_Amount' of $198.25, which could be an anomaly or an error in data entry.
-- Row 37 has a high 'Unit_Cost' of $1141.52 and a low 'Quantity_Sold' of 9, which could indicate an outlier or an error in data entry.
+- Row 47 has a 'Sales_Amount' of $198.25, which is significantly lower than the average sales amount.
+- Row 37 has a 'Quantity_Sold' of 9, which is lower than the average quantity sold.
 
 
 Recommended Visualizations:
-- Bar chart: 'Product_Category' vs 'Sales_Amount' to visualize the sales amount by product category.
-- Pie chart: 'Region' vs 'Sales_Amount' to visualize the sales amount by region.
-- Scatter plot: 'Unit_Cost' vs 'Unit_Price' to visualize the relationship between unit cost and unit price.
+- Bar chart: 'Product_Category' vs 'Sales_Amount' to compare sales across categories.
+- Geographic map: 'Region' vs 'Sales_Amount' to visualize regional sales.
+- Line chart: 'Sale_Date' vs 'Sales_Amount' to track sales over time.
 
 
 Business Recommendations:
-- Focus on the 'Furniture' category to increase sales and revenue.
-- Target the 'West' region for marketing and sales efforts to capitalize on the high sales in this region.
-- Develop strategies to retain 'Returning' customers and increase their average sales amount.
+- Focus on the 'Furniture' product category to maximize revenue.
+- Expand online sales channels to capitalize on the growing demand.
+- Analyze pricing strategies to optimize profit margins.
+- Investigate the low sales amount in row 47 to identify potential issues.
+- Consider increasing marketing efforts in the 'West' region to leverage its high sales potential.
 </div>
 
 </div>
@@ -118,7 +121,7 @@ Business Recommendations:
 <script>
 
 // ✅ Injected data from n8n
-const data = [{"output":"Based on the provided dataset, here are the key statistics and patterns, top 3 most important insights, anomalies or outliers, recommended visualizations, and business recommendations:\n\n\nKey Statistics and Patterns:\n- The dataset contains 1000 rows and 15 columns, including product information, sales data, customer details, and regional information.\n- The 'Sales_Amount' column ranges from $198.25 to $9638.64, indicating a wide range of sales values.\n- The 'Quantity_Sold' column ranges from 1 to 47, indicating varying quantities sold.\n- The 'Unit_Cost' and 'Unit_Price' columns show a range of costs and prices for different products.\n\n\nTop 3 Most Important Insights:\n1. The 'Sales_Amount' is highest for the 'Furniture' category, indicating a significant revenue source.\n2. The 'Region' column shows that the 'West' region has the most sales, followed by the 'South' and 'North' regions.\n3. The 'Customer_Type' column indicates that 'Returning' customers have a higher average sales amount than 'New' customers.\n\n\nAnomalies or Outliers:\n- Row 47 has a very low 'Sales_Amount' of $198.25, which could be an anomaly or an error in data entry.\n- Row 37 has a high 'Unit_Cost' of $1141.52 and a low 'Quantity_Sold' of 9, which could indicate an outlier or an error in data entry.\n\n\nRecommended Visualizations:\n- Bar chart: 'Product_Category' vs 'Sales_Amount' to visualize the sales amount by product category.\n- Pie chart: 'Region' vs 'Sales_Amount' to visualize the sales amount by region.\n- Scatter plot: 'Unit_Cost' vs 'Unit_Price' to visualize the relationship between unit cost and unit price.\n\n\nBusiness Recommendations:\n- Focus on the 'Furniture' category to increase sales and revenue.\n- Target the 'West' region for marketing and sales efforts to capitalize on the high sales in this region.\n- Develop strategies to retain 'Returning' customers and increase their average sales amount."}];
+const data = [{"output":"Based on the provided dataset, here are the key statistics and patterns, top 3 most important insights, anomalies or outliers, recommended visualizations, and business recommendations:\n\n\nKey Statistics and Patterns:\n- The dataset contains 1000 rows and 15 columns, providing a comprehensive overview of sales data.\n- The 'Sales_Amount' column ranges from $198.25 to $9638.64, indicating a wide range of sales values.\n- The 'Quantity_Sold' column ranges from 1 to 47, showing varying quantities sold.\n- The 'Unit_Cost' and 'Unit_Price' columns have a wide range of values, suggesting different pricing strategies for various products.\n- The 'Discount' column ranges from 0 to 0.3, indicating different discount levels applied to sales.\n\n\nTop 3 Most Important Insights:\n1. The 'Sales_Amount' is highest for the 'Furniture' product category, indicating a significant revenue generator.\n2. The 'Region' column shows that the 'West' region has the highest number of sales, followed by the 'South' region.\n3. The 'Sales_Channel' column reveals that 'Online' sales are more prevalent than 'Retail' sales.\n\n\nAnomalies or Outliers:\n- Row 47 has a 'Sales_Amount' of $198.25, which is significantly lower than the average sales amount.\n- Row 37 has a 'Quantity_Sold' of 9, which is lower than the average quantity sold.\n\n\nRecommended Visualizations:\n- Bar chart: 'Product_Category' vs 'Sales_Amount' to compare sales across categories.\n- Geographic map: 'Region' vs 'Sales_Amount' to visualize regional sales.\n- Line chart: 'Sale_Date' vs 'Sales_Amount' to track sales over time.\n\n\nBusiness Recommendations:\n- Focus on the 'Furniture' product category to maximize revenue.\n- Expand online sales channels to capitalize on the growing demand.\n- Analyze pricing strategies to optimize profit margins.\n- Investigate the low sales amount in row 47 to identify potential issues.\n- Consider increasing marketing efforts in the 'West' region to leverage its high sales potential."}];
 
 // ✅ Safety fallback
 const safeData = Array.isArray(data) ? data : [];
