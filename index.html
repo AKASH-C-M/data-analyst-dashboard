@@ -135,39 +135,37 @@
     </div>
     <div class="analysis-block">
       <div class="ai-label">Analysis Output</div>
-      <div class="analysis-text">Based on the provided dataset, here are some key statistics and patterns:
+      <div class="analysis-text">Based on the provided dataset, here are the key statistics and patterns, top 3 most important insights, any anomalies or outliers, recommended visualizations, and business recommendations:
 
-1. The dataset contains 1000 rows and 15 columns, with a mix of numerical and categorical data.
-2. The 'Sales_Amount' column has a wide range of values, from 198.25 to 9638.64, indicating a significant variation in sales amounts.
-3. The 'Quantity_Sold' column also has a wide range of values, from 1 to 47, indicating a variation in the quantity of products sold.
-4. The 'Product_Category' column has four unique categories: Furniture, Food, Clothing, and Electronics.
-5. The 'Region' column has four unique regions: North, South, East, and West.
-6. The 'Sales_Rep' column has five unique sales representatives: Bob, David, Charlie, Eve, and Alice.
 
-Top 3 most important insights:
+Key Statistics and Patterns:
+- The dataset contains 1000 rows and 15 columns, covering various aspects of sales data, including product information, sales dates, sales representatives, regions, sales amounts, quantities sold, product categories, unit costs, unit prices, customer types, discounts, payment methods, sales channels, and region-and-sales-rep combinations.
+- The data spans different regions (North, South, East, West) and involves multiple sales representatives (Bob, David, Charlie, Eve, Alice).
+- Product categories include Furniture, Food, Clothing, and Electronics.
 
-1. The average sales amount is highest for the 'Furniture' category, with an average sales amount of 4341.19.
-2. The 'North' region has the highest average sales amount, with an average sales amount of 4511.45.
-3. The 'Returning' customer type has a higher average sales amount than the 'New' customer type, with an average sales amount of 4231.19 compared to 3945.65.
 
-Anomalies or outliers:
+Top 3 Most Important Insights:
+1. **Regional Sales Performance**: Analyzing sales amounts by region can help identify top-performing regions and areas that require improvement.
+2. **Product Category Sales**: Examining sales amounts by product category can reveal which categories are most profitable and deserve more focus.
+3. **Sales Representative Performance**: Evaluating sales amounts by sales representative can help identify top-performing representatives and those who may need additional training or support.
 
-1. Row 47 has a very low sales amount of 198.25, which is significantly lower than the average sales amount.
-2. Row 49 has a very high sales amount of 9638.64, which is significantly higher than the average sales amount.
 
-Recommended visualizations:
+Anomalies or Outliers:
+- Row 47 stands out with a significantly low sales amount of 198.25, which may be an error or an unusual transaction.
+- Row 37 has a low sales amount of 245.46, which could be an anomaly or a special case.
 
-1. Bar chart: 'Product_Category' vs 'Sales_Amount' to compare the average sales amount across different product categories.
-2. Scatter plot: 'Quantity_Sold' vs 'Sales_Amount' to visualize the relationship between the quantity sold and the sales amount.
-3. Heatmap: 'Region' vs 'Sales_Rep' to visualize the sales performance of each sales representative across different regions.
 
-Business recommendations:
+Recommended Visualizations:
+- **Bar Chart**: Sales amount by region (using columns 'Region' and 'Sales_Amount') to compare regional performance.
+- **Pie Chart**: Sales amount by product category (using columns 'Product_Category' and 'Sales_Amount') to visualize category-wise sales distribution.
+- **Line Graph**: Sales amount over time (using columns 'Sale_Date' and 'Sales_Amount') to track sales trends.
 
-1. Focus on the 'Furniture' category, as it has the highest average sales amount.
-2. Target the 'North' region, as it has the highest average sales amount.
-3. Develop strategies to retain existing customers, as the 'Returning' customer type has a higher average sales amount than the 'New' customer type.
-4. Analyze the sales performance of each sales representative and provide training or support to improve their sales performance.
-5. Consider offering discounts or promotions to customers who purchase in bulk, as the 'Quantity_Sold' column has a wide range of values.</div>
+
+Business Recommendations:
+1. **Targeted Marketing**: Focus marketing efforts on top-performing regions and product categories to maximize sales.
+2. **Sales Representative Training**: Provide additional training and support to underperforming sales representatives to improve their sales numbers.
+3. **Product Portfolio Optimization**: Consider optimizing the product portfolio by focusing on the most profitable categories and potentially discontinuing less profitable ones.
+4. **Anomaly Investigation**: Investigate anomalies like the low sales amounts in rows 47 and 37 to determine their causes and take corrective actions if necessary.</div>
     </div>
   </div>
 </div>
@@ -181,7 +179,7 @@ Business recommendations:
   document.getElementById('report-date').textContent = new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' });
 
   // Injected data from n8n
-  const data = [{"output":"Based on the provided dataset, here are some key statistics and patterns:\n\n1. The dataset contains 1000 rows and 15 columns, with a mix of numerical and categorical data.\n2. The 'Sales_Amount' column has a wide range of values, from 198.25 to 9638.64, indicating a significant variation in sales amounts.\n3. The 'Quantity_Sold' column also has a wide range of values, from 1 to 47, indicating a variation in the quantity of products sold.\n4. The 'Product_Category' column has four unique categories: Furniture, Food, Clothing, and Electronics.\n5. The 'Region' column has four unique regions: North, South, East, and West.\n6. The 'Sales_Rep' column has five unique sales representatives: Bob, David, Charlie, Eve, and Alice.\n\nTop 3 most important insights:\n\n1. The average sales amount is highest for the 'Furniture' category, with an average sales amount of 4341.19.\n2. The 'North' region has the highest average sales amount, with an average sales amount of 4511.45.\n3. The 'Returning' customer type has a higher average sales amount than the 'New' customer type, with an average sales amount of 4231.19 compared to 3945.65.\n\nAnomalies or outliers:\n\n1. Row 47 has a very low sales amount of 198.25, which is significantly lower than the average sales amount.\n2. Row 49 has a very high sales amount of 9638.64, which is significantly higher than the average sales amount.\n\nRecommended visualizations:\n\n1. Bar chart: 'Product_Category' vs 'Sales_Amount' to compare the average sales amount across different product categories.\n2. Scatter plot: 'Quantity_Sold' vs 'Sales_Amount' to visualize the relationship between the quantity sold and the sales amount.\n3. Heatmap: 'Region' vs 'Sales_Rep' to visualize the sales performance of each sales representative across different regions.\n\nBusiness recommendations:\n\n1. Focus on the 'Furniture' category, as it has the highest average sales amount.\n2. Target the 'North' region, as it has the highest average sales amount.\n3. Develop strategies to retain existing customers, as the 'Returning' customer type has a higher average sales amount than the 'New' customer type.\n4. Analyze the sales performance of each sales representative and provide training or support to improve their sales performance.\n5. Consider offering discounts or promotions to customers who purchase in bulk, as the 'Quantity_Sold' column has a wide range of values."}];
+  const data = [{"output":"Based on the provided dataset, here are the key statistics and patterns, top 3 most important insights, any anomalies or outliers, recommended visualizations, and business recommendations:\n\n\nKey Statistics and Patterns:\n- The dataset contains 1000 rows and 15 columns, covering various aspects of sales data, including product information, sales dates, sales representatives, regions, sales amounts, quantities sold, product categories, unit costs, unit prices, customer types, discounts, payment methods, sales channels, and region-and-sales-rep combinations.\n- The data spans different regions (North, South, East, West) and involves multiple sales representatives (Bob, David, Charlie, Eve, Alice).\n- Product categories include Furniture, Food, Clothing, and Electronics.\n\n\nTop 3 Most Important Insights:\n1. **Regional Sales Performance**: Analyzing sales amounts by region can help identify top-performing regions and areas that require improvement.\n2. **Product Category Sales**: Examining sales amounts by product category can reveal which categories are most profitable and deserve more focus.\n3. **Sales Representative Performance**: Evaluating sales amounts by sales representative can help identify top-performing representatives and those who may need additional training or support.\n\n\nAnomalies or Outliers:\n- Row 47 stands out with a significantly low sales amount of 198.25, which may be an error or an unusual transaction.\n- Row 37 has a low sales amount of 245.46, which could be an anomaly or a special case.\n\n\nRecommended Visualizations:\n- **Bar Chart**: Sales amount by region (using columns 'Region' and 'Sales_Amount') to compare regional performance.\n- **Pie Chart**: Sales amount by product category (using columns 'Product_Category' and 'Sales_Amount') to visualize category-wise sales distribution.\n- **Line Graph**: Sales amount over time (using columns 'Sale_Date' and 'Sales_Amount') to track sales trends.\n\n\nBusiness Recommendations:\n1. **Targeted Marketing**: Focus marketing efforts on top-performing regions and product categories to maximize sales.\n2. **Sales Representative Training**: Provide additional training and support to underperforming sales representatives to improve their sales numbers.\n3. **Product Portfolio Optimization**: Consider optimizing the product portfolio by focusing on the most profitable categories and potentially discontinuing less profitable ones.\n4. **Anomaly Investigation**: Investigate anomalies like the low sales amounts in rows 47 and 37 to determine their causes and take corrective actions if necessary."}];
   const labels = data.map(d => d.category || "Unknown");
   const values = data.map(d => Number(d.sales) || 0);
 
