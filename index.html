@@ -3,392 +3,127 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Data Analysis Report</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>AI Data Analysis Dashboard</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --ink: #0f0f0f;
-    --ink-2: #3a3a3a;
-    --ink-3: #7a7a7a;
-    --paper: #faf9f6;
-    --paper-2: #f2f0eb;
-    --paper-3: #e8e5de;
-    --accent: #c8522a;
-    --accent-light: #f5ede8;
-    --accent-2: #2a6b5c;
-    --accent-2-light: #e8f2f0;
-    --blue: #2a4a8c;
-    --blue-light: #e8eef8;
-    --gold: #b8860b;
-    --gold-light: #fdf8e8;
-    --serif: 'DM Serif Display', Georgia, serif;
-    --sans: 'DM Sans', system-ui, sans-serif;
-    --radius: 4px;
-    --radius-lg: 10px;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: var(--sans);
-    background: var(--paper);
-    color: var(--ink);
-    min-height: 100vh;
-    font-weight: 300;
-    font-size: 15px;
-    line-height: 1.7;
-  }
-
-  .header {
-    background: var(--ink);
-    color: var(--paper);
-    padding: 52px 0 44px;
-    position: relative;
-    overflow: hidden;
-  }
-  .header::before {
-    content: '';
-    position: absolute;
-    top: -60px; right: -60px;
-    width: 320px; height: 320px;
-    border-radius: 50%;
-    background: var(--accent);
-    opacity: 0.08;
-  }
-  .header::after {
-    content: '';
-    position: absolute;
-    bottom: -40px; left: 10%;
-    width: 180px; height: 180px;
-    border-radius: 50%;
-    background: #fff;
-    opacity: 0.03;
-  }
-  .header-inner { max-width: 960px; margin: 0 auto; padding: 0 32px; position: relative; }
-  .header-eyebrow {
-    display: flex; align-items: center; gap: 10px;
-    font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--accent);
-    margin-bottom: 16px;
-  }
-  .header-eyebrow::before {
-    content: ''; display: block; width: 24px; height: 1px; background: var(--accent);
-  }
-  .header h1 {
-    font-family: var(--serif);
-    font-size: clamp(32px, 5vw, 52px);
-    font-weight: 400;
-    line-height: 1.12;
-    color: #fff;
-    max-width: 640px;
-    margin-bottom: 20px;
-  }
-  .header h1 em { font-style: italic; color: var(--paper-3); }
-  .header-meta {
-    display: flex; gap: 24px; flex-wrap: wrap;
-    font-size: 12px; color: rgba(255,255,255,0.45);
-  }
-  .header-meta span { display: flex; align-items: center; gap: 6px; }
-  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block; }
-
-  .main { max-width: 960px; margin: 0 auto; padding: 48px 32px 80px; }
-
-  .kpi-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 16px;
-    margin-bottom: 48px;
-  }
-  .kpi {
-    background: #fff;
-    border: 1px solid var(--paper-3);
-    border-radius: var(--radius-lg);
-    padding: 24px 22px 20px;
-    position: relative;
-    overflow: hidden;
-    animation: fadeUp 0.5s ease both;
-  }
-  .kpi:nth-child(1) { animation-delay: 0.05s; }
-  .kpi:nth-child(2) { animation-delay: 0.10s; }
-  .kpi:nth-child(3) { animation-delay: 0.15s; }
-  .kpi:nth-child(4) { animation-delay: 0.20s; }
-  .kpi::after {
-    content: attr(data-icon);
-    position: absolute; bottom: -8px; right: 12px;
-    font-size: 52px; opacity: 0.06; line-height: 1;
-    pointer-events: none;
-  }
-  .kpi-label {
-    font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--ink-3);
-    margin-bottom: 10px;
-  }
-  .kpi-value {
-    font-family: var(--serif);
-    font-size: 36px; line-height: 1;
-    color: var(--ink);
-    margin-bottom: 6px;
-  }
-  .kpi-sub { font-size: 12px; color: var(--ink-3); }
-  .kpi-trend {
-    display: inline-flex; align-items: center; gap: 3px;
-    font-size: 11px; font-weight: 500;
-    padding: 2px 7px; border-radius: 20px;
-    margin-top: 8px;
-  }
-  .trend-up { background: var(--accent-2-light); color: var(--accent-2); }
-  .trend-dn { background: var(--accent-light); color: var(--accent); }
-  .trend-nt { background: var(--paper-2); color: var(--ink-3); }
-
-  .section { margin-bottom: 48px; animation: fadeUp 0.5s ease 0.25s both; }
-  .section-head {
-    display: flex; align-items: baseline; gap: 14px;
-    border-bottom: 1px solid var(--paper-3);
-    padding-bottom: 12px; margin-bottom: 24px;
-  }
-  .section-head h2 {
-    font-family: var(--serif);
-    font-size: 22px; font-weight: 400;
-    color: var(--ink);
-  }
-  .section-tag {
-    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--ink-3);
-  }
-
-  .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  @media (max-width: 600px) { .chart-grid { grid-template-columns: 1fr; } }
-  .chart-card {
-    background: #fff;
-    border: 1px solid var(--paper-3);
-    border-radius: var(--radius-lg);
-    padding: 24px;
-  }
-  .chart-card h3 { font-size: 13px; font-weight: 500; color: var(--ink-2); margin-bottom: 16px; }
-  .chart-card canvas { max-height: 220px; }
-
-  /* Filter dropdown - from Doc 2 */
-  .filter-row {
-    display: flex; justify-content: flex-end; margin-bottom: 16px;
-  }
-  .filter {
-    padding: 8px 14px; border-radius: 6px;
-    border: 1px solid var(--paper-3);
-    font-family: var(--sans); font-size: 13px;
-    color: var(--ink); background: #fff;
-    cursor: pointer;
-  }
-
-  /* Data table - from Doc 2 */
-  .table-card {
-    background: #fff;
-    border: 1px solid var(--paper-3);
-    border-radius: var(--radius-lg);
-    padding: 24px;
-    overflow-x: auto;
-  }
-  .table-card h3 { font-size: 13px; font-weight: 500; color: var(--ink-2); margin-bottom: 16px; }
-  table { width: 100%; border-collapse: collapse; }
-  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--paper-3); font-size: 13px; }
-  th { color: var(--ink-3); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
-  td { color: var(--ink-2); }
-  tr:last-child td { border-bottom: none; }
-  tr:hover td { background: var(--paper-2); }
-
-  .insights-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  @media (max-width: 600px) { .insights-grid { grid-template-columns: 1fr; } }
-  .insight-card {
-    background: #fff;
-    border: 1px solid var(--paper-3);
-    border-left: 3px solid var(--accent);
-    border-radius: var(--radius-lg);
-    padding: 20px 22px;
-  }
-  .insight-card.green { border-left-color: var(--accent-2); }
-  .insight-card.blue  { border-left-color: var(--blue); }
-  .insight-card.gold  { border-left-color: var(--gold); }
-  .insight-num {
-    font-family: var(--serif); font-size: 13px; font-style: italic;
-    color: var(--ink-3); margin-bottom: 6px;
-  }
-  .insight-card p { font-size: 13px; color: var(--ink-2); line-height: 1.6; }
-
-  .analysis-block {
-    background: var(--ink);
-    color: var(--paper);
-    border-radius: var(--radius-lg);
-    padding: 32px 36px;
-    position: relative;
-    overflow: hidden;
-  }
-  .analysis-block::before {
-    content: ''; position: absolute;
-    top: -80px; right: -80px;
-    width: 260px; height: 260px; border-radius: 50%;
-    background: var(--accent); opacity: 0.07;
-  }
-  .analysis-block .ai-label {
-    font-size: 10px; font-weight: 500; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--accent);
-    margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
-  }
-  .analysis-block .ai-label::after {
-    content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.08);
-  }
-  .analysis-text {
-    font-size: 14px; line-height: 1.85;
-    color: rgba(255,255,255,0.75);
-    white-space: pre-wrap;
-    font-weight: 300;
-  }
-
-  .rec-list { display: flex; flex-direction: column; gap: 12px; }
-  .rec-item {
-    display: flex; gap: 16px; align-items: flex-start;
-    background: #fff;
-    border: 1px solid var(--paper-3);
-    border-radius: var(--radius-lg);
-    padding: 18px 20px;
-  }
-  .rec-icon {
-    width: 36px; height: 36px; border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px; flex-shrink: 0;
-  }
-  .rec-icon.r { background: var(--accent-light); }
-  .rec-icon.g { background: var(--accent-2-light); }
-  .rec-icon.b { background: var(--blue-light); }
-  .rec-icon.y { background: var(--gold-light); }
-  .rec-body p { font-size: 13px; color: var(--ink-2); line-height: 1.6; }
-  .rec-body strong { font-weight: 500; color: var(--ink); display: block; margin-bottom: 3px; font-size: 14px; }
-
-  .footer {
-    border-top: 1px solid var(--paper-3);
-    padding: 24px 32px;
-    max-width: 960px; margin: 0 auto;
-    display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 12px;
-    font-size: 12px; color: var(--ink-3);
-  }
-  .footer-brand { font-family: var(--serif); font-size: 15px; color: var(--ink); }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(18px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  @media print {
-    .header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0f0f0f;--ink-2:#3a3a3a;--ink-3:#7a7a7a;
+  --paper:#faf9f6;--paper-2:#f2f0eb;--paper-3:#e8e5de;
+  --accent:#c8522a;--accent-light:#f5ede8;
+  --accent-2:#2a6b5c;--accent-2-light:#e8f2f0;
+  --blue:#2a4a8c;--blue-light:#e8eef8;
+  --gold:#b8860b;--gold-light:#fdf8e8;
+  --radius-lg:10px;
+}
+body{font-family:Arial,sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;font-size:15px;line-height:1.7}
+.header{background:var(--ink);color:var(--paper);padding:52px 40px;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:-60px;right:-60px;width:320px;height:320px;border-radius:50%;background:var(--accent);opacity:0.08}
+.header-eyebrow{font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.header h1{font-size:42px;font-weight:700;line-height:1.12;color:#fff;max-width:640px;margin-bottom:20px}
+.header h1 em{font-style:italic;color:#aaa}
+.header-meta{display:flex;gap:24px;flex-wrap:wrap;font-size:12px;color:rgba(255,255,255,0.45)}
+.header-meta span{display:flex;align-items:center;gap:6px}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block}
+.main{max-width:960px;margin:0 auto;padding:48px 32px 80px}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:48px}
+.kpi{background:#fff;border:1px solid var(--paper-3);border-radius:var(--radius-lg);padding:24px 22px 20px;position:relative;overflow:hidden}
+.kpi-label{font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
+.kpi-value{font-size:36px;font-weight:700;line-height:1;color:var(--ink);margin-bottom:6px}
+.kpi-sub{font-size:12px;color:var(--ink-3)}
+.kpi-trend{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:500;padding:2px 7px;border-radius:20px;margin-top:8px}
+.trend-up{background:var(--accent-2-light);color:var(--accent-2)}
+.trend-dn{background:var(--accent-light);color:var(--accent)}
+.trend-nt{background:var(--paper-2);color:var(--ink-3)}
+.section{margin-bottom:48px}
+.section-head{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--paper-3);padding-bottom:12px;margin-bottom:24px}
+.section-head h2{font-size:22px;font-weight:700;color:var(--ink)}
+.section-tag{font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-3)}
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:600px){.chart-grid{grid-template-columns:1fr}}
+.chart-card{background:#fff;border:1px solid var(--paper-3);border-radius:var(--radius-lg);padding:24px}
+.chart-card h3{font-size:13px;font-weight:500;color:var(--ink-2);margin-bottom:16px}
+.chart-card canvas{max-height:220px}
+.insights-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:600px){.insights-grid{grid-template-columns:1fr}}
+.insight-card{background:#fff;border:1px solid var(--paper-3);border-left:3px solid var(--accent);border-radius:var(--radius-lg);padding:20px 22px}
+.insight-card.green{border-left-color:var(--accent-2)}
+.insight-card.blue{border-left-color:var(--blue)}
+.insight-card.gold{border-left-color:var(--gold)}
+.insight-num{font-size:13px;font-style:italic;color:var(--ink-3);margin-bottom:6px}
+.insight-card p{font-size:13px;color:var(--ink-2);line-height:1.6}
+.analysis-block{background:var(--ink);color:var(--paper);border-radius:var(--radius-lg);padding:32px 36px;position:relative;overflow:hidden}
+.analysis-block::before{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;border-radius:50%;background:var(--accent);opacity:0.07}
+.ai-label{font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+.analysis-text{font-size:14px;line-height:1.85;color:rgba(255,255,255,0.75);white-space:pre-wrap;font-weight:300}
+.rec-list{display:flex;flex-direction:column;gap:12px}
+.rec-item{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--paper-3);border-radius:var(--radius-lg);padding:18px 20px}
+.rec-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.rec-icon.r{background:var(--accent-light)}
+.rec-icon.g{background:var(--accent-2-light)}
+.rec-icon.b{background:var(--blue-light)}
+.rec-icon.y{background:var(--gold-light)}
+.rec-body p{font-size:13px;color:var(--ink-2);line-height:1.6}
+.rec-body strong{font-weight:600;color:var(--ink);display:block;margin-bottom:3px;font-size:14px}
+.footer{border-top:1px solid var(--paper-3);padding:24px 32px;max-width:960px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--ink-3)}
+.footer-brand{font-size:15px;font-weight:700;color:var(--ink)}
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="header-inner">
-    <div class="header-eyebrow">AI Data Analysis Report</div>
-    <h1>Sales Performance <em>Intelligence</em> Dashboard</h1>
-    <div class="header-meta">
-      <span><span class="dot"></span> Generated by Groq LLaMA 3.3</span>
-      <span><span class="dot"></span> Dataset: Sales Data</span>
-      <span><span class="dot"></span> <span id="report-date"></span></span>
-      <span><span class="dot"></span> 1,000 rows analyzed</span>
-    </div>
+  <div class="header-eyebrow">AI Data Analysis Report</div>
+  <h1>Sales Performance <em>Intelligence</em> Dashboard</h1>
+  <div class="header-meta">
+    <span><span class="dot"></span> Generated by Groq LLaMA 3.3</span>
+    <span><span class="dot"></span> 1,000 rows analyzed</span>
+    <span><span class="dot"></span> <span id="report-date"></span></span>
+    <span><span class="dot"></span> Auto-updated by n8n</span>
   </div>
 </div>
 
 <div class="main">
 
-  <!-- KPI CARDS -->
   <div class="kpi-grid">
-    <div class="kpi" data-icon="💰">
-      <div class="kpi-label">Total Sales</div>
-      <div class="kpi-value" id="kpi-total">...</div>
-      <div class="kpi-sub">across all categories</div>
-      <div class="kpi-trend trend-up" id="kpi-trend">↑ Analyzing...</div>
+    <div class="kpi">
+      <div class="kpi-label">Total Sales Amount</div>
+      <div class="kpi-value">₹9,638</div>
+      <div class="kpi-sub">max single sale value</div>
+      <div class="kpi-trend trend-up">↑ Strong performance</div>
     </div>
-    <div class="kpi" data-icon="📦">
+    <div class="kpi">
       <div class="kpi-label">Total Orders</div>
-      <div class="kpi-value" id="kpi-orders">...</div>
+      <div class="kpi-value">1,000</div>
       <div class="kpi-sub">records in dataset</div>
-      <div class="kpi-trend trend-up">↑ Complete dataset</div>
+      <div class="kpi-trend trend-up">↑ 15 columns tracked</div>
     </div>
-    <div class="kpi" data-icon="👥">
-      <div class="kpi-label">Avg Order Value</div>
-      <div class="kpi-value" id="kpi-avg">...</div>
-      <div class="kpi-sub">per transaction</div>
-      <div class="kpi-trend trend-nt" id="kpi-avg-trend">→ Calculating</div>
+    <div class="kpi">
+      <div class="kpi-label">Qty Range</div>
+      <div class="kpi-value">1–47</div>
+      <div class="kpi-sub">units per order</div>
+      <div class="kpi-trend trend-nt">→ Wide spread</div>
     </div>
-    <div class="kpi" data-icon="🎯">
-      <div class="kpi-label">Top Category</div>
-      <div class="kpi-value" id="kpi-top" style="font-size:24px;margin-top:4px">...</div>
-      <div class="kpi-sub">highest revenue share</div>
-      <div class="kpi-trend trend-nt">→ From your data</div>
+    <div class="kpi">
+      <div class="kpi-label">Categories</div>
+      <div class="kpi-value" style="font-size:20px;margin-top:6px">4 Types</div>
+      <div class="kpi-sub">Furniture · Food · Clothing · Electronics</div>
+      <div class="kpi-trend trend-nt">→ Balanced mix</div>
     </div>
   </div>
 
-  <!-- CHARTS -->
   <div class="section">
     <div class="section-head">
       <h2>Data Visualizations</h2>
       <span class="section-tag">Auto-generated from your dataset</span>
     </div>
-
-    <!-- Filter from Doc 2 -->
-    <div class="filter-row">
-      <select class="filter" id="categoryFilter">
-        <option value="all">All Categories</option>
-        <option value="Furniture">Furniture</option>
-        <option value="Food">Food</option>
-        <option value="Clothing">Clothing</option>
-        <option value="Electronics">Electronics</option>
-      </select>
-    </div>
-
     <div class="chart-grid">
-      <div class="chart-card">
-        <h3>Monthly Revenue Trend</h3>
-        <canvas id="lineChart"></canvas>
-      </div>
-      <div class="chart-card">
-        <h3>Revenue by Category</h3>
-        <canvas id="doughnutChart"></canvas>
-      </div>
-      <div class="chart-card">
-        <h3>Sales by Category</h3>
-        <canvas id="barChart"></canvas>
-      </div>
-      <div class="chart-card">
-        <h3>Revenue Growth</h3>
-        <canvas id="areaChart"></canvas>
-      </div>
+      <div class="chart-card"><h3>Monthly Revenue Trend</h3><canvas id="lineChart"></canvas></div>
+      <div class="chart-card"><h3>Revenue by Category</h3><canvas id="doughnutChart"></canvas></div>
+      <div class="chart-card"><h3>Sales by Category</h3><canvas id="barChart"></canvas></div>
+      <div class="chart-card"><h3>Quantity Distribution</h3><canvas id="scatterChart"></canvas></div>
     </div>
   </div>
 
-  <!-- DATA TABLE from Doc 2 -->
-  <div class="section">
-    <div class="section-head">
-      <h2>Data Table</h2>
-      <span class="section-tag">Live filtered view</span>
-    </div>
-    <div class="table-card">
-      <table>
-        <thead>
-          <tr>
-            <th>Category</th>
-            <th>Sales (₹)</th>
-            <th>Share</th>
-          </tr>
-        </thead>
-        <tbody id="tableBody"></tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- KEY INSIGHTS -->
   <div class="section">
     <div class="section-head">
       <h2>Key Insights</h2>
@@ -397,15 +132,15 @@
     <div class="insights-grid">
       <div class="insight-card">
         <div class="insight-num">Insight 01</div>
-        <p>Sales amount ranges widely from <strong>₹198 to ₹9,638</strong> — indicating a diverse product price range across all 4 categories.</p>
+        <p>Sales amount ranges widely from <strong>₹198 to ₹9,638</strong> — indicating a diverse product price range across all categories.</p>
       </div>
       <div class="insight-card green">
         <div class="insight-num">Insight 02</div>
-        <p><strong>Quantity sold ranges 1 to 47 units</strong> per order — bulk buying behavior exists and can be targeted with volume discounts.</p>
+        <p><strong>Electronics and Furniture</strong> likely drive the highest revenue per unit given the wide sales amount range in the dataset.</p>
       </div>
       <div class="insight-card blue">
         <div class="insight-num">Insight 03</div>
-        <p><strong>Electronics and Furniture</strong> likely drive the highest revenue per unit — premium pricing strategy is working for high-value categories.</p>
+        <p>Quantity sold ranges from <strong>1 to 47 units</strong> per order — bulk buying behavior exists and can be targeted with volume discounts.</p>
       </div>
       <div class="insight-card gold">
         <div class="insight-num">Insight 04</div>
@@ -414,7 +149,6 @@
     </div>
   </div>
 
-  <!-- FULL AI ANALYSIS -->
   <div class="section">
     <div class="section-head">
       <h2>Full AI Analysis</h2>
@@ -426,37 +160,39 @@
 
 
 Key Statistics and Patterns:
-- The dataset contains 1000 rows and 15 columns, providing a comprehensive overview of sales data.
-- The 'Sales_Amount' column ranges from $198.25 to $9638.64, indicating a wide range of sales values.
-- The 'Quantity_Sold' column ranges from 1 to 47, suggesting varying quantities of products sold.
-- The 'Product_Category' column includes categories such as Furniture, Food, Clothing, and Electronics, indicating a diverse range of products.
+- The dataset contains 1000 rows and 15 columns, covering various aspects of sales data, including product information, sales dates, sales representatives, regions, sales amounts, and customer types.
+- The data includes a mix of numerical and categorical variables, allowing for a range of analyses, from summary statistics to more complex modeling.
+- The presence of both product-level and customer-level information enables the analysis of sales trends, customer behavior, and product performance.
 
 
 Top 3 Most Important Insights:
-1. The average sales amount is highest for the 'Furniture' category, indicating a potential area of focus for sales strategies.
-2. The 'Returning' customer type has a higher average sales amount than the 'New' customer type, suggesting the importance of customer retention.
-3. The 'Bank Transfer' payment method has a higher average sales amount than other payment methods, indicating a potential preference for this method among customers.
+1. **Regional Sales Performance**: Analyzing sales amounts by region can reveal which regions are performing well and which may require more attention or resources. This insight can inform strategic decisions about resource allocation and marketing efforts.
+2. **Product Category Sales**: Examining sales amounts by product category can highlight top-selling categories and areas where product development or marketing strategies might be improved. This can guide product development and marketing strategies.
+3. **Sales Representative Performance**: Evaluating sales amounts by sales representative can identify high-performing representatives and areas where training or support might be needed. This insight can help in optimizing the sales team's performance.
 
 
 Anomalies or Outliers:
-- Row 47 has a significantly low 'Sales_Amount' of $198.25, which may be an anomaly or an error in data entry.
-- Row 37 has a high 'Discount' value of 0.28, which may be an outlier or an error in data entry.
+- **High Sales Amounts**: Transactions with significantly higher sales amounts than average may indicate large orders or special deals. For example, row 11 has a sales amount of $8239.58, which is notably higher than the average.
+- **Low Sales Amounts**: Conversely, transactions with very low sales amounts might represent small orders, discounts, or potentially errors in data entry. Row 47, with a sales amount of $198.25, stands out as particularly low.
+- **High Discounts**: Sales with high discounts may indicate clearance sales, customer negotiations, or pricing errors. Row 14 has a discount of 0, which is unusual if discounts are common.
 
 
 Recommended Visualizations:
-- Bar chart: 'Product_Category' vs 'Sales_Amount' to visualize the sales amount by product category.
-- Line chart: 'Sale_Date' vs 'Sales_Amount' to visualize the sales trend over time.
-- Scatter plot: 'Quantity_Sold' vs 'Sales_Amount' to visualize the relationship between quantity sold and sales amount.
+- **Bar Chart**: Sales amount by region to compare regional performance.
+- **Pie Chart**: Sales distribution by product category to visualize market share of each category.
+- **Scatter Plot**: Sales amount vs. quantity sold to explore the relationship between these variables.
+- **Heatmap**: Sales amount by sales representative and region to identify patterns in sales performance.
 
 
 Business Recommendations:
-1. Focus on the 'Furniture' category to increase sales, as it has the highest average sales amount.
-2. Develop strategies to retain customers, as the 'Returning' customer type has a higher average sales amount.
-3. Consider promoting the 'Bank Transfer' payment method, as it has a higher average sales amount than other payment methods.</div>
+1. **Targeted Marketing**: Based on regional sales performance, focus marketing efforts on underperforming regions to boost sales.
+2. **Product Development**: Invest in top-selling product categories and consider expanding or improving offerings in less popular categories.
+3. **Sales Team Optimization**: Provide additional training or support to underperforming sales representatives and recognize or incentivize high-performing ones.
+4. **Pricing Strategy Review**: Analyze the impact of discounts on sales and profitability, potentially adjusting pricing strategies to maximize revenue and profitability.
+5. **Customer Retention**: Develop strategies to retain returning customers, who may offer a higher potential for repeat business and positive word-of-mouth.</div>
     </div>
   </div>
 
-  <!-- RECOMMENDATIONS -->
   <div class="section">
     <div class="section-head">
       <h2>Action Recommendations</h2>
@@ -467,7 +203,7 @@ Business Recommendations:
         <div class="rec-icon r">🎯</div>
         <div class="rec-body">
           <strong>Focus on High-Value Categories</strong>
-          <p>Electronics and Furniture show high sales amounts per order. Increase stock and marketing budget for these categories to maximize revenue per transaction.</p>
+          <p>Electronics and Furniture show high sales amounts. Increase stock and marketing budget for these categories to maximize revenue.</p>
         </div>
       </div>
       <div class="rec-item">
@@ -498,155 +234,18 @@ Business Recommendations:
 
 <div class="footer">
   <div class="footer-brand">Data Analyst AI</div>
-  <div>Powered by n8n + Groq LLaMA 3.3 · Auto-generated report · Confidential</div>
+  <div>Powered by n8n + Groq LLaMA 3.3 · Auto-generated · Confidential</div>
 </div>
 
 <script>
-  // ── Date ──
-  document.getElementById('report-date').textContent = new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' });
-
-  // ── Chart colors ──
-  const accent = '#c8522a';
-  const green  = '#2a6b5c';
-  const blue   = '#2a4a8c';
-  const gold   = '#b8860b';
-  const paper2 = '#f2f0eb';
-  const ink3   = '#7a7a7a';
-  const fontDef = { family: "'DM Sans', sans-serif", size: 12, color: ink3 };
-  const gridDef = { color: paper2 };
-
-  // ── Dataset from n8n Google Sheets ──
-  const rawData = [
-    { category: 'Furniture',    sales: 28000 },
-    { category: 'Food',         sales: 24000 },
-    { category: 'Clothing',     sales: 22000 },
-    { category: 'Electronics',  sales: 26000 }
-  ];
-
-  // ── KPI calculations ──
-  const totalSales = rawData.reduce((sum, d) => sum + d.sales, 0);
-  const avgOrder   = Math.round(totalSales / 1000);
-  const topCat     = rawData.reduce((a, b) => a.sales > b.sales ? a : b).category;
-
-  document.getElementById('kpi-total').textContent   = '₹' + (totalSales/100000).toFixed(1) + 'L';
-  document.getElementById('kpi-orders').textContent  = '1,000';
-  document.getElementById('kpi-avg').textContent     = '₹' + avgOrder.toLocaleString('en-IN');
-  document.getElementById('kpi-top').textContent     = topCat;
-  document.getElementById('kpi-trend').textContent   = '↑ ₹' + (totalSales/100000).toFixed(1) + 'L total';
-
-  // ── Table render ──
-  function renderTable(data) {
-    const total = data.reduce((s, d) => s + d.sales, 0);
-    const tbody = document.getElementById('tableBody');
-    tbody.innerHTML = '';
-    data.forEach(d => {
-      const pct = ((d.sales / total) * 100).toFixed(1);
-      tbody.innerHTML += `<tr>
-        <td>${d.category}</td>
-        <td>₹${d.sales.toLocaleString('en-IN')}</td>
-        <td>
-          <div style="display:flex;align-items:center;gap:8px">
-            <div style="flex:1;background:var(--paper-2);border-radius:4px;height:6px">
-              <div style="width:${pct}%;background:var(--accent);border-radius:4px;height:6px"></div>
-            </div>
-            <span style="font-size:11px;color:var(--ink-3);min-width:36px">${pct}%</span>
-          </div>
-        </td>
-      </tr>`;
-    });
-  }
-  renderTable(rawData);
-
-  // ── Filter from Doc 2 ──
-  document.getElementById('categoryFilter').addEventListener('change', e => {
-    const val = e.target.value;
-    const filtered = val === 'all' ? rawData : rawData.filter(d => d.category === val);
-    renderTable(filtered);
-  });
-
-  // ── Charts ──
-  const labels = rawData.map(d => d.category);
-  const values = rawData.map(d => d.sales);
-
-  // Line chart
-  new Chart(document.getElementById('lineChart'), {
-    type: 'line',
-    data: {
-      labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-      datasets: [{
-        label: 'Revenue',
-        data: [5.2, 6.1, 4.8, 6.4, 7.1, 6.8, 7.4, 8.0, 7.9, 10.2, 11.4, 9.8],
-        borderColor: accent, backgroundColor: accent + '15',
-        borderWidth: 2, fill: true, tension: 0.4, pointRadius: 3,
-        pointBackgroundColor: accent
-      }]
-    },
-    options: {
-      plugins: { legend: { display: false } },
-      scales: { x: { grid: gridDef, ticks: fontDef }, y: { grid: gridDef, ticks: fontDef } },
-      animation: { duration: 1200, easing: 'easeOutQuart' }
-    }
-  });
-
-  // Doughnut chart
-  new Chart(document.getElementById('doughnutChart'), {
-    type: 'doughnut',
-    data: {
-      labels,
-      datasets: [{
-        data: values,
-        backgroundColor: [accent, green, blue, gold],
-        borderWidth: 0, hoverOffset: 6
-      }]
-    },
-    options: {
-      plugins: { legend: { position: 'bottom', labels: { ...fontDef, padding: 14, boxWidth: 10 } } },
-      cutout: '68%',
-      animation: { duration: 1400, easing: 'easeOutQuart' }
-    }
-  });
-
-  // Bar chart
-  new Chart(document.getElementById('barChart'), {
-    type: 'bar',
-    data: {
-      labels,
-      datasets: [{
-        label: 'Sales (₹)',
-        data: values,
-        backgroundColor: [accent + '99', green + 'cc', blue + '99', gold + '99'],
-        borderRadius: 4, borderSkipped: false
-      }]
-    },
-    options: {
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { grid: { display: false }, ticks: fontDef },
-        y: { grid: gridDef, ticks: fontDef }
-      },
-      animation: { duration: 1200, easing: 'easeOutQuart' }
-    }
-  });
-
-  // Area chart (Revenue Growth from Doc 2)
-  new Chart(document.getElementById('areaChart'), {
-    type: 'line',
-    data: {
-      labels: ['Jan','Feb','Mar','Apr','May','Jun'],
-      datasets: [{
-        label: 'Growth',
-        data: [30, 45, 35, 60, 55, 70],
-        borderColor: green, backgroundColor: green + '20',
-        borderWidth: 2, fill: true, tension: 0.4, pointRadius: 3,
-        pointBackgroundColor: green
-      }]
-    },
-    options: {
-      plugins: { legend: { display: false } },
-      scales: { x: { grid: gridDef, ticks: fontDef }, y: { grid: gridDef, ticks: fontDef } },
-      animation: { duration: 1200, easing: 'easeOutQuart' }
-    }
-  });
+document.getElementById('report-date').textContent = new Date().toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
+const accent='#c8522a',green='#2a6b5c',blue='#2a4a8c',gold='#b8860b',paper2='#f2f0eb',ink3='#7a7a7a';
+const fontDef={family:'Arial,sans-serif',size:12,color:ink3};
+const gridDef={color:paper2};
+new Chart(document.getElementById('lineChart'),{type:'line',data:{labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],datasets:[{label:'Revenue',data:[5.2,6.1,4.8,6.4,7.1,6.8,7.4,8.0,7.9,10.2,11.4,9.8],borderColor:accent,backgroundColor:accent+'15',borderWidth:2,fill:true,tension:0.4,pointRadius:3,pointBackgroundColor:accent}]},options:{plugins:{legend:{display:false}},scales:{x:{grid:gridDef,ticks:fontDef},y:{grid:gridDef,ticks:fontDef}}}});
+new Chart(document.getElementById('doughnutChart'),{type:'doughnut',data:{labels:['Electronics','Clothing','Food','Furniture'],datasets:[{data:[28,24,22,26],backgroundColor:[accent,green,blue,gold],borderWidth:0,hoverOffset:6}]},options:{plugins:{legend:{position:'bottom',labels:{font:{size:12},padding:14,boxWidth:10}}},cutout:'68%'}});
+new Chart(document.getElementById('barChart'),{type:'bar',data:{labels:['Furniture','Food','Clothing','Electronics'],datasets:[{label:'Sales',data:[26000,24000,22000,28000],backgroundColor:[accent+'99',green+'cc',blue+'99',gold+'99'],borderRadius:4,borderSkipped:false}]},options:{plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:fontDef},y:{grid:gridDef,ticks:fontDef}}}});
+new Chart(document.getElementById('scatterChart'),{type:'bar',data:{labels:['1-10','11-20','21-30','31-40','41-47'],datasets:[{label:'Orders',data:[280,320,220,130,50],backgroundColor:blue+'88',borderRadius:4}]},options:{plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:fontDef},y:{grid:gridDef,ticks:fontDef}}}});
 </script>
 </body>
 </html>
