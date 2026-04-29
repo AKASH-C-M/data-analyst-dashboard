@@ -135,37 +135,37 @@
     </div>
     <div class="analysis-block">
       <div class="ai-label">Analysis Output</div>
-      <div class="analysis-text">Based on the provided dataset, here are the key statistics and patterns, top 3 most important insights, any anomalies or outliers, recommended visualizations, and business recommendations:
+      <div class="analysis-text">Based on the provided dataset, here are the key statistics and patterns noticed:
 
+1. **Average Sales Amount**: The average sales amount is approximately $222,857.53, indicating a significant volume of sales.
+2. **Product Categories**: The top product categories by sales amount are Furniture, Electronics, and Clothing, suggesting a diverse product portfolio.
+3. **Sales Channels**: The sales channels with the highest sales amounts are Online, Retail, and Bank Transfer, indicating a mix of digital and physical sales channels.
+4. **Customer Types**: The customer types with the highest sales amounts are Returning and New, suggesting a balanced customer base.
+5. **Discounts**: The average discount is around 0.14, indicating that discounts are being offered to customers.
 
-Key Statistics and Patterns:
-- The dataset contains 1000 rows and 15 columns, covering various aspects of sales data, including product information, sales dates, sales representatives, regions, sales amounts, quantities sold, product categories, unit costs, unit prices, customer types, discounts, payment methods, sales channels, and region-and-sales-rep combinations.
-- The data spans different regions (North, South, East, West) and involves multiple sales representatives (Bob, David, Charlie, Eve, Alice).
-- Product categories include Furniture, Food, Clothing, and Electronics.
+The top 3 most important insights are:
 
+1. **Furniture is the top-selling product category**: With an average sales amount of $43,819.19, Furniture is the top-selling product category, accounting for approximately 43% of total sales.
+2. **Online sales are the highest**: Online sales account for approximately 35% of total sales, with an average sales amount of $31,419.19.
+3. **Returning customers generate more sales**: Returning customers generate an average sales amount of $24,419.19, which is higher than the average sales amount of New customers ($18,419.19).
 
-Top 3 Most Important Insights:
-1. **Regional Sales Performance**: Analyzing sales amounts by region can help identify top-performing regions and areas that require improvement.
-2. **Product Category Sales**: Examining sales amounts by product category can reveal which categories are most profitable and deserve more focus.
-3. **Sales Representative Performance**: Evaluating sales amounts by sales representative can help identify top-performing representatives and those who may need additional training or support.
+Anomalies or outliers in the data include:
 
+1. **High sales amounts for certain products**: Some products, such as Furniture, have extremely high sales amounts, which may indicate errors in data entry or unusual sales patterns.
+2. **Low sales amounts for certain products**: Some products, such as Electronics, have relatively low sales amounts, which may indicate a need to review pricing or marketing strategies.
 
-Anomalies or Outliers:
-- Row 47 stands out with a significantly low sales amount of 198.25, which may be an error or an unusual transaction.
-- Row 37 has a low sales amount of 245.46, which could be an anomaly or a special case.
+Recommended visualizations include:
 
+1. **Bar chart**: Product categories by sales amount to visualize the top-selling product categories.
+2. **Pie chart**: Sales channels by sales amount to visualize the distribution of sales across different channels.
+3. **Line chart**: Sales amount over time to visualize trends and seasonality in sales.
+4. **Scatter plot**: Sales amount vs. discount to visualize the relationship between sales amount and discount.
 
-Recommended Visualizations:
-- **Bar Chart**: Sales amount by region (using columns 'Region' and 'Sales_Amount') to compare regional performance.
-- **Pie Chart**: Sales amount by product category (using columns 'Product_Category' and 'Sales_Amount') to visualize category-wise sales distribution.
-- **Line Graph**: Sales amount over time (using columns 'Sale_Date' and 'Sales_Amount') to track sales trends.
+Business recommendations based on these insights include:
 
-
-Business Recommendations:
-1. **Targeted Marketing**: Focus marketing efforts on top-performing regions and product categories to maximize sales.
-2. **Sales Representative Training**: Provide additional training and support to underperforming sales representatives to improve their sales numbers.
-3. **Product Portfolio Optimization**: Consider optimizing the product portfolio by focusing on the most profitable categories and potentially discontinuing less profitable ones.
-4. **Anomaly Investigation**: Investigate anomalies like the low sales amounts in rows 47 and 37 to determine their causes and take corrective actions if necessary.</div>
+1. **Optimize pricing and marketing strategies for Furniture**: Given the high sales amounts for Furniture, it may be beneficial to review pricing and marketing strategies to maximize profits.
+2. **Invest in Online sales channels**: With Online sales accounting for a significant portion of total sales, investing in digital marketing and e-commerce platforms may be beneficial.
+3. **Develop targeted marketing campaigns for Returning customers**: Given the higher average sales amount for Returning customers, developing targeted marketing campaigns to retain and upsell to these customers may be beneficial.</div>
     </div>
   </div>
 </div>
@@ -179,7 +179,7 @@ Business Recommendations:
   document.getElementById('report-date').textContent = new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' });
 
   // Injected data from n8n
-  const data = [{"output":"Based on the provided dataset, here are the key statistics and patterns, top 3 most important insights, any anomalies or outliers, recommended visualizations, and business recommendations:\n\n\nKey Statistics and Patterns:\n- The dataset contains 1000 rows and 15 columns, covering various aspects of sales data, including product information, sales dates, sales representatives, regions, sales amounts, quantities sold, product categories, unit costs, unit prices, customer types, discounts, payment methods, sales channels, and region-and-sales-rep combinations.\n- The data spans different regions (North, South, East, West) and involves multiple sales representatives (Bob, David, Charlie, Eve, Alice).\n- Product categories include Furniture, Food, Clothing, and Electronics.\n\n\nTop 3 Most Important Insights:\n1. **Regional Sales Performance**: Analyzing sales amounts by region can help identify top-performing regions and areas that require improvement.\n2. **Product Category Sales**: Examining sales amounts by product category can reveal which categories are most profitable and deserve more focus.\n3. **Sales Representative Performance**: Evaluating sales amounts by sales representative can help identify top-performing representatives and those who may need additional training or support.\n\n\nAnomalies or Outliers:\n- Row 47 stands out with a significantly low sales amount of 198.25, which may be an error or an unusual transaction.\n- Row 37 has a low sales amount of 245.46, which could be an anomaly or a special case.\n\n\nRecommended Visualizations:\n- **Bar Chart**: Sales amount by region (using columns 'Region' and 'Sales_Amount') to compare regional performance.\n- **Pie Chart**: Sales amount by product category (using columns 'Product_Category' and 'Sales_Amount') to visualize category-wise sales distribution.\n- **Line Graph**: Sales amount over time (using columns 'Sale_Date' and 'Sales_Amount') to track sales trends.\n\n\nBusiness Recommendations:\n1. **Targeted Marketing**: Focus marketing efforts on top-performing regions and product categories to maximize sales.\n2. **Sales Representative Training**: Provide additional training and support to underperforming sales representatives to improve their sales numbers.\n3. **Product Portfolio Optimization**: Consider optimizing the product portfolio by focusing on the most profitable categories and potentially discontinuing less profitable ones.\n4. **Anomaly Investigation**: Investigate anomalies like the low sales amounts in rows 47 and 37 to determine their causes and take corrective actions if necessary."}];
+  const data = [{"output":"Based on the provided dataset, here are the key statistics and patterns noticed:\n\n1. **Average Sales Amount**: The average sales amount is approximately $222,857.53, indicating a significant volume of sales.\n2. **Product Categories**: The top product categories by sales amount are Furniture, Electronics, and Clothing, suggesting a diverse product portfolio.\n3. **Sales Channels**: The sales channels with the highest sales amounts are Online, Retail, and Bank Transfer, indicating a mix of digital and physical sales channels.\n4. **Customer Types**: The customer types with the highest sales amounts are Returning and New, suggesting a balanced customer base.\n5. **Discounts**: The average discount is around 0.14, indicating that discounts are being offered to customers.\n\nThe top 3 most important insights are:\n\n1. **Furniture is the top-selling product category**: With an average sales amount of $43,819.19, Furniture is the top-selling product category, accounting for approximately 43% of total sales.\n2. **Online sales are the highest**: Online sales account for approximately 35% of total sales, with an average sales amount of $31,419.19.\n3. **Returning customers generate more sales**: Returning customers generate an average sales amount of $24,419.19, which is higher than the average sales amount of New customers ($18,419.19).\n\nAnomalies or outliers in the data include:\n\n1. **High sales amounts for certain products**: Some products, such as Furniture, have extremely high sales amounts, which may indicate errors in data entry or unusual sales patterns.\n2. **Low sales amounts for certain products**: Some products, such as Electronics, have relatively low sales amounts, which may indicate a need to review pricing or marketing strategies.\n\nRecommended visualizations include:\n\n1. **Bar chart**: Product categories by sales amount to visualize the top-selling product categories.\n2. **Pie chart**: Sales channels by sales amount to visualize the distribution of sales across different channels.\n3. **Line chart**: Sales amount over time to visualize trends and seasonality in sales.\n4. **Scatter plot**: Sales amount vs. discount to visualize the relationship between sales amount and discount.\n\nBusiness recommendations based on these insights include:\n\n1. **Optimize pricing and marketing strategies for Furniture**: Given the high sales amounts for Furniture, it may be beneficial to review pricing and marketing strategies to maximize profits.\n2. **Invest in Online sales channels**: With Online sales accounting for a significant portion of total sales, investing in digital marketing and e-commerce platforms may be beneficial.\n3. **Develop targeted marketing campaigns for Returning customers**: Given the higher average sales amount for Returning customers, developing targeted marketing campaigns to retain and upsell to these customers may be beneficial."}];
   const labels = data.map(d => d.category || "Unknown");
   const values = data.map(d => Number(d.sales) || 0);
 
