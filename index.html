@@ -135,31 +135,41 @@
     </div>
     <div class="analysis-block">
       <div class="ai-label">Analysis Output</div>
-      <div class="analysis-text">Based on the provided dataset, here are some key statistics and patterns:
+      <div class="analysis-text">Based on the provided dataset, here are the key statistics and patterns, top 3 most important insights, any anomalies or outliers, recommended visualizations, and business recommendations:
 
-1. **Top 3 most important insights:**
-   - The dataset contains 1000 rows and 15 columns, indicating a relatively large and complex dataset.
-   - The 'Sales_Amount' column has a wide range of values, from 198.25 to 9638.64, suggesting that there may be some outliers or anomalies in the data.
-   - The 'Product_Category' column has a limited number of unique values (Furniture, Food, Clothing, Electronics), which could be useful for grouping and analyzing the data.
+**Key Statistics and Patterns:**
 
-2. **Key statistics and patterns:**
-   - The average 'Sales_Amount' is around 4500, with a standard deviation of approximately 2000.
-   - The 'Quantity_Sold' column has an average value of around 25, with a standard deviation of approximately 15.
-   - The 'Unit_Cost' and 'Unit_Price' columns have a strong positive correlation, indicating that the cost and price of products are closely related.
+1. The dataset contains 1000 rows and 15 columns, with a mix of categorical and numerical data.
+2. The 'Sales_Amount' column has a wide range of values, from 198.25 to 9638.64, indicating a diverse range of sales transactions.
+3. The 'Product_Category' column has four distinct categories: Furniture, Food, Clothing, and Electronics.
+4. The 'Region' column has four distinct regions: North, South, East, and West.
+5. The 'Sales_Rep' column has five distinct sales representatives: Bob, David, Charlie, Eve, and Alice.
 
-3. **Anomalies or outliers:**
-   - Row 47 has a very low 'Sales_Amount' of 198.25, which may be an anomaly or an error in the data.
-   - Row 49 has a very high 'Sales_Amount' of 9638.64, which may be an outlier or an exceptional case.
+**Top 3 Most Important Insights:**
 
-4. **Recommended visualizations:**
-   - A histogram or density plot of the 'Sales_Amount' column to visualize the distribution of sales amounts.
-   - A bar chart or pie chart of the 'Product_Category' column to visualize the distribution of product categories.
-   - A scatter plot of the 'Unit_Cost' and 'Unit_Price' columns to visualize the correlation between cost and price.
+1. **Regional Sales Performance:** The dataset suggests that the North region has the highest average sales amount, followed by the South region. This insight can help the company focus on improving sales in the underperforming regions.
+2. **Product Category Sales:** The dataset reveals that Furniture is the top-selling product category, followed by Food and Clothing. This insight can help the company optimize its product offerings and marketing strategies.
+3. **Sales Representative Performance:** The dataset shows that Bob is the top-performing sales representative, followed by David and Charlie. This insight can help the company identify areas for improvement and provide targeted training to underperforming sales representatives.
 
-5. **Business recommendations:**
-   - Analyze the sales data by product category to identify trends and opportunities for growth.
-   - Investigate the outliers and anomalies in the data to determine if they are errors or exceptional cases.
-   - Use the correlation between 'Unit_Cost' and 'Unit_Price' to optimize pricing strategies and improve profitability.</div>
+**Anomalies or Outliers:**
+
+1. **Low Sales Amount:** The sales amount of 198.25 in row 47 is significantly lower than the average sales amount. This could be an error or an outlier that requires further investigation.
+2. **High Discount:** The discount of 0.29 in row 16 is higher than the average discount. This could indicate a pricing error or an unusual sales transaction.
+
+**Recommended Visualizations:**
+
+1. **Bar Chart:** Product Category vs. Sales Amount to visualize the top-selling product categories.
+2. **Geographic Map:** Region vs. Sales Amount to visualize the regional sales performance.
+3. **Line Chart:** Sales Amount over Time to visualize the sales trend over the year.
+4. **Scatter Plot:** Sales Amount vs. Discount to visualize the relationship between sales amount and discount.
+
+**Business Recommendations:**
+
+1. **Optimize Product Offerings:** Focus on the top-selling product categories (Furniture, Food, and Clothing) and consider expanding the product line to meet customer demand.
+2. **Improve Regional Sales:** Develop targeted marketing strategies to improve sales in the underperforming regions (East and West).
+3. **Sales Representative Training:** Provide training and support to underperforming sales representatives to improve their sales performance.
+4. **Pricing Strategy:** Review the pricing strategy to ensure that it is competitive and aligned with customer expectations.
+5. **Discount Policy:** Review the discount policy to ensure that it is consistent and aligned with business objectives.</div>
     </div>
   </div>
 </div>
@@ -173,7 +183,7 @@
   document.getElementById('report-date').textContent = new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' });
 
   // Injected data from n8n
-  const data = [{"output":"Based on the provided dataset, here are some key statistics and patterns:\n\n1. **Top 3 most important insights:**\n   - The dataset contains 1000 rows and 15 columns, indicating a relatively large and complex dataset.\n   - The 'Sales_Amount' column has a wide range of values, from 198.25 to 9638.64, suggesting that there may be some outliers or anomalies in the data.\n   - The 'Product_Category' column has a limited number of unique values (Furniture, Food, Clothing, Electronics), which could be useful for grouping and analyzing the data.\n\n2. **Key statistics and patterns:**\n   - The average 'Sales_Amount' is around 4500, with a standard deviation of approximately 2000.\n   - The 'Quantity_Sold' column has an average value of around 25, with a standard deviation of approximately 15.\n   - The 'Unit_Cost' and 'Unit_Price' columns have a strong positive correlation, indicating that the cost and price of products are closely related.\n\n3. **Anomalies or outliers:**\n   - Row 47 has a very low 'Sales_Amount' of 198.25, which may be an anomaly or an error in the data.\n   - Row 49 has a very high 'Sales_Amount' of 9638.64, which may be an outlier or an exceptional case.\n\n4. **Recommended visualizations:**\n   - A histogram or density plot of the 'Sales_Amount' column to visualize the distribution of sales amounts.\n   - A bar chart or pie chart of the 'Product_Category' column to visualize the distribution of product categories.\n   - A scatter plot of the 'Unit_Cost' and 'Unit_Price' columns to visualize the correlation between cost and price.\n\n5. **Business recommendations:**\n   - Analyze the sales data by product category to identify trends and opportunities for growth.\n   - Investigate the outliers and anomalies in the data to determine if they are errors or exceptional cases.\n   - Use the correlation between 'Unit_Cost' and 'Unit_Price' to optimize pricing strategies and improve profitability."}];
+  const data = [{"output":"Based on the provided dataset, here are the key statistics and patterns, top 3 most important insights, any anomalies or outliers, recommended visualizations, and business recommendations:\n\n**Key Statistics and Patterns:**\n\n1. The dataset contains 1000 rows and 15 columns, with a mix of categorical and numerical data.\n2. The 'Sales_Amount' column has a wide range of values, from 198.25 to 9638.64, indicating a diverse range of sales transactions.\n3. The 'Product_Category' column has four distinct categories: Furniture, Food, Clothing, and Electronics.\n4. The 'Region' column has four distinct regions: North, South, East, and West.\n5. The 'Sales_Rep' column has five distinct sales representatives: Bob, David, Charlie, Eve, and Alice.\n\n**Top 3 Most Important Insights:**\n\n1. **Regional Sales Performance:** The dataset suggests that the North region has the highest average sales amount, followed by the South region. This insight can help the company focus on improving sales in the underperforming regions.\n2. **Product Category Sales:** The dataset reveals that Furniture is the top-selling product category, followed by Food and Clothing. This insight can help the company optimize its product offerings and marketing strategies.\n3. **Sales Representative Performance:** The dataset shows that Bob is the top-performing sales representative, followed by David and Charlie. This insight can help the company identify areas for improvement and provide targeted training to underperforming sales representatives.\n\n**Anomalies or Outliers:**\n\n1. **Low Sales Amount:** The sales amount of 198.25 in row 47 is significantly lower than the average sales amount. This could be an error or an outlier that requires further investigation.\n2. **High Discount:** The discount of 0.29 in row 16 is higher than the average discount. This could indicate a pricing error or an unusual sales transaction.\n\n**Recommended Visualizations:**\n\n1. **Bar Chart:** Product Category vs. Sales Amount to visualize the top-selling product categories.\n2. **Geographic Map:** Region vs. Sales Amount to visualize the regional sales performance.\n3. **Line Chart:** Sales Amount over Time to visualize the sales trend over the year.\n4. **Scatter Plot:** Sales Amount vs. Discount to visualize the relationship between sales amount and discount.\n\n**Business Recommendations:**\n\n1. **Optimize Product Offerings:** Focus on the top-selling product categories (Furniture, Food, and Clothing) and consider expanding the product line to meet customer demand.\n2. **Improve Regional Sales:** Develop targeted marketing strategies to improve sales in the underperforming regions (East and West).\n3. **Sales Representative Training:** Provide training and support to underperforming sales representatives to improve their sales performance.\n4. **Pricing Strategy:** Review the pricing strategy to ensure that it is competitive and aligned with customer expectations.\n5. **Discount Policy:** Review the discount policy to ensure that it is consistent and aligned with business objectives."}];
   const labels = data.map(d => d.category || "Unknown");
   const values = data.map(d => Number(d.sales) || 0);
 
