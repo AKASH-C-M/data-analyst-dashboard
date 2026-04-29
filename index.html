@@ -44,38 +44,45 @@ body{font-family:Arial,sans-serif;background:#f0f2f5;color:#1a1a1a}
   </div>
   <div class="analysis-box">
     <div class="analysis-label">Groq LLaMA 3.3 - Full AI Analysis</div>
-    <div class="analysis-text">Based on the provided dataset, here are the key statistics and patterns noticed:
+    <div class="analysis-text">Based on the provided dataset, here are some key statistics and patterns:
 
-1. The dataset contains 1000 rows and 15 columns, with a mix of numerical and categorical data.
-2. The 'Sales_Amount' column has a wide range of values, from 198.25 to 9638.64, indicating a significant variation in sales amounts.
-3. The 'Quantity_Sold' column also has a wide range of values, from 1 to 47, indicating a variation in the quantity of products sold.
-4. The 'Product_Category' column has four unique values: Furniture, Food, Clothing, and Electronics, indicating that these are the main product categories.
-5. The 'Region' column has four unique values: North, South, East, and West, indicating that these are the main regions where sales are made.
-6. The 'Sales_Rep' column has five unique values: Bob, Charlie, David, Eve, and Alice, indicating that these are the main sales representatives.
+1. The dataset contains 1000 rows and 15 columns, with a total of 15000 data points.
+2. The columns include row_number, Product_ID, Sale_Date, Sales_Rep, Region, Sales_Amount, Quantity_Sold, Product_Category, Unit_Cost, Unit_Price, Customer_Type, Discount, Payment_Method, Sales_Channel, and Region_and_Sales_Rep.
+3. The data appears to be related to sales transactions, with each row representing a single transaction.
+4. The Sales_Amount column seems to be the most important column, as it represents the total amount of each sale.
+5. The Product_Category column has several unique values, including Furniture, Food, Clothing, and Electronics.
+6. The Region column has four unique values: North, South, East, and West.
+7. The Sales_Rep column has several unique values, including Bob, David, Charlie, Eve, and Alice.
+8. The Customer_Type column has two unique values: Returning and New.
+9. The Payment_Method column has three unique values: Cash, Bank Transfer, and Credit Card.
+10. The Sales_Channel column has two unique values: Online and Retail.
 
 Top 3 most important insights:
 
-1. The average sales amount is highest for the 'Furniture' product category, indicating that this category generates the most revenue.
-2. The 'North' region has the highest average sales amount, indicating that this region is the most lucrative for sales.
-3. The 'Bob' sales representative has the highest average sales amount, indicating that he is the most successful sales representative.
+1. The average sales amount per transaction is around $5000, with a maximum value of $9638.64 and a minimum value of $198.25.
+2. The most popular product category is Furniture, with 24 transactions in the first 50 rows.
+3. The most common sales channel is Online, with 23 transactions in the first 50 rows.
 
 Anomalies or outliers:
 
-1. Row 47 has a very low sales amount of 198.25, which is significantly lower than the average sales amount.
-2. Row 37 has a very low quantity sold of 9, which is significantly lower than the average quantity sold.
+1. Transaction 47 has a very low sales amount of $198.25, which is significantly lower than the average sales amount.
+2. Transaction 49 has a very high sales amount of $9638.64, which is significantly higher than the average sales amount.
 
 Recommended visualizations:
 
-1. Bar chart: 'Product_Category' vs 'Sales_Amount' to visualize the sales amount by product category.
-2. Map: 'Region' vs 'Sales_Amount' to visualize the sales amount by region.
-3. Line chart: 'Sales_Rep' vs 'Sales_Amount' to visualize the sales amount by sales representative over time.
+1. Bar chart: Product_Category vs. Sales_Amount to show the distribution of sales amounts across different product categories.
+2. Pie chart: Region vs. Sales_Amount to show the distribution of sales amounts across different regions.
+3. Line chart: Sale_Date vs. Sales_Amount to show the trend of sales amounts over time.
+4. Scatter plot: Unit_Cost vs. Unit_Price to show the relationship between unit cost and unit price.
+5. Heatmap: Sales_Rep vs. Region to show the distribution of sales reps across different regions.
 
 Business recommendations:
 
-1. Focus on the 'Furniture' product category to increase revenue.
-2. Target the 'North' region to increase sales.
-3. Provide additional training or support to the 'Bob' sales representative to maintain his high sales performance.
-4. Investigate the reasons for the low sales amount in row 47 and the low quantity sold in row 37 to identify areas for improvement.</div>
+1. Increase marketing efforts in the North region, as it has the highest average sales amount.
+2. Focus on selling Furniture products, as they have the highest demand.
+3. Offer discounts to customers who pay with Cash, as they have a higher average sales amount.
+4. Improve the sales channel strategy, as Online sales have a higher average sales amount than Retail sales.
+5. Provide training to sales reps to improve their sales performance, as some sales reps have a higher average sales amount than others.</div>
   </div>
 </div>
 <div class="footer">Powered by n8n and Groq LLaMA 3.3 and GitHub Pages - 100% Free</div>
