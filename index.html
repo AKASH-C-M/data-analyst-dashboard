@@ -3,173 +3,222 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pro AI Analytics Dashboard</title>
+<title>AI Data Analysis Report</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-
 <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     --ink: #0f0f0f; --ink-2: #3a3a3a; --ink-3: #7a7a7a;
     --paper: #faf9f6; --paper-2: #f2f0eb; --paper-3: #e8e5de;
-    --accent: #c8522a; --accent-2: #2a6b5c; --blue: #2a4a8c;
+    --accent: #c8522a; --accent-light: #f5ede8;
+    --accent-2: #2a6b5c; --accent-2-light: #e8f2f0;
+    --blue: #2a4a8c; --blue-light: #e8eef8;
+    --gold: #b8860b; --gold-light: #fdf8e8;
     --serif: 'DM Serif Display', Georgia, serif;
     --sans: 'DM Sans', system-ui, sans-serif;
+    --radius-lg: 10px;
   }
 
-  body { font-family: var(--sans); background: var(--paper); color: var(--ink); margin: 0; line-height: 1.6; }
-  
-  .header { background: var(--ink); color: #fff; padding: 60px 40px; position: relative; }
-  .header h1 { font-family: var(--serif); font-size: 42px; margin-bottom: 10px; }
-  .header-eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 2px; font-size: 12px; font-weight: 500; }
+  body { font-family: var(--sans); background: var(--paper); color: var(--ink); font-weight: 300; font-size: 15px; line-height: 1.7; }
 
-  .main { max-width: 1100px; margin: -40px auto 80px; padding: 0 20px; }
+  /* Header Section */
+  .header { background: var(--ink); color: var(--paper); padding: 52px 0 44px; position: relative; overflow: hidden; }
+  .header::before { content: ''; position: absolute; top: -60px; right: -60px; width: 320px; height: 320px; border-radius: 50%; background: var(--accent); opacity: 0.08; }
+  .header-inner { max-width: 960px; margin: 0 auto; padding: 0 32px; position: relative; }
+  .header-eyebrow { display: flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .header-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }
+  .header h1 { font-family: var(--serif); font-size: clamp(32px, 5vw, 52px); font-weight: 400; line-height: 1.12; color: #fff; max-width: 640px; margin-bottom: 20px; }
+  .header h1 em { font-style: italic; color: var(--paper-3); }
+  .header-meta { display: flex; gap: 24px; flex-wrap: wrap; font-size: 12px; color: rgba(255,255,255,0.45); }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block; margin-right: 6px; }
 
-  /* KPI Section */
-  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 40px; }
-  .kpi { background: #fff; padding: 25px; border-radius: 12px; border: 1px solid var(--paper-3); box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-  .kpi-label { font-size: 11px; text-transform: uppercase; color: var(--ink-3); letter-spacing: 1px; }
-  .kpi-value { font-family: var(--serif); font-size: 32px; margin: 5px 0; }
+  .main { max-width: 960px; margin: 0 auto; padding: 48px 32px 80px; }
 
-  /* Charts */
-  .section-title { font-family: var(--serif); font-size: 24px; margin: 40px 0 20px; border-bottom: 1px solid var(--paper-3); padding-bottom: 10px; }
-  .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-  .chart-card { background: #fff; padding: 24px; border-radius: 12px; border: 1px solid var(--paper-3); }
-  .chart-card h3 { font-size: 14px; margin-bottom: 20px; color: var(--ink-2); }
+  /* KPI Cards */
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 48px; }
+  .kpi { background: #fff; border: 1px solid var(--paper-3); border-radius: var(--radius-lg); padding: 24px 22px 20px; position: relative; overflow: hidden; animation: fadeUp 0.5s ease both; }
+  .kpi::after { content: attr(data-icon); position: absolute; bottom: -8px; right: 12px; font-size: 52px; opacity: 0.06; line-height: 1; pointer-events: none; }
+  .kpi-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px; }
+  .kpi-value { font-family: var(--serif); font-size: 36px; line-height: 1; color: var(--ink); margin-bottom: 6px; }
+  .kpi-sub { font-size: 12px; color: var(--ink-3); }
 
-  /* Data Table */
-  .table-box { background: #fff; padding: 24px; border-radius: 12px; border: 1px solid var(--paper-3); margin-top: 24px; }
-  table { width: 100%; border-collapse: collapse; }
-  th { text-align: left; font-size: 12px; color: var(--ink-3); padding: 12px; border-bottom: 2px solid var(--paper-2); }
-  td { padding: 12px; border-bottom: 1px solid var(--paper-2); font-size: 14px; }
+  /* Section Styles */
+  .section { margin-bottom: 48px; animation: fadeUp 0.5s ease 0.25s both; }
+  .section-head { display: flex; align-items: baseline; gap: 14px; border-bottom: 1px solid var(--paper-3); padding-bottom: 12px; margin-bottom: 24px; }
+  .section-head h2 { font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--ink); }
+  .section-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); }
 
-  /* AI Analysis Block */
-  .analysis-block { background: var(--ink); color: rgba(255,255,255,0.8); padding: 40px; border-radius: 12px; margin-top: 40px; white-space: pre-wrap; font-size: 15px; }
-  .ai-badge { color: var(--accent); font-size: 11px; font-weight: bold; margin-bottom: 10px; display: block; }
+  /* Chart Layout */
+  .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .chart-card { background: #fff; border: 1px solid var(--paper-3); border-radius: var(--radius-lg); padding: 24px; }
+  .chart-card h3 { font-size: 13px; font-weight: 500; color: var(--ink-2); margin-bottom: 16px; }
+
+  /* AI Analysis Box */
+  .analysis-block { background: var(--ink); color: var(--paper); border-radius: var(--radius-lg); padding: 32px 36px; position: relative; overflow: hidden; }
+  .analysis-block .ai-label { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .analysis-block .ai-label::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.08); }
+  .analysis-text { font-size: 14px; line-height: 1.85; color: rgba(255,255,255,0.75); white-space: pre-wrap; font-weight: 300; }
+
+  /* Table Style for Dynamic Data */
+  .table-card { background: #fff; border: 1px solid var(--paper-3); border-radius: var(--radius-lg); padding: 24px; margin-top: 24px; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+  th { text-align: left; font-size: 11px; text-transform: uppercase; color: var(--ink-3); padding: 12px; border-bottom: 2px solid var(--paper-2); }
+  td { padding: 12px; border-bottom: 1px solid var(--paper-2); font-size: 13px; color: var(--ink-2); }
+
+  .footer { border-top: 1px solid var(--paper-3); padding: 24px 32px; max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-3); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="header-eyebrow">Intelligence Report</div>
-  <h1>Data Insights <em>Executive</em> Dashboard</h1>
+  <div class="header-inner">
+    <div class="header-eyebrow">AI Data Analysis Report</div>
+    <h1>Performance <em>Intelligence</em> Dashboard</h1>
+    <div class="header-meta">
+      <span><span class="dot"></span> Generated via n8n pipeline</span>
+      <span><span class="dot"></span> <span id="report-date"></span></span>
+      <span><span class="dot"></span> Data Sources: Integrated Dataset</span>
+    </div>
+  </div>
 </div>
 
 <div class="main">
   <div class="kpi-grid">
-    <div class="kpi">
-      <div class="kpi-label">Total Volume</div>
+    <div class="kpi" data-icon="💰">
+      <div class="kpi-label">Total Revenue</div>
       <div id="totalSales" class="kpi-value">₹0</div>
+      <div class="kpi-sub">Calculated from dataset</div>
     </div>
-    <div class="kpi">
-      <div class="kpi-label">Entries Found</div>
+    <div class="kpi" data-icon="📦">
+      <div class="kpi-label">Total Records</div>
       <div id="totalOrders" class="kpi-value">0</div>
+      <div class="kpi-sub">Entries processed</div>
     </div>
-    <div class="kpi">
-      <div class="kpi-label">Status</div>
-      <div class="kpi-value" style="color:var(--accent-2)">Verified</div>
+    <div class="kpi" data-icon="🎯">
+      <div class="kpi-label">Top Category</div>
+      <div id="topCategory" class="kpi-value" style="font-size:24px;margin-top:4px">-</div>
+      <div class="kpi-sub">Highest performing</div>
     </div>
   </div>
 
-  <div class="section-title">Visual Analytics</div>
-  <div class="chart-grid">
-    <div class="chart-card"><h3>Performance by Category</h3><canvas id="barChart"></canvas></div>
-    <div class="chart-card"><h3>Distribution Share</h3><canvas id="pieChart"></canvas></div>
+  <div class="section">
+    <div class="section-head">
+      <h2>Data Visualizations</h2>
+      <span class="section-tag">Visualized from n8n input</span>
+    </div>
+    <div class="chart-grid">
+      <div class="chart-card"><h3>Revenue by Category</h3><canvas id="barChart"></canvas></div>
+      <div class="chart-card"><h3>Market Share Distribution</h3><canvas id="doughnutChart"></canvas></div>
+    </div>
   </div>
 
-  <div class="section-title">Detailed Records</div>
-  <div class="table-box">
-    <table>
-      <thead><tr><th>Category</th><th>Value / Sales</th></tr></thead>
-      <tbody id="tableBody"></tbody>
-    </table>
+  <div class="section">
+    <div class="section-head">
+      <h2>Raw Data Breakdown</h2>
+      <span class="section-tag">Detailed dataset view</span>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Category</th><th>Sales Value</th></tr></thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
   </div>
 
-  <div class="analysis-block">
-    <span class="ai-badge">AI ANALYSIS SUMMARY</span>
-    ### Key Statistics and Patterns
+  <div class="section">
+    <div class="section-head">
+      <h2>Full AI Analysis</h2>
+      <span class="section-tag">Generated Insights</span>
+    </div>
+    <div class="analysis-block">
+      <div class="ai-label">Analysis Output</div>
+      <div class="analysis-text">### Key Statistics and Patterns
 
-1. **Sales Distribution**: The `Sales_Amount` column ranges from $198.25 to $9638.64, indicating a wide distribution of sales amounts.
-2. **Product Categories**: The most common `Product_Category` is Furniture, followed by Food, Clothing, and Electronics.
-3. **Sales Channels**: The most common `Sales_Channel` is Online, followed by Retail.
-4. **Customer Types**: The majority of customers are Returning customers, with a smaller proportion of New customers.
-5. **Payment Methods**: The most common `Payment_Method` is Bank Transfer, followed by Cash and Credit Card.
-6. **Discounts**: The `Discount` column ranges from 0 to 0.29, with an average discount of around 0.12.
-7. **Unit Costs and Prices**: The `Unit_Cost` and `Unit_Price` columns show a range of values, with some products having high unit costs and prices.
+1. **Sales Amount**: The average sales amount is around $4,500, with a maximum of $9,638.64 and a minimum of $198.25.
+2. **Quantity Sold**: The average quantity sold is around 25 units, with a maximum of 47 units and a minimum of 1 unit.
+3. **Product Categories**: The top 3 product categories are Furniture, Food, and Clothing, accounting for approximately 60% of the total sales.
+4. **Regions**: The top 3 regions are West, South, and East, accounting for approximately 70% of the total sales.
+5. **Sales Reps**: The top 3 sales reps are Bob, David, and Eve, accounting for approximately 60% of the total sales.
+6. **Payment Methods**: The top 3 payment methods are Cash, Bank Transfer, and Credit Card, accounting for approximately 90% of the total sales.
 
 ### Top 3 Most Important Insights
 
-1. **Furniture is the Best-Selling Product Category**: Furniture accounts for the majority of sales, with a significant proportion of sales coming from this category.
-2. **Online Sales Channel is the Most Popular**: Online sales channels account for the majority of sales, indicating a strong e-commerce presence.
-3. **Returning Customers Drive Sales**: Returning customers account for the majority of sales, indicating a strong customer loyalty program and retention strategy.
+1. **Furniture is the Best-Selling Category**: Furniture accounts for approximately 30% of the total sales, with an average sales amount of around $5,000.
+2. **West Region has the Highest Sales**: The West region accounts for approximately 25% of the total sales, with an average sales amount of around $5,500.
+3. **Bob is the Top-Performing Sales Rep**: Bob accounts for approximately 20% of the total sales, with an average sales amount of around $5,000.
 
 ### Anomalies or Outliers
 
-1. **High Unit Costs and Prices**: Some products have high unit costs and prices, which may indicate errors in data entry or unusual pricing strategies.
-2. **Zero Discounts**: Some sales have zero discounts, which may indicate errors in data entry or unusual pricing strategies.
-3. **Extreme Sales Amounts**: Some sales amounts are extremely high or low, which may indicate errors in data entry or unusual sales patterns.
+1. **Low Sales Amount**: There are a few instances of low sales amounts (e.g., $198.25, $245.46) that may indicate errors in data entry or unusual sales transactions.
+2. **High Quantity Sold**: There are a few instances of high quantity sold (e.g., 47 units, 43 units) that may indicate bulk sales or unusual sales transactions.
 
 ### Recommended Visualizations
 
-1. **Bar Chart: Sales by Product Category**: Use the `Product_Category` column to create a bar chart showing the distribution of sales by product category.
-2. **Pie Chart: Sales by Sales Channel**: Use the `Sales_Channel` column to create a pie chart showing the distribution of sales by sales channel.
-3. **Scatter Plot: Sales Amount vs. Discount**: Use the `Sales_Amount` and `Discount` columns to create a scatter plot showing the relationship between sales amount and discount.
-4. **Heatmap: Sales by Region and Sales Rep**: Use the `Region` and `Sales_Rep` columns to create a heatmap showing the distribution of sales by region and sales rep.
+1. **Bar Chart**: Product Category vs. Sales Amount (use columns: Product_Category, Sales_Amount)
+2. **Geographic Map**: Region vs. Sales Amount (use columns: Region, Sales_Amount)
+3. **Line Chart**: Sales Rep vs. Sales Amount over Time (use columns: Sales_Rep, Sale_Date, Sales_Amount)
+4. **Scatter Plot**: Quantity Sold vs. Sales Amount (use columns: Quantity_Sold, Sales_Amount)
+5. **Pie Chart**: Payment Method vs. Sales Amount (use columns: Payment_Method, Sales_Amount)
 
 ### Business Recommendations
 
-1. **Optimize Furniture Product Offerings**: Given the high demand for furniture products, consider optimizing product offerings and pricing strategies to maximize sales and revenue.
-2. **Invest in E-commerce Platform**: Given the popularity of online sales channels, consider investing in e-commerce platform development and optimization to improve customer experience and drive sales.
-3. **Implement Customer Loyalty Program**: Given the importance of returning customers, consider implementing a customer loyalty program to retain customers and drive repeat sales.
-4. **Monitor and Optimize Pricing Strategies**: Given the wide range of unit costs and prices, consider monitoring and optimizing pricing strategies to ensure competitiveness and profitability.
-5. **Analyze Sales Data by Region and Sales Rep**: Given the variation in sales by region and sales rep, consider analyzing sales data to identify areas for improvement and optimize sales strategies.
+1. **Increase Focus on Furniture Sales**: Given the high demand for furniture, consider increasing marketing efforts and inventory levels for this category.
+2. **Target West Region Customers**: Given the high sales in the West region, consider increasing marketing efforts and sales resources in this region.
+3. **Provide Additional Training to Sales Reps**: Given the varying performance of sales reps, consider providing additional training and support to underperforming reps to improve overall sales performance.
+4. **Monitor and Optimize Pricing**: Given the varying sales amounts and quantities sold, consider monitoring and optimizing pricing strategies to maximize revenue and profitability.
+5. **Improve Data Quality**: Given the presence of anomalies and outliers, consider implementing data validation and quality control measures to ensure accurate and reliable data.</div>
+    </div>
   </div>
 </div>
 
+<div class="footer">
+  <div class="footer-brand">Data Scientist AI</div>
+  <div>Confidential · Auto-generated</div>
+</div>
+
 <script>
-  const rawData = [{"output":"### Key Statistics and Patterns\n\n1. **Sales Distribution**: The `Sales_Amount` column ranges from $198.25 to $9638.64, indicating a wide distribution of sales amounts.\n2. **Product Categories**: The most common `Product_Category` is Furniture, followed by Food, Clothing, and Electronics.\n3. **Sales Channels**: The most common `Sales_Channel` is Online, followed by Retail.\n4. **Customer Types**: The majority of customers are Returning customers, with a smaller proportion of New customers.\n5. **Payment Methods**: The most common `Payment_Method` is Bank Transfer, followed by Cash and Credit Card.\n6. **Discounts**: The `Discount` column ranges from 0 to 0.29, with an average discount of around 0.12.\n7. **Unit Costs and Prices**: The `Unit_Cost` and `Unit_Price` columns show a range of values, with some products having high unit costs and prices.\n\n### Top 3 Most Important Insights\n\n1. **Furniture is the Best-Selling Product Category**: Furniture accounts for the majority of sales, with a significant proportion of sales coming from this category.\n2. **Online Sales Channel is the Most Popular**: Online sales channels account for the majority of sales, indicating a strong e-commerce presence.\n3. **Returning Customers Drive Sales**: Returning customers account for the majority of sales, indicating a strong customer loyalty program and retention strategy.\n\n### Anomalies or Outliers\n\n1. **High Unit Costs and Prices**: Some products have high unit costs and prices, which may indicate errors in data entry or unusual pricing strategies.\n2. **Zero Discounts**: Some sales have zero discounts, which may indicate errors in data entry or unusual pricing strategies.\n3. **Extreme Sales Amounts**: Some sales amounts are extremely high or low, which may indicate errors in data entry or unusual sales patterns.\n\n### Recommended Visualizations\n\n1. **Bar Chart: Sales by Product Category**: Use the `Product_Category` column to create a bar chart showing the distribution of sales by product category.\n2. **Pie Chart: Sales by Sales Channel**: Use the `Sales_Channel` column to create a pie chart showing the distribution of sales by sales channel.\n3. **Scatter Plot: Sales Amount vs. Discount**: Use the `Sales_Amount` and `Discount` columns to create a scatter plot showing the relationship between sales amount and discount.\n4. **Heatmap: Sales by Region and Sales Rep**: Use the `Region` and `Sales_Rep` columns to create a heatmap showing the distribution of sales by region and sales rep.\n\n### Business Recommendations\n\n1. **Optimize Furniture Product Offerings**: Given the high demand for furniture products, consider optimizing product offerings and pricing strategies to maximize sales and revenue.\n2. **Invest in E-commerce Platform**: Given the popularity of online sales channels, consider investing in e-commerce platform development and optimization to improve customer experience and drive sales.\n3. **Implement Customer Loyalty Program**: Given the importance of returning customers, consider implementing a customer loyalty program to retain customers and drive repeat sales.\n4. **Monitor and Optimize Pricing Strategies**: Given the wide range of unit costs and prices, consider monitoring and optimizing pricing strategies to ensure competitiveness and profitability.\n5. **Analyze Sales Data by Region and Sales Rep**: Given the variation in sales by region and sales rep, consider analyzing sales data to identify areas for improvement and optimize sales strategies."}];
-  
-  // Data Processing
-  const labels = rawData.map(d => d.category || "General");
-  const values = rawData.map(d => Number(d.sales) || 0);
+  document.getElementById('report-date').textContent = new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' });
+
+  // Injected data from n8n
+  const data = [{"output":"### Key Statistics and Patterns\n\n1. **Sales Amount**: The average sales amount is around $4,500, with a maximum of $9,638.64 and a minimum of $198.25.\n2. **Quantity Sold**: The average quantity sold is around 25 units, with a maximum of 47 units and a minimum of 1 unit.\n3. **Product Categories**: The top 3 product categories are Furniture, Food, and Clothing, accounting for approximately 60% of the total sales.\n4. **Regions**: The top 3 regions are West, South, and East, accounting for approximately 70% of the total sales.\n5. **Sales Reps**: The top 3 sales reps are Bob, David, and Eve, accounting for approximately 60% of the total sales.\n6. **Payment Methods**: The top 3 payment methods are Cash, Bank Transfer, and Credit Card, accounting for approximately 90% of the total sales.\n\n### Top 3 Most Important Insights\n\n1. **Furniture is the Best-Selling Category**: Furniture accounts for approximately 30% of the total sales, with an average sales amount of around $5,000.\n2. **West Region has the Highest Sales**: The West region accounts for approximately 25% of the total sales, with an average sales amount of around $5,500.\n3. **Bob is the Top-Performing Sales Rep**: Bob accounts for approximately 20% of the total sales, with an average sales amount of around $5,000.\n\n### Anomalies or Outliers\n\n1. **Low Sales Amount**: There are a few instances of low sales amounts (e.g., $198.25, $245.46) that may indicate errors in data entry or unusual sales transactions.\n2. **High Quantity Sold**: There are a few instances of high quantity sold (e.g., 47 units, 43 units) that may indicate bulk sales or unusual sales transactions.\n\n### Recommended Visualizations\n\n1. **Bar Chart**: Product Category vs. Sales Amount (use columns: Product_Category, Sales_Amount)\n2. **Geographic Map**: Region vs. Sales Amount (use columns: Region, Sales_Amount)\n3. **Line Chart**: Sales Rep vs. Sales Amount over Time (use columns: Sales_Rep, Sale_Date, Sales_Amount)\n4. **Scatter Plot**: Quantity Sold vs. Sales Amount (use columns: Quantity_Sold, Sales_Amount)\n5. **Pie Chart**: Payment Method vs. Sales Amount (use columns: Payment_Method, Sales_Amount)\n\n### Business Recommendations\n\n1. **Increase Focus on Furniture Sales**: Given the high demand for furniture, consider increasing marketing efforts and inventory levels for this category.\n2. **Target West Region Customers**: Given the high sales in the West region, consider increasing marketing efforts and sales resources in this region.\n3. **Provide Additional Training to Sales Reps**: Given the varying performance of sales reps, consider providing additional training and support to underperforming reps to improve overall sales performance.\n4. **Monitor and Optimize Pricing**: Given the varying sales amounts and quantities sold, consider monitoring and optimizing pricing strategies to maximize revenue and profitability.\n5. **Improve Data Quality**: Given the presence of anomalies and outliers, consider implementing data validation and quality control measures to ensure accurate and reliable data."}];
+  const labels = data.map(d => d.category || "Unknown");
+  const values = data.map(d => Number(d.sales) || 0);
+
+  // Calculations
   const total = values.reduce((a, b) => a + b, 0);
-
   document.getElementById('totalSales').textContent = '₹' + total.toLocaleString();
-  document.getElementById('totalOrders').textContent = rawData.length;
+  document.getElementById('totalOrders').textContent = data.length;
+  
+  if(data.length > 0) {
+    const topIdx = values.indexOf(Math.max(...values));
+    document.getElementById('topCategory').textContent = labels[topIdx];
+  }
 
-  // Table Injection
+  // Table Body
   const tableBody = document.getElementById('tableBody');
-  rawData.forEach(d => {
+  data.forEach(d => {
     tableBody.innerHTML += `<tr><td>${d.category || '-'}</td><td>₹${(Number(d.sales)||0).toLocaleString()}</td></tr>`;
   });
 
   // Charts
-  const ctxBar = document.getElementById('barChart');
-  new Chart(ctxBar, {
+  const accent = '#c8522a';
+  const green = '#2a6b5c';
+  const blue = '#2a4a8c';
+  const gold = '#b8860b';
+
+  new Chart(document.getElementById('barChart'), {
     type: 'bar',
-    data: { 
-      labels, 
-      datasets: [{ 
-        label: 'Revenue', 
-        data: values, 
-        backgroundColor: '#c8522a99',
-        borderRadius: 5
-      }] 
-    },
+    data: { labels, datasets: [{ label: 'Sales', data: values, backgroundColor: accent + 'cc', borderRadius: 4 }] },
     options: { plugins: { legend: { display: false } } }
   });
 
-  const ctxPie = document.getElementById('pieChart');
-  new Chart(ctxPie, {
+  new Chart(document.getElementById('doughnutChart'), {
     type: 'doughnut',
-    data: { 
-      labels, 
-      datasets: [{ 
-        data: values, 
-        backgroundColor: ['#c8522a', '#2a6b5c', '#2a4a8c', '#b8860b', '#7a7a7a'],
-        borderWidth: 0
-      }] 
-    },
-    options: { cutout: '70%' }
+    data: { labels, datasets: [{ data: values, backgroundColor: [accent, green, blue, gold, '#888'] }] },
+    options: { cutout: '70%', plugins: { legend: { position: 'bottom' } } }
   });
 </script>
 </body>
