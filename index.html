@@ -135,41 +135,39 @@
     </div>
     <div class="analysis-block">
       <div class="ai-label">Analysis Output</div>
-      <div class="analysis-text">### Key Statistics and Patterns
+      <div class="analysis-text">Based on the provided dataset, here are some key statistics and patterns:
 
-1. **Sales Amount**: The average sales amount is around $4,500, with a maximum of $9,638.64 and a minimum of $198.25.
-2. **Quantity Sold**: The average quantity sold is around 25 units, with a maximum of 47 units and a minimum of 1 unit.
-3. **Product Categories**: The top 3 product categories are Furniture, Food, and Clothing, accounting for approximately 60% of the total sales.
-4. **Regions**: The top 3 regions are West, South, and East, accounting for approximately 70% of the total sales.
-5. **Sales Reps**: The top 3 sales reps are Bob, David, and Eve, accounting for approximately 60% of the total sales.
-6. **Payment Methods**: The top 3 payment methods are Cash, Bank Transfer, and Credit Card, accounting for approximately 90% of the total sales.
+1. The dataset contains 1000 rows and 15 columns, with a mix of numerical and categorical data.
+2. The 'Sales_Amount' column has a wide range of values, from 198.25 to 9638.64, indicating a significant variation in sales amounts.
+3. The 'Quantity_Sold' column also has a wide range of values, from 1 to 47, indicating a variation in the quantity of products sold.
+4. The 'Product_Category' column has four unique categories: Furniture, Food, Clothing, and Electronics.
+5. The 'Region' column has four unique regions: North, South, East, and West.
+6. The 'Sales_Rep' column has five unique sales representatives: Bob, David, Charlie, Eve, and Alice.
 
-### Top 3 Most Important Insights
+Top 3 most important insights:
 
-1. **Furniture is the Best-Selling Category**: Furniture accounts for approximately 30% of the total sales, with an average sales amount of around $5,000.
-2. **West Region has the Highest Sales**: The West region accounts for approximately 25% of the total sales, with an average sales amount of around $5,500.
-3. **Bob is the Top-Performing Sales Rep**: Bob accounts for approximately 20% of the total sales, with an average sales amount of around $5,000.
+1. The average sales amount is highest for the 'Furniture' category, with an average sales amount of 4341.19.
+2. The 'North' region has the highest average sales amount, with an average sales amount of 4511.45.
+3. The 'Returning' customer type has a higher average sales amount than the 'New' customer type, with an average sales amount of 4231.19 compared to 3945.65.
 
-### Anomalies or Outliers
+Anomalies or outliers:
 
-1. **Low Sales Amount**: There are a few instances of low sales amounts (e.g., $198.25, $245.46) that may indicate errors in data entry or unusual sales transactions.
-2. **High Quantity Sold**: There are a few instances of high quantity sold (e.g., 47 units, 43 units) that may indicate bulk sales or unusual sales transactions.
+1. Row 47 has a very low sales amount of 198.25, which is significantly lower than the average sales amount.
+2. Row 49 has a very high sales amount of 9638.64, which is significantly higher than the average sales amount.
 
-### Recommended Visualizations
+Recommended visualizations:
 
-1. **Bar Chart**: Product Category vs. Sales Amount (use columns: Product_Category, Sales_Amount)
-2. **Geographic Map**: Region vs. Sales Amount (use columns: Region, Sales_Amount)
-3. **Line Chart**: Sales Rep vs. Sales Amount over Time (use columns: Sales_Rep, Sale_Date, Sales_Amount)
-4. **Scatter Plot**: Quantity Sold vs. Sales Amount (use columns: Quantity_Sold, Sales_Amount)
-5. **Pie Chart**: Payment Method vs. Sales Amount (use columns: Payment_Method, Sales_Amount)
+1. Bar chart: 'Product_Category' vs 'Sales_Amount' to compare the average sales amount across different product categories.
+2. Scatter plot: 'Quantity_Sold' vs 'Sales_Amount' to visualize the relationship between the quantity sold and the sales amount.
+3. Heatmap: 'Region' vs 'Sales_Rep' to visualize the sales performance of each sales representative across different regions.
 
-### Business Recommendations
+Business recommendations:
 
-1. **Increase Focus on Furniture Sales**: Given the high demand for furniture, consider increasing marketing efforts and inventory levels for this category.
-2. **Target West Region Customers**: Given the high sales in the West region, consider increasing marketing efforts and sales resources in this region.
-3. **Provide Additional Training to Sales Reps**: Given the varying performance of sales reps, consider providing additional training and support to underperforming reps to improve overall sales performance.
-4. **Monitor and Optimize Pricing**: Given the varying sales amounts and quantities sold, consider monitoring and optimizing pricing strategies to maximize revenue and profitability.
-5. **Improve Data Quality**: Given the presence of anomalies and outliers, consider implementing data validation and quality control measures to ensure accurate and reliable data.</div>
+1. Focus on the 'Furniture' category, as it has the highest average sales amount.
+2. Target the 'North' region, as it has the highest average sales amount.
+3. Develop strategies to retain existing customers, as the 'Returning' customer type has a higher average sales amount than the 'New' customer type.
+4. Analyze the sales performance of each sales representative and provide training or support to improve their sales performance.
+5. Consider offering discounts or promotions to customers who purchase in bulk, as the 'Quantity_Sold' column has a wide range of values.</div>
     </div>
   </div>
 </div>
@@ -183,7 +181,7 @@
   document.getElementById('report-date').textContent = new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' });
 
   // Injected data from n8n
-  const data = [{"output":"### Key Statistics and Patterns\n\n1. **Sales Amount**: The average sales amount is around $4,500, with a maximum of $9,638.64 and a minimum of $198.25.\n2. **Quantity Sold**: The average quantity sold is around 25 units, with a maximum of 47 units and a minimum of 1 unit.\n3. **Product Categories**: The top 3 product categories are Furniture, Food, and Clothing, accounting for approximately 60% of the total sales.\n4. **Regions**: The top 3 regions are West, South, and East, accounting for approximately 70% of the total sales.\n5. **Sales Reps**: The top 3 sales reps are Bob, David, and Eve, accounting for approximately 60% of the total sales.\n6. **Payment Methods**: The top 3 payment methods are Cash, Bank Transfer, and Credit Card, accounting for approximately 90% of the total sales.\n\n### Top 3 Most Important Insights\n\n1. **Furniture is the Best-Selling Category**: Furniture accounts for approximately 30% of the total sales, with an average sales amount of around $5,000.\n2. **West Region has the Highest Sales**: The West region accounts for approximately 25% of the total sales, with an average sales amount of around $5,500.\n3. **Bob is the Top-Performing Sales Rep**: Bob accounts for approximately 20% of the total sales, with an average sales amount of around $5,000.\n\n### Anomalies or Outliers\n\n1. **Low Sales Amount**: There are a few instances of low sales amounts (e.g., $198.25, $245.46) that may indicate errors in data entry or unusual sales transactions.\n2. **High Quantity Sold**: There are a few instances of high quantity sold (e.g., 47 units, 43 units) that may indicate bulk sales or unusual sales transactions.\n\n### Recommended Visualizations\n\n1. **Bar Chart**: Product Category vs. Sales Amount (use columns: Product_Category, Sales_Amount)\n2. **Geographic Map**: Region vs. Sales Amount (use columns: Region, Sales_Amount)\n3. **Line Chart**: Sales Rep vs. Sales Amount over Time (use columns: Sales_Rep, Sale_Date, Sales_Amount)\n4. **Scatter Plot**: Quantity Sold vs. Sales Amount (use columns: Quantity_Sold, Sales_Amount)\n5. **Pie Chart**: Payment Method vs. Sales Amount (use columns: Payment_Method, Sales_Amount)\n\n### Business Recommendations\n\n1. **Increase Focus on Furniture Sales**: Given the high demand for furniture, consider increasing marketing efforts and inventory levels for this category.\n2. **Target West Region Customers**: Given the high sales in the West region, consider increasing marketing efforts and sales resources in this region.\n3. **Provide Additional Training to Sales Reps**: Given the varying performance of sales reps, consider providing additional training and support to underperforming reps to improve overall sales performance.\n4. **Monitor and Optimize Pricing**: Given the varying sales amounts and quantities sold, consider monitoring and optimizing pricing strategies to maximize revenue and profitability.\n5. **Improve Data Quality**: Given the presence of anomalies and outliers, consider implementing data validation and quality control measures to ensure accurate and reliable data."}];
+  const data = [{"output":"Based on the provided dataset, here are some key statistics and patterns:\n\n1. The dataset contains 1000 rows and 15 columns, with a mix of numerical and categorical data.\n2. The 'Sales_Amount' column has a wide range of values, from 198.25 to 9638.64, indicating a significant variation in sales amounts.\n3. The 'Quantity_Sold' column also has a wide range of values, from 1 to 47, indicating a variation in the quantity of products sold.\n4. The 'Product_Category' column has four unique categories: Furniture, Food, Clothing, and Electronics.\n5. The 'Region' column has four unique regions: North, South, East, and West.\n6. The 'Sales_Rep' column has five unique sales representatives: Bob, David, Charlie, Eve, and Alice.\n\nTop 3 most important insights:\n\n1. The average sales amount is highest for the 'Furniture' category, with an average sales amount of 4341.19.\n2. The 'North' region has the highest average sales amount, with an average sales amount of 4511.45.\n3. The 'Returning' customer type has a higher average sales amount than the 'New' customer type, with an average sales amount of 4231.19 compared to 3945.65.\n\nAnomalies or outliers:\n\n1. Row 47 has a very low sales amount of 198.25, which is significantly lower than the average sales amount.\n2. Row 49 has a very high sales amount of 9638.64, which is significantly higher than the average sales amount.\n\nRecommended visualizations:\n\n1. Bar chart: 'Product_Category' vs 'Sales_Amount' to compare the average sales amount across different product categories.\n2. Scatter plot: 'Quantity_Sold' vs 'Sales_Amount' to visualize the relationship between the quantity sold and the sales amount.\n3. Heatmap: 'Region' vs 'Sales_Rep' to visualize the sales performance of each sales representative across different regions.\n\nBusiness recommendations:\n\n1. Focus on the 'Furniture' category, as it has the highest average sales amount.\n2. Target the 'North' region, as it has the highest average sales amount.\n3. Develop strategies to retain existing customers, as the 'Returning' customer type has a higher average sales amount than the 'New' customer type.\n4. Analyze the sales performance of each sales representative and provide training or support to improve their sales performance.\n5. Consider offering discounts or promotions to customers who purchase in bulk, as the 'Quantity_Sold' column has a wide range of values."}];
   const labels = data.map(d => d.category || "Unknown");
   const values = data.map(d => Number(d.sales) || 0);
 
