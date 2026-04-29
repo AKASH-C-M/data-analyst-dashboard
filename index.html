@@ -135,41 +135,42 @@
     </div>
     <div class="analysis-block">
       <div class="ai-label">Analysis Output</div>
-      <div class="analysis-text">Based on the provided dataset, here are the key statistics and patterns, top 3 most important insights, any anomalies or outliers, recommended visualizations, and business recommendations:
+      <div class="analysis-text">### Key Statistics and Patterns
 
-**Key Statistics and Patterns:**
+1. **Sales Distribution**: The `Sales_Amount` column ranges from $198.25 to $9638.64, indicating a wide distribution of sales amounts.
+2. **Product Categories**: The most common `Product_Category` is Furniture, followed by Food, Clothing, and Electronics.
+3. **Sales Channels**: The most common `Sales_Channel` is Online, followed by Retail.
+4. **Customer Types**: The majority of customers are Returning customers, with a smaller proportion of New customers.
+5. **Payment Methods**: The most common `Payment_Method` is Bank Transfer, followed by Cash and Credit Card.
+6. **Discounts**: The `Discount` column ranges from 0 to 0.29, with an average discount of around 0.12.
+7. **Unit Costs and Prices**: The `Unit_Cost` and `Unit_Price` columns show a range of values, with some products having high unit costs and prices.
 
-1. The dataset contains 1000 rows and 15 columns, with a mix of categorical and numerical data.
-2. The 'Sales_Amount' column has a wide range of values, from 198.25 to 9638.64, indicating a diverse range of sales transactions.
-3. The 'Product_Category' column has four distinct categories: Furniture, Food, Clothing, and Electronics.
-4. The 'Region' column has four distinct regions: North, South, East, and West.
-5. The 'Sales_Rep' column has five distinct sales representatives: Bob, David, Charlie, Eve, and Alice.
+### Top 3 Most Important Insights
 
-**Top 3 Most Important Insights:**
+1. **Furniture is the Best-Selling Product Category**: Furniture accounts for the majority of sales, with a significant proportion of sales coming from this category.
+2. **Online Sales Channel is the Most Popular**: Online sales channels account for the majority of sales, indicating a strong e-commerce presence.
+3. **Returning Customers Drive Sales**: Returning customers account for the majority of sales, indicating a strong customer loyalty program and retention strategy.
 
-1. **Regional Sales Performance:** The dataset suggests that the North region has the highest average sales amount, followed by the South region. This insight can help the company focus on improving sales in the underperforming regions.
-2. **Product Category Sales:** The dataset reveals that Furniture is the top-selling product category, followed by Food and Clothing. This insight can help the company optimize its product offerings and marketing strategies.
-3. **Sales Representative Performance:** The dataset shows that Bob is the top-performing sales representative, followed by David and Charlie. This insight can help the company identify areas for improvement and provide targeted training to underperforming sales representatives.
+### Anomalies or Outliers
 
-**Anomalies or Outliers:**
+1. **High Unit Costs and Prices**: Some products have high unit costs and prices, which may indicate errors in data entry or unusual pricing strategies.
+2. **Zero Discounts**: Some sales have zero discounts, which may indicate errors in data entry or unusual pricing strategies.
+3. **Extreme Sales Amounts**: Some sales amounts are extremely high or low, which may indicate errors in data entry or unusual sales patterns.
 
-1. **Low Sales Amount:** The sales amount of 198.25 in row 47 is significantly lower than the average sales amount. This could be an error or an outlier that requires further investigation.
-2. **High Discount:** The discount of 0.29 in row 16 is higher than the average discount. This could indicate a pricing error or an unusual sales transaction.
+### Recommended Visualizations
 
-**Recommended Visualizations:**
+1. **Bar Chart: Sales by Product Category**: Use the `Product_Category` column to create a bar chart showing the distribution of sales by product category.
+2. **Pie Chart: Sales by Sales Channel**: Use the `Sales_Channel` column to create a pie chart showing the distribution of sales by sales channel.
+3. **Scatter Plot: Sales Amount vs. Discount**: Use the `Sales_Amount` and `Discount` columns to create a scatter plot showing the relationship between sales amount and discount.
+4. **Heatmap: Sales by Region and Sales Rep**: Use the `Region` and `Sales_Rep` columns to create a heatmap showing the distribution of sales by region and sales rep.
 
-1. **Bar Chart:** Product Category vs. Sales Amount to visualize the top-selling product categories.
-2. **Geographic Map:** Region vs. Sales Amount to visualize the regional sales performance.
-3. **Line Chart:** Sales Amount over Time to visualize the sales trend over the year.
-4. **Scatter Plot:** Sales Amount vs. Discount to visualize the relationship between sales amount and discount.
+### Business Recommendations
 
-**Business Recommendations:**
-
-1. **Optimize Product Offerings:** Focus on the top-selling product categories (Furniture, Food, and Clothing) and consider expanding the product line to meet customer demand.
-2. **Improve Regional Sales:** Develop targeted marketing strategies to improve sales in the underperforming regions (East and West).
-3. **Sales Representative Training:** Provide training and support to underperforming sales representatives to improve their sales performance.
-4. **Pricing Strategy:** Review the pricing strategy to ensure that it is competitive and aligned with customer expectations.
-5. **Discount Policy:** Review the discount policy to ensure that it is consistent and aligned with business objectives.</div>
+1. **Optimize Furniture Product Offerings**: Given the high demand for furniture products, consider optimizing product offerings and pricing strategies to maximize sales and revenue.
+2. **Invest in E-commerce Platform**: Given the popularity of online sales channels, consider investing in e-commerce platform development and optimization to improve customer experience and drive sales.
+3. **Implement Customer Loyalty Program**: Given the importance of returning customers, consider implementing a customer loyalty program to retain customers and drive repeat sales.
+4. **Monitor and Optimize Pricing Strategies**: Given the wide range of unit costs and prices, consider monitoring and optimizing pricing strategies to ensure competitiveness and profitability.
+5. **Analyze Sales Data by Region and Sales Rep**: Given the variation in sales by region and sales rep, consider analyzing sales data to identify areas for improvement and optimize sales strategies.</div>
     </div>
   </div>
 </div>
@@ -183,7 +184,7 @@
   document.getElementById('report-date').textContent = new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' });
 
   // Injected data from n8n
-  const data = [{"output":"Based on the provided dataset, here are the key statistics and patterns, top 3 most important insights, any anomalies or outliers, recommended visualizations, and business recommendations:\n\n**Key Statistics and Patterns:**\n\n1. The dataset contains 1000 rows and 15 columns, with a mix of categorical and numerical data.\n2. The 'Sales_Amount' column has a wide range of values, from 198.25 to 9638.64, indicating a diverse range of sales transactions.\n3. The 'Product_Category' column has four distinct categories: Furniture, Food, Clothing, and Electronics.\n4. The 'Region' column has four distinct regions: North, South, East, and West.\n5. The 'Sales_Rep' column has five distinct sales representatives: Bob, David, Charlie, Eve, and Alice.\n\n**Top 3 Most Important Insights:**\n\n1. **Regional Sales Performance:** The dataset suggests that the North region has the highest average sales amount, followed by the South region. This insight can help the company focus on improving sales in the underperforming regions.\n2. **Product Category Sales:** The dataset reveals that Furniture is the top-selling product category, followed by Food and Clothing. This insight can help the company optimize its product offerings and marketing strategies.\n3. **Sales Representative Performance:** The dataset shows that Bob is the top-performing sales representative, followed by David and Charlie. This insight can help the company identify areas for improvement and provide targeted training to underperforming sales representatives.\n\n**Anomalies or Outliers:**\n\n1. **Low Sales Amount:** The sales amount of 198.25 in row 47 is significantly lower than the average sales amount. This could be an error or an outlier that requires further investigation.\n2. **High Discount:** The discount of 0.29 in row 16 is higher than the average discount. This could indicate a pricing error or an unusual sales transaction.\n\n**Recommended Visualizations:**\n\n1. **Bar Chart:** Product Category vs. Sales Amount to visualize the top-selling product categories.\n2. **Geographic Map:** Region vs. Sales Amount to visualize the regional sales performance.\n3. **Line Chart:** Sales Amount over Time to visualize the sales trend over the year.\n4. **Scatter Plot:** Sales Amount vs. Discount to visualize the relationship between sales amount and discount.\n\n**Business Recommendations:**\n\n1. **Optimize Product Offerings:** Focus on the top-selling product categories (Furniture, Food, and Clothing) and consider expanding the product line to meet customer demand.\n2. **Improve Regional Sales:** Develop targeted marketing strategies to improve sales in the underperforming regions (East and West).\n3. **Sales Representative Training:** Provide training and support to underperforming sales representatives to improve their sales performance.\n4. **Pricing Strategy:** Review the pricing strategy to ensure that it is competitive and aligned with customer expectations.\n5. **Discount Policy:** Review the discount policy to ensure that it is consistent and aligned with business objectives."}];
+  const data = [{"output":"### Key Statistics and Patterns\n\n1. **Sales Distribution**: The `Sales_Amount` column ranges from $198.25 to $9638.64, indicating a wide distribution of sales amounts.\n2. **Product Categories**: The most common `Product_Category` is Furniture, followed by Food, Clothing, and Electronics.\n3. **Sales Channels**: The most common `Sales_Channel` is Online, followed by Retail.\n4. **Customer Types**: The majority of customers are Returning customers, with a smaller proportion of New customers.\n5. **Payment Methods**: The most common `Payment_Method` is Bank Transfer, followed by Cash and Credit Card.\n6. **Discounts**: The `Discount` column ranges from 0 to 0.29, with an average discount of around 0.12.\n7. **Unit Costs and Prices**: The `Unit_Cost` and `Unit_Price` columns show a range of values, with some products having high unit costs and prices.\n\n### Top 3 Most Important Insights\n\n1. **Furniture is the Best-Selling Product Category**: Furniture accounts for the majority of sales, with a significant proportion of sales coming from this category.\n2. **Online Sales Channel is the Most Popular**: Online sales channels account for the majority of sales, indicating a strong e-commerce presence.\n3. **Returning Customers Drive Sales**: Returning customers account for the majority of sales, indicating a strong customer loyalty program and retention strategy.\n\n### Anomalies or Outliers\n\n1. **High Unit Costs and Prices**: Some products have high unit costs and prices, which may indicate errors in data entry or unusual pricing strategies.\n2. **Zero Discounts**: Some sales have zero discounts, which may indicate errors in data entry or unusual pricing strategies.\n3. **Extreme Sales Amounts**: Some sales amounts are extremely high or low, which may indicate errors in data entry or unusual sales patterns.\n\n### Recommended Visualizations\n\n1. **Bar Chart: Sales by Product Category**: Use the `Product_Category` column to create a bar chart showing the distribution of sales by product category.\n2. **Pie Chart: Sales by Sales Channel**: Use the `Sales_Channel` column to create a pie chart showing the distribution of sales by sales channel.\n3. **Scatter Plot: Sales Amount vs. Discount**: Use the `Sales_Amount` and `Discount` columns to create a scatter plot showing the relationship between sales amount and discount.\n4. **Heatmap: Sales by Region and Sales Rep**: Use the `Region` and `Sales_Rep` columns to create a heatmap showing the distribution of sales by region and sales rep.\n\n### Business Recommendations\n\n1. **Optimize Furniture Product Offerings**: Given the high demand for furniture products, consider optimizing product offerings and pricing strategies to maximize sales and revenue.\n2. **Invest in E-commerce Platform**: Given the popularity of online sales channels, consider investing in e-commerce platform development and optimization to improve customer experience and drive sales.\n3. **Implement Customer Loyalty Program**: Given the importance of returning customers, consider implementing a customer loyalty program to retain customers and drive repeat sales.\n4. **Monitor and Optimize Pricing Strategies**: Given the wide range of unit costs and prices, consider monitoring and optimizing pricing strategies to ensure competitiveness and profitability.\n5. **Analyze Sales Data by Region and Sales Rep**: Given the variation in sales by region and sales rep, consider analyzing sales data to identify areas for improvement and optimize sales strategies."}];
   const labels = data.map(d => d.category || "Unknown");
   const values = data.map(d => Number(d.sales) || 0);
 
