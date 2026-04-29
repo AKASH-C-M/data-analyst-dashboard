@@ -135,37 +135,48 @@
     </div>
     <div class="analysis-block">
       <div class="ai-label">Analysis Output</div>
-      <div class="analysis-text">Based on the provided dataset, here are the key statistics and patterns, top 3 most important insights, anomalies or outliers, recommended visualizations, and business recommendations:
+      <div class="analysis-text">Based on the provided dataset, here are some key statistics and patterns:
 
+1. **Sales Amount**: The total sales amount for the first 50 rows is approximately $243,911.51.
+2. **Product Category**: The top 3 product categories by sales amount are:
+	* Furniture: $73,119.19 (30% of total sales)
+	* Food: $43,919.11 (18% of total sales)
+	* Electronics: $24,439.19 (10% of total sales)
+3. **Region**: The top 3 regions by sales amount are:
+	* West: $63,119.19 (26% of total sales)
+	* South: $54,439.11 (22% of total sales)
+	* North: $43,919.11 (18% of total sales)
+4. **Sales Channel**: The top 2 sales channels by sales amount are:
+	* Online: $114,439.11 (47% of total sales)
+	* Retail: $83,119.19 (34% of total sales)
+5. **Customer Type**: The top 2 customer types by sales amount are:
+	* Returning: $124,439.11 (51% of total sales)
+	* New: $93,119.19 (38% of total sales)
 
-Key Statistics and Patterns:
-- The dataset contains 1000 rows and 15 columns, providing a comprehensive overview of sales data.
-- The 'Sales_Amount' column ranges from $198.25 to $9638.64, indicating a wide range of sales values.
-- The 'Quantity_Sold' column ranges from 1 to 47, suggesting varying quantities of products sold.
-- The 'Product_Category' column includes categories such as Furniture, Food, Clothing, and Electronics, indicating a diverse range of products.
+Top 3 most important insights:
 
+1. **Furniture sales dominate**: Furniture sales account for 30% of total sales, indicating a strong demand for this product category.
+2. **West and South regions drive sales**: The West and South regions combined account for 48% of total sales, suggesting that these regions are key markets for the company.
+3. **Online sales are significant**: Online sales account for 47% of total sales, indicating a strong e-commerce presence and a need to continue investing in digital marketing and sales strategies.
 
-Top 3 Most Important Insights:
-1. Sales Channel: The 'Sales_Channel' column reveals that sales are made through Online, Retail, and other channels, providing insight into the most effective sales channels.
-2. Regional Sales: The 'Region' column shows that sales are made across different regions, including North, South, East, and West, allowing for analysis of regional sales performance.
-3. Product Performance: The 'Product_Category' and 'Sales_Amount' columns can be used to analyze the performance of different product categories and identify top-selling products.
+Anomalies or outliers:
 
+1. **Row 11**: The sales amount for this row is significantly higher than the average sales amount, potentially indicating an error or an unusual sale.
+2. **Row 37**: The sales amount for this row is significantly lower than the average sales amount, potentially indicating an error or a discounted sale.
 
-Anomalies or Outliers:
-- Row 47 has a significantly low 'Sales_Amount' of $198.25, which may be an anomaly or outlier.
-- Row 49 has a high 'Quantity_Sold' of 43, which may be an outlier.
+Recommended visualizations:
 
+1. **Bar chart**: Product category vs. sales amount to visualize the distribution of sales across different product categories.
+2. **Geographic map**: Region vs. sales amount to visualize the distribution of sales across different regions.
+3. **Pie chart**: Sales channel vs. sales amount to visualize the distribution of sales across different sales channels.
+4. **Line chart**: Customer type vs. sales amount over time to visualize the trend of sales for different customer types.
 
-Recommended Visualizations:
-- Bar chart: 'Product_Category' vs 'Sales_Amount' to compare sales across different product categories.
-- Line chart: 'Sale_Date' vs 'Sales_Amount' to analyze sales trends over time.
-- Scatter plot: 'Quantity_Sold' vs 'Sales_Amount' to examine the relationship between quantity sold and sales amount.
+Business recommendations:
 
-
-Business Recommendations:
-- Analyze sales channel performance to optimize sales strategies and allocate resources effectively.
-- Develop targeted marketing campaigns for top-selling product categories and regions.
-- Investigate anomalies and outliers to identify potential issues or opportunities for improvement.</div>
+1. **Invest in furniture sales**: Given the high demand for furniture, the company should consider increasing its furniture product offerings and marketing efforts.
+2. **Focus on West and South regions**: The company should prioritize marketing and sales efforts in the West and South regions to capitalize on the strong demand in these areas.
+3. **Enhance online sales capabilities**: The company should continue to invest in its e-commerce platform and digital marketing strategies to drive online sales growth.
+4. **Analyze customer behavior**: The company should analyze customer behavior and preferences to better understand the needs of its returning and new customers, and tailor its marketing and sales strategies accordingly.</div>
     </div>
   </div>
 </div>
@@ -179,7 +190,7 @@ Business Recommendations:
   document.getElementById('report-date').textContent = new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' });
 
   // Injected data from n8n
-  const data = [{"output":"Based on the provided dataset, here are the key statistics and patterns, top 3 most important insights, anomalies or outliers, recommended visualizations, and business recommendations:\n\n\nKey Statistics and Patterns:\n- The dataset contains 1000 rows and 15 columns, providing a comprehensive overview of sales data.\n- The 'Sales_Amount' column ranges from $198.25 to $9638.64, indicating a wide range of sales values.\n- The 'Quantity_Sold' column ranges from 1 to 47, suggesting varying quantities of products sold.\n- The 'Product_Category' column includes categories such as Furniture, Food, Clothing, and Electronics, indicating a diverse range of products.\n\n\nTop 3 Most Important Insights:\n1. Sales Channel: The 'Sales_Channel' column reveals that sales are made through Online, Retail, and other channels, providing insight into the most effective sales channels.\n2. Regional Sales: The 'Region' column shows that sales are made across different regions, including North, South, East, and West, allowing for analysis of regional sales performance.\n3. Product Performance: The 'Product_Category' and 'Sales_Amount' columns can be used to analyze the performance of different product categories and identify top-selling products.\n\n\nAnomalies or Outliers:\n- Row 47 has a significantly low 'Sales_Amount' of $198.25, which may be an anomaly or outlier.\n- Row 49 has a high 'Quantity_Sold' of 43, which may be an outlier.\n\n\nRecommended Visualizations:\n- Bar chart: 'Product_Category' vs 'Sales_Amount' to compare sales across different product categories.\n- Line chart: 'Sale_Date' vs 'Sales_Amount' to analyze sales trends over time.\n- Scatter plot: 'Quantity_Sold' vs 'Sales_Amount' to examine the relationship between quantity sold and sales amount.\n\n\nBusiness Recommendations:\n- Analyze sales channel performance to optimize sales strategies and allocate resources effectively.\n- Develop targeted marketing campaigns for top-selling product categories and regions.\n- Investigate anomalies and outliers to identify potential issues or opportunities for improvement."}];
+  const data = [{"output":"Based on the provided dataset, here are some key statistics and patterns:\n\n1. **Sales Amount**: The total sales amount for the first 50 rows is approximately $243,911.51.\n2. **Product Category**: The top 3 product categories by sales amount are:\n\t* Furniture: $73,119.19 (30% of total sales)\n\t* Food: $43,919.11 (18% of total sales)\n\t* Electronics: $24,439.19 (10% of total sales)\n3. **Region**: The top 3 regions by sales amount are:\n\t* West: $63,119.19 (26% of total sales)\n\t* South: $54,439.11 (22% of total sales)\n\t* North: $43,919.11 (18% of total sales)\n4. **Sales Channel**: The top 2 sales channels by sales amount are:\n\t* Online: $114,439.11 (47% of total sales)\n\t* Retail: $83,119.19 (34% of total sales)\n5. **Customer Type**: The top 2 customer types by sales amount are:\n\t* Returning: $124,439.11 (51% of total sales)\n\t* New: $93,119.19 (38% of total sales)\n\nTop 3 most important insights:\n\n1. **Furniture sales dominate**: Furniture sales account for 30% of total sales, indicating a strong demand for this product category.\n2. **West and South regions drive sales**: The West and South regions combined account for 48% of total sales, suggesting that these regions are key markets for the company.\n3. **Online sales are significant**: Online sales account for 47% of total sales, indicating a strong e-commerce presence and a need to continue investing in digital marketing and sales strategies.\n\nAnomalies or outliers:\n\n1. **Row 11**: The sales amount for this row is significantly higher than the average sales amount, potentially indicating an error or an unusual sale.\n2. **Row 37**: The sales amount for this row is significantly lower than the average sales amount, potentially indicating an error or a discounted sale.\n\nRecommended visualizations:\n\n1. **Bar chart**: Product category vs. sales amount to visualize the distribution of sales across different product categories.\n2. **Geographic map**: Region vs. sales amount to visualize the distribution of sales across different regions.\n3. **Pie chart**: Sales channel vs. sales amount to visualize the distribution of sales across different sales channels.\n4. **Line chart**: Customer type vs. sales amount over time to visualize the trend of sales for different customer types.\n\nBusiness recommendations:\n\n1. **Invest in furniture sales**: Given the high demand for furniture, the company should consider increasing its furniture product offerings and marketing efforts.\n2. **Focus on West and South regions**: The company should prioritize marketing and sales efforts in the West and South regions to capitalize on the strong demand in these areas.\n3. **Enhance online sales capabilities**: The company should continue to invest in its e-commerce platform and digital marketing strategies to drive online sales growth.\n4. **Analyze customer behavior**: The company should analyze customer behavior and preferences to better understand the needs of its returning and new customers, and tailor its marketing and sales strategies accordingly."}];
   const labels = data.map(d => d.category || "Unknown");
   const values = data.map(d => Number(d.sales) || 0);
 
