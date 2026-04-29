@@ -135,48 +135,40 @@
     </div>
     <div class="analysis-block">
       <div class="ai-label">Analysis Output</div>
-      <div class="analysis-text">Based on the provided dataset, here are some key statistics and patterns:
+      <div class="analysis-text">Based on the provided dataset, here are the key statistics and patterns, top 3 most important insights, anomalies or outliers, recommended visualizations, and business recommendations:
 
-1. **Sales Amount**: The total sales amount for the first 50 rows is approximately $243,911.51.
-2. **Product Category**: The top 3 product categories by sales amount are:
-	* Furniture: $73,119.19 (30% of total sales)
-	* Food: $43,919.11 (18% of total sales)
-	* Electronics: $24,439.19 (10% of total sales)
-3. **Region**: The top 3 regions by sales amount are:
-	* West: $63,119.19 (26% of total sales)
-	* South: $54,439.11 (22% of total sales)
-	* North: $43,919.11 (18% of total sales)
-4. **Sales Channel**: The top 2 sales channels by sales amount are:
-	* Online: $114,439.11 (47% of total sales)
-	* Retail: $83,119.19 (34% of total sales)
-5. **Customer Type**: The top 2 customer types by sales amount are:
-	* Returning: $124,439.11 (51% of total sales)
-	* New: $93,119.19 (38% of total sales)
 
-Top 3 most important insights:
+## Step 1: Key Statistics and Patterns
+The dataset contains 1000 rows and 15 columns, including sales data from different regions, sales representatives, and product categories. The data includes sales amounts, quantities sold, unit costs, unit prices, customer types, discounts, payment methods, and sales channels.
 
-1. **Furniture sales dominate**: Furniture sales account for 30% of total sales, indicating a strong demand for this product category.
-2. **West and South regions drive sales**: The West and South regions combined account for 48% of total sales, suggesting that these regions are key markets for the company.
-3. **Online sales are significant**: Online sales account for 47% of total sales, indicating a strong e-commerce presence and a need to continue investing in digital marketing and sales strategies.
 
-Anomalies or outliers:
+## Step 2: Top 3 Most Important Insights
+1. The average sales amount per transaction is around $5000, with a maximum of $9638.64 and a minimum of $198.25.
+2. The top-selling product categories are Furniture, Food, and Clothing, with the majority of sales coming from Returning customers.
+3. The most common payment methods are Cash, Bank Transfer, and Credit Card, with Online and Retail being the primary sales channels.
 
-1. **Row 11**: The sales amount for this row is significantly higher than the average sales amount, potentially indicating an error or an unusual sale.
-2. **Row 37**: The sales amount for this row is significantly lower than the average sales amount, potentially indicating an error or a discounted sale.
 
-Recommended visualizations:
+## Step 3: Anomalies or Outliers
+There are a few outliers in the dataset, such as the transaction with a sales amount of $198.25, which is significantly lower than the average sales amount. Additionally, there are some transactions with high discounts, such as 0.29, which may indicate errors in data entry or unusual sales promotions.
 
-1. **Bar chart**: Product category vs. sales amount to visualize the distribution of sales across different product categories.
-2. **Geographic map**: Region vs. sales amount to visualize the distribution of sales across different regions.
-3. **Pie chart**: Sales channel vs. sales amount to visualize the distribution of sales across different sales channels.
-4. **Line chart**: Customer type vs. sales amount over time to visualize the trend of sales for different customer types.
 
-Business recommendations:
+## Step 4: Recommended Visualizations
+To better understand the data, the following visualizations are recommended:
+- Bar chart: Product Category vs. Sales Amount to show the top-selling product categories.
+- Pie chart: Customer Type vs. Sales Amount to show the distribution of sales between Returning and New customers.
+- Scatter plot: Unit Price vs. Quantity Sold to identify any correlations between price and quantity sold.
+- Heatmap: Region vs. Sales Representative vs. Sales Amount to show the sales performance of each representative in each region.
 
-1. **Invest in furniture sales**: Given the high demand for furniture, the company should consider increasing its furniture product offerings and marketing efforts.
-2. **Focus on West and South regions**: The company should prioritize marketing and sales efforts in the West and South regions to capitalize on the strong demand in these areas.
-3. **Enhance online sales capabilities**: The company should continue to invest in its e-commerce platform and digital marketing strategies to drive online sales growth.
-4. **Analyze customer behavior**: The company should analyze customer behavior and preferences to better understand the needs of its returning and new customers, and tailor its marketing and sales strategies accordingly.</div>
+
+## Step 5: Business Recommendations
+Based on the insights and patterns in the data, the following business recommendations can be made:
+- Focus on the top-selling product categories, such as Furniture, Food, and Clothing, to optimize inventory and marketing strategies.
+- Develop targeted marketing campaigns to attract New customers and increase sales from this segment.
+- Analyze the sales performance of each representative in each region to identify areas for improvement and provide training or support as needed.
+- Monitor discounts and payment methods to ensure that they are aligned with business goals and do not negatively impact profit margins.
+
+
+Since the problem requires a text-based answer and no specific calculations or data retrieval are needed, no function calls are required for this problem.</div>
     </div>
   </div>
 </div>
@@ -190,7 +182,7 @@ Business recommendations:
   document.getElementById('report-date').textContent = new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' });
 
   // Injected data from n8n
-  const data = [{"output":"Based on the provided dataset, here are some key statistics and patterns:\n\n1. **Sales Amount**: The total sales amount for the first 50 rows is approximately $243,911.51.\n2. **Product Category**: The top 3 product categories by sales amount are:\n\t* Furniture: $73,119.19 (30% of total sales)\n\t* Food: $43,919.11 (18% of total sales)\n\t* Electronics: $24,439.19 (10% of total sales)\n3. **Region**: The top 3 regions by sales amount are:\n\t* West: $63,119.19 (26% of total sales)\n\t* South: $54,439.11 (22% of total sales)\n\t* North: $43,919.11 (18% of total sales)\n4. **Sales Channel**: The top 2 sales channels by sales amount are:\n\t* Online: $114,439.11 (47% of total sales)\n\t* Retail: $83,119.19 (34% of total sales)\n5. **Customer Type**: The top 2 customer types by sales amount are:\n\t* Returning: $124,439.11 (51% of total sales)\n\t* New: $93,119.19 (38% of total sales)\n\nTop 3 most important insights:\n\n1. **Furniture sales dominate**: Furniture sales account for 30% of total sales, indicating a strong demand for this product category.\n2. **West and South regions drive sales**: The West and South regions combined account for 48% of total sales, suggesting that these regions are key markets for the company.\n3. **Online sales are significant**: Online sales account for 47% of total sales, indicating a strong e-commerce presence and a need to continue investing in digital marketing and sales strategies.\n\nAnomalies or outliers:\n\n1. **Row 11**: The sales amount for this row is significantly higher than the average sales amount, potentially indicating an error or an unusual sale.\n2. **Row 37**: The sales amount for this row is significantly lower than the average sales amount, potentially indicating an error or a discounted sale.\n\nRecommended visualizations:\n\n1. **Bar chart**: Product category vs. sales amount to visualize the distribution of sales across different product categories.\n2. **Geographic map**: Region vs. sales amount to visualize the distribution of sales across different regions.\n3. **Pie chart**: Sales channel vs. sales amount to visualize the distribution of sales across different sales channels.\n4. **Line chart**: Customer type vs. sales amount over time to visualize the trend of sales for different customer types.\n\nBusiness recommendations:\n\n1. **Invest in furniture sales**: Given the high demand for furniture, the company should consider increasing its furniture product offerings and marketing efforts.\n2. **Focus on West and South regions**: The company should prioritize marketing and sales efforts in the West and South regions to capitalize on the strong demand in these areas.\n3. **Enhance online sales capabilities**: The company should continue to invest in its e-commerce platform and digital marketing strategies to drive online sales growth.\n4. **Analyze customer behavior**: The company should analyze customer behavior and preferences to better understand the needs of its returning and new customers, and tailor its marketing and sales strategies accordingly."}];
+  const data = [{"output":"Based on the provided dataset, here are the key statistics and patterns, top 3 most important insights, anomalies or outliers, recommended visualizations, and business recommendations:\n\n\n## Step 1: Key Statistics and Patterns\nThe dataset contains 1000 rows and 15 columns, including sales data from different regions, sales representatives, and product categories. The data includes sales amounts, quantities sold, unit costs, unit prices, customer types, discounts, payment methods, and sales channels.\n\n\n## Step 2: Top 3 Most Important Insights\n1. The average sales amount per transaction is around $5000, with a maximum of $9638.64 and a minimum of $198.25.\n2. The top-selling product categories are Furniture, Food, and Clothing, with the majority of sales coming from Returning customers.\n3. The most common payment methods are Cash, Bank Transfer, and Credit Card, with Online and Retail being the primary sales channels.\n\n\n## Step 3: Anomalies or Outliers\nThere are a few outliers in the dataset, such as the transaction with a sales amount of $198.25, which is significantly lower than the average sales amount. Additionally, there are some transactions with high discounts, such as 0.29, which may indicate errors in data entry or unusual sales promotions.\n\n\n## Step 4: Recommended Visualizations\nTo better understand the data, the following visualizations are recommended:\n- Bar chart: Product Category vs. Sales Amount to show the top-selling product categories.\n- Pie chart: Customer Type vs. Sales Amount to show the distribution of sales between Returning and New customers.\n- Scatter plot: Unit Price vs. Quantity Sold to identify any correlations between price and quantity sold.\n- Heatmap: Region vs. Sales Representative vs. Sales Amount to show the sales performance of each representative in each region.\n\n\n## Step 5: Business Recommendations\nBased on the insights and patterns in the data, the following business recommendations can be made:\n- Focus on the top-selling product categories, such as Furniture, Food, and Clothing, to optimize inventory and marketing strategies.\n- Develop targeted marketing campaigns to attract New customers and increase sales from this segment.\n- Analyze the sales performance of each representative in each region to identify areas for improvement and provide training or support as needed.\n- Monitor discounts and payment methods to ensure that they are aligned with business goals and do not negatively impact profit margins.\n\n\nSince the problem requires a text-based answer and no specific calculations or data retrieval are needed, no function calls are required for this problem."}];
   const labels = data.map(d => d.category || "Unknown");
   const values = data.map(d => Number(d.sales) || 0);
 
