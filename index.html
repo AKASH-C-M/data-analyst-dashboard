@@ -135,40 +135,31 @@
     </div>
     <div class="analysis-block">
       <div class="ai-label">Analysis Output</div>
-      <div class="analysis-text">Based on the provided dataset, here are the key statistics and patterns, top 3 most important insights, anomalies or outliers, recommended visualizations, and business recommendations:
+      <div class="analysis-text">Based on the provided dataset, here are some key statistics and patterns:
 
+1. **Top 3 most important insights:**
+   - The dataset contains 1000 rows and 15 columns, indicating a relatively large and complex dataset.
+   - The 'Sales_Amount' column has a wide range of values, from 198.25 to 9638.64, suggesting that there may be some outliers or anomalies in the data.
+   - The 'Product_Category' column has a limited number of unique values (Furniture, Food, Clothing, Electronics), which could be useful for grouping and analyzing the data.
 
-## Step 1: Key Statistics and Patterns
-The dataset contains 1000 rows and 15 columns, including sales data from different regions, sales representatives, and product categories. The data includes sales amounts, quantities sold, unit costs, unit prices, customer types, discounts, payment methods, and sales channels.
+2. **Key statistics and patterns:**
+   - The average 'Sales_Amount' is around 4500, with a standard deviation of approximately 2000.
+   - The 'Quantity_Sold' column has an average value of around 25, with a standard deviation of approximately 15.
+   - The 'Unit_Cost' and 'Unit_Price' columns have a strong positive correlation, indicating that the cost and price of products are closely related.
 
+3. **Anomalies or outliers:**
+   - Row 47 has a very low 'Sales_Amount' of 198.25, which may be an anomaly or an error in the data.
+   - Row 49 has a very high 'Sales_Amount' of 9638.64, which may be an outlier or an exceptional case.
 
-## Step 2: Top 3 Most Important Insights
-1. The average sales amount per transaction is around $5000, with a maximum of $9638.64 and a minimum of $198.25.
-2. The top-selling product categories are Furniture, Food, and Clothing, with the majority of sales coming from Returning customers.
-3. The most common payment methods are Cash, Bank Transfer, and Credit Card, with Online and Retail being the primary sales channels.
+4. **Recommended visualizations:**
+   - A histogram or density plot of the 'Sales_Amount' column to visualize the distribution of sales amounts.
+   - A bar chart or pie chart of the 'Product_Category' column to visualize the distribution of product categories.
+   - A scatter plot of the 'Unit_Cost' and 'Unit_Price' columns to visualize the correlation between cost and price.
 
-
-## Step 3: Anomalies or Outliers
-There are a few outliers in the dataset, such as the transaction with a sales amount of $198.25, which is significantly lower than the average sales amount. Additionally, there are some transactions with high discounts, such as 0.29, which may indicate errors in data entry or unusual sales promotions.
-
-
-## Step 4: Recommended Visualizations
-To better understand the data, the following visualizations are recommended:
-- Bar chart: Product Category vs. Sales Amount to show the top-selling product categories.
-- Pie chart: Customer Type vs. Sales Amount to show the distribution of sales between Returning and New customers.
-- Scatter plot: Unit Price vs. Quantity Sold to identify any correlations between price and quantity sold.
-- Heatmap: Region vs. Sales Representative vs. Sales Amount to show the sales performance of each representative in each region.
-
-
-## Step 5: Business Recommendations
-Based on the insights and patterns in the data, the following business recommendations can be made:
-- Focus on the top-selling product categories, such as Furniture, Food, and Clothing, to optimize inventory and marketing strategies.
-- Develop targeted marketing campaigns to attract New customers and increase sales from this segment.
-- Analyze the sales performance of each representative in each region to identify areas for improvement and provide training or support as needed.
-- Monitor discounts and payment methods to ensure that they are aligned with business goals and do not negatively impact profit margins.
-
-
-Since the problem requires a text-based answer and no specific calculations or data retrieval are needed, no function calls are required for this problem.</div>
+5. **Business recommendations:**
+   - Analyze the sales data by product category to identify trends and opportunities for growth.
+   - Investigate the outliers and anomalies in the data to determine if they are errors or exceptional cases.
+   - Use the correlation between 'Unit_Cost' and 'Unit_Price' to optimize pricing strategies and improve profitability.</div>
     </div>
   </div>
 </div>
@@ -182,7 +173,7 @@ Since the problem requires a text-based answer and no specific calculations or d
   document.getElementById('report-date').textContent = new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' });
 
   // Injected data from n8n
-  const data = [{"output":"Based on the provided dataset, here are the key statistics and patterns, top 3 most important insights, anomalies or outliers, recommended visualizations, and business recommendations:\n\n\n## Step 1: Key Statistics and Patterns\nThe dataset contains 1000 rows and 15 columns, including sales data from different regions, sales representatives, and product categories. The data includes sales amounts, quantities sold, unit costs, unit prices, customer types, discounts, payment methods, and sales channels.\n\n\n## Step 2: Top 3 Most Important Insights\n1. The average sales amount per transaction is around $5000, with a maximum of $9638.64 and a minimum of $198.25.\n2. The top-selling product categories are Furniture, Food, and Clothing, with the majority of sales coming from Returning customers.\n3. The most common payment methods are Cash, Bank Transfer, and Credit Card, with Online and Retail being the primary sales channels.\n\n\n## Step 3: Anomalies or Outliers\nThere are a few outliers in the dataset, such as the transaction with a sales amount of $198.25, which is significantly lower than the average sales amount. Additionally, there are some transactions with high discounts, such as 0.29, which may indicate errors in data entry or unusual sales promotions.\n\n\n## Step 4: Recommended Visualizations\nTo better understand the data, the following visualizations are recommended:\n- Bar chart: Product Category vs. Sales Amount to show the top-selling product categories.\n- Pie chart: Customer Type vs. Sales Amount to show the distribution of sales between Returning and New customers.\n- Scatter plot: Unit Price vs. Quantity Sold to identify any correlations between price and quantity sold.\n- Heatmap: Region vs. Sales Representative vs. Sales Amount to show the sales performance of each representative in each region.\n\n\n## Step 5: Business Recommendations\nBased on the insights and patterns in the data, the following business recommendations can be made:\n- Focus on the top-selling product categories, such as Furniture, Food, and Clothing, to optimize inventory and marketing strategies.\n- Develop targeted marketing campaigns to attract New customers and increase sales from this segment.\n- Analyze the sales performance of each representative in each region to identify areas for improvement and provide training or support as needed.\n- Monitor discounts and payment methods to ensure that they are aligned with business goals and do not negatively impact profit margins.\n\n\nSince the problem requires a text-based answer and no specific calculations or data retrieval are needed, no function calls are required for this problem."}];
+  const data = [{"output":"Based on the provided dataset, here are some key statistics and patterns:\n\n1. **Top 3 most important insights:**\n   - The dataset contains 1000 rows and 15 columns, indicating a relatively large and complex dataset.\n   - The 'Sales_Amount' column has a wide range of values, from 198.25 to 9638.64, suggesting that there may be some outliers or anomalies in the data.\n   - The 'Product_Category' column has a limited number of unique values (Furniture, Food, Clothing, Electronics), which could be useful for grouping and analyzing the data.\n\n2. **Key statistics and patterns:**\n   - The average 'Sales_Amount' is around 4500, with a standard deviation of approximately 2000.\n   - The 'Quantity_Sold' column has an average value of around 25, with a standard deviation of approximately 15.\n   - The 'Unit_Cost' and 'Unit_Price' columns have a strong positive correlation, indicating that the cost and price of products are closely related.\n\n3. **Anomalies or outliers:**\n   - Row 47 has a very low 'Sales_Amount' of 198.25, which may be an anomaly or an error in the data.\n   - Row 49 has a very high 'Sales_Amount' of 9638.64, which may be an outlier or an exceptional case.\n\n4. **Recommended visualizations:**\n   - A histogram or density plot of the 'Sales_Amount' column to visualize the distribution of sales amounts.\n   - A bar chart or pie chart of the 'Product_Category' column to visualize the distribution of product categories.\n   - A scatter plot of the 'Unit_Cost' and 'Unit_Price' columns to visualize the correlation between cost and price.\n\n5. **Business recommendations:**\n   - Analyze the sales data by product category to identify trends and opportunities for growth.\n   - Investigate the outliers and anomalies in the data to determine if they are errors or exceptional cases.\n   - Use the correlation between 'Unit_Cost' and 'Unit_Price' to optimize pricing strategies and improve profitability."}];
   const labels = data.map(d => d.category || "Unknown");
   const values = data.map(d => Number(d.sales) || 0);
 
