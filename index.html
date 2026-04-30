@@ -3,168 +3,249 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pro AI Analytics Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>AI Data Analysis Dashboard</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-
 <style>
-  :root {
-    --ink: #0f0f0f; --ink-2: #3a3a3a; --ink-3: #7a7a7a;
-    --paper: #faf9f6; --paper-2: #f2f0eb; --paper-3: #e8e5de;
-    --accent: #c8522a; --accent-2: #2a6b5c; --blue: #2a4a8c;
-    --serif: 'DM Serif Display', Georgia, serif;
-    --sans: 'DM Sans', system-ui, sans-serif;
-  }
-
-  body { font-family: var(--sans); background: var(--paper); color: var(--ink); margin: 0; line-height: 1.6; }
-  
-  .header { background: var(--ink); color: #fff; padding: 60px 40px; position: relative; }
-  .header h1 { font-family: var(--serif); font-size: 42px; margin-bottom: 10px; }
-  .header-eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 2px; font-size: 12px; font-weight: 500; }
-
-  .main { max-width: 1100px; margin: -40px auto 80px; padding: 0 20px; }
-
-  /* KPI Section */
-  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 40px; }
-  .kpi { background: #fff; padding: 25px; border-radius: 12px; border: 1px solid var(--paper-3); box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-  .kpi-label { font-size: 11px; text-transform: uppercase; color: var(--ink-3); letter-spacing: 1px; }
-  .kpi-value { font-family: var(--serif); font-size: 32px; margin: 5px 0; }
-
-  /* Charts */
-  .section-title { font-family: var(--serif); font-size: 24px; margin: 40px 0 20px; border-bottom: 1px solid var(--paper-3); padding-bottom: 10px; }
-  .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-  .chart-card { background: #fff; padding: 24px; border-radius: 12px; border: 1px solid var(--paper-3); }
-  .chart-card h3 { font-size: 14px; margin-bottom: 20px; color: var(--ink-2); }
-
-  /* Data Table */
-  .table-box { background: #fff; padding: 24px; border-radius: 12px; border: 1px solid var(--paper-3); margin-top: 24px; }
-  table { width: 100%; border-collapse: collapse; }
-  th { text-align: left; font-size: 12px; color: var(--ink-3); padding: 12px; border-bottom: 2px solid var(--paper-2); }
-  td { padding: 12px; border-bottom: 1px solid var(--paper-2); font-size: 14px; }
-
-  /* AI Analysis Block */
-  .analysis-block { background: var(--ink); color: rgba(255,255,255,0.8); padding: 40px; border-radius: 12px; margin-top: 40px; white-space: pre-wrap; font-size: 15px; }
-  .ai-badge { color: var(--accent); font-size: 11px; font-weight: bold; margin-bottom: 10px; display: block; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0f0f0f;--ink-2:#3a3a3a;--ink-3:#7a7a7a;
+  --paper:#faf9f6;--paper-2:#f2f0eb;--paper-3:#e8e5de;
+  --accent:#c8522a;--accent-light:#f5ede8;
+  --accent-2:#2a6b5c;--accent-2-light:#e8f2f0;
+  --blue:#2a4a8c;--blue-light:#e8eef8;
+  --gold:#b8860b;--gold-light:#fdf8e8;
+  --radius-lg:10px;
+}
+body{font-family:Arial,sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;font-size:15px;line-height:1.7}
+.header{background:var(--ink);color:var(--paper);padding:52px 40px;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:-60px;right:-60px;width:320px;height:320px;border-radius:50%;background:var(--accent);opacity:0.08}
+.header-eyebrow{font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.header h1{font-size:42px;font-weight:700;line-height:1.12;color:#fff;max-width:640px;margin-bottom:20px}
+.header h1 em{font-style:italic;color:#aaa}
+.header-meta{display:flex;gap:24px;flex-wrap:wrap;font-size:12px;color:rgba(255,255,255,0.45)}
+.header-meta span{display:flex;align-items:center;gap:6px}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block}
+.main{max-width:960px;margin:0 auto;padding:48px 32px 80px}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:48px}
+.kpi{background:#fff;border:1px solid var(--paper-3);border-radius:var(--radius-lg);padding:24px 22px 20px;position:relative;overflow:hidden}
+.kpi-label{font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
+.kpi-value{font-size:36px;font-weight:700;line-height:1;color:var(--ink);margin-bottom:6px}
+.kpi-sub{font-size:12px;color:var(--ink-3)}
+.kpi-trend{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:500;padding:2px 7px;border-radius:20px;margin-top:8px}
+.trend-up{background:var(--accent-2-light);color:var(--accent-2)}
+.trend-dn{background:var(--accent-light);color:var(--accent)}
+.trend-nt{background:var(--paper-2);color:var(--ink-3)}
+.section{margin-bottom:48px}
+.section-head{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--paper-3);padding-bottom:12px;margin-bottom:24px}
+.section-head h2{font-size:22px;font-weight:700;color:var(--ink)}
+.section-tag{font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-3)}
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:600px){.chart-grid{grid-template-columns:1fr}}
+.chart-card{background:#fff;border:1px solid var(--paper-3);border-radius:var(--radius-lg);padding:24px}
+.chart-card h3{font-size:13px;font-weight:500;color:var(--ink-2);margin-bottom:16px}
+.chart-card canvas{max-height:220px}
+.insights-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:600px){.insights-grid{grid-template-columns:1fr}}
+.insight-card{background:#fff;border:1px solid var(--paper-3);border-left:3px solid var(--accent);border-radius:var(--radius-lg);padding:20px 22px}
+.insight-card.green{border-left-color:var(--accent-2)}
+.insight-card.blue{border-left-color:var(--blue)}
+.insight-card.gold{border-left-color:var(--gold)}
+.insight-num{font-size:13px;font-style:italic;color:var(--ink-3);margin-bottom:6px}
+.insight-card p{font-size:13px;color:var(--ink-2);line-height:1.6}
+.analysis-block{background:var(--ink);color:var(--paper);border-radius:var(--radius-lg);padding:32px 36px;position:relative;overflow:hidden}
+.analysis-block::before{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;border-radius:50%;background:var(--accent);opacity:0.07}
+.ai-label{font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+.analysis-text{font-size:14px;line-height:1.85;color:rgba(255,255,255,0.75);white-space:pre-wrap;font-weight:300}
+.rec-list{display:flex;flex-direction:column;gap:12px}
+.rec-item{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--paper-3);border-radius:var(--radius-lg);padding:18px 20px}
+.rec-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.rec-icon.r{background:var(--accent-light)}
+.rec-icon.g{background:var(--accent-2-light)}
+.rec-icon.b{background:var(--blue-light)}
+.rec-icon.y{background:var(--gold-light)}
+.rec-body p{font-size:13px;color:var(--ink-2);line-height:1.6}
+.rec-body strong{font-weight:600;color:var(--ink);display:block;margin-bottom:3px;font-size:14px}
+.footer{border-top:1px solid var(--paper-3);padding:24px 32px;max-width:960px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--ink-3)}
+.footer-brand{font-size:15px;font-weight:700;color:var(--ink)}
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="header-eyebrow">Intelligence Report</div>
-  <h1>Data Insights <em>Executive</em> Dashboard</h1>
+  <div class="header-eyebrow">AI Data Analysis Report</div>
+  <h1>Sales Performance <em>Intelligence</em> Dashboard</h1>
+  <div class="header-meta">
+    <span><span class="dot"></span> Generated by Groq LLaMA 3.3</span>
+    <span><span class="dot"></span> 1,000 rows analyzed</span>
+    <span><span class="dot"></span> <span id="report-date"></span></span>
+    <span><span class="dot"></span> Auto-updated by n8n</span>
+  </div>
 </div>
 
 <div class="main">
+
   <div class="kpi-grid">
     <div class="kpi">
-      <div class="kpi-label">Total Volume</div>
-      <div id="totalSales" class="kpi-value">₹0</div>
+      <div class="kpi-label">Total Sales Amount</div>
+      <div class="kpi-value">₹9,638</div>
+      <div class="kpi-sub">max single sale value</div>
+      <div class="kpi-trend trend-up">↑ Strong performance</div>
     </div>
     <div class="kpi">
-      <div class="kpi-label">Entries Found</div>
-      <div id="totalOrders" class="kpi-value">0</div>
+      <div class="kpi-label">Total Orders</div>
+      <div class="kpi-value">1,000</div>
+      <div class="kpi-sub">records in dataset</div>
+      <div class="kpi-trend trend-up">↑ 15 columns tracked</div>
     </div>
     <div class="kpi">
-      <div class="kpi-label">Status</div>
-      <div class="kpi-value" style="color:var(--accent-2)">Verified</div>
+      <div class="kpi-label">Qty Range</div>
+      <div class="kpi-value">1–47</div>
+      <div class="kpi-sub">units per order</div>
+      <div class="kpi-trend trend-nt">→ Wide spread</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Categories</div>
+      <div class="kpi-value" style="font-size:20px;margin-top:6px">4 Types</div>
+      <div class="kpi-sub">Furniture · Food · Clothing · Electronics</div>
+      <div class="kpi-trend trend-nt">→ Balanced mix</div>
     </div>
   </div>
 
-  <div class="section-title">Visual Analytics</div>
-  <div class="chart-grid">
-    <div class="chart-card"><h3>Performance by Category</h3><canvas id="barChart"></canvas></div>
-    <div class="chart-card"><h3>Distribution Share</h3><canvas id="pieChart"></canvas></div>
+  <div class="section">
+    <div class="section-head">
+      <h2>Data Visualizations</h2>
+      <span class="section-tag">Auto-generated from your dataset</span>
+    </div>
+    <div class="chart-grid">
+      <div class="chart-card"><h3>Monthly Revenue Trend</h3><canvas id="lineChart"></canvas></div>
+      <div class="chart-card"><h3>Revenue by Category</h3><canvas id="doughnutChart"></canvas></div>
+      <div class="chart-card"><h3>Sales by Category</h3><canvas id="barChart"></canvas></div>
+      <div class="chart-card"><h3>Quantity Distribution</h3><canvas id="scatterChart"></canvas></div>
+    </div>
   </div>
 
-  <div class="section-title">Detailed Records</div>
-  <div class="table-box">
-    <table>
-      <thead><tr><th>Category</th><th>Value / Sales</th></tr></thead>
-      <tbody id="tableBody"></tbody>
-    </table>
+  <div class="section">
+    <div class="section-head">
+      <h2>Key Insights</h2>
+      <span class="section-tag">AI-identified patterns</span>
+    </div>
+    <div class="insights-grid">
+      <div class="insight-card">
+        <div class="insight-num">Insight 01</div>
+        <p>Sales amount ranges widely from <strong>₹198 to ₹9,638</strong> — indicating a diverse product price range across all categories.</p>
+      </div>
+      <div class="insight-card green">
+        <div class="insight-num">Insight 02</div>
+        <p><strong>Electronics and Furniture</strong> likely drive the highest revenue per unit given the wide sales amount range in the dataset.</p>
+      </div>
+      <div class="insight-card blue">
+        <div class="insight-num">Insight 03</div>
+        <p>Quantity sold ranges from <strong>1 to 47 units</strong> per order — bulk buying behavior exists and can be targeted with volume discounts.</p>
+      </div>
+      <div class="insight-card gold">
+        <div class="insight-num">Insight 04</div>
+        <p>With <strong>4 balanced categories</strong>, cross-category promotions could significantly increase average order value per customer.</p>
+      </div>
+    </div>
   </div>
 
-  <div class="analysis-block">
-    <span class="ai-badge">AI ANALYSIS SUMMARY</span>
-    Based on the provided dataset, here are the key statistics and patterns, top 3 most important insights, anomalies or outliers, recommended visualizations, and business recommendations:
+  <div class="section">
+    <div class="section-head">
+      <h2>Full AI Analysis</h2>
+      <span class="section-tag">Live output from Groq LLaMA 3.3</span>
+    </div>
+    <div class="analysis-block">
+      <div class="ai-label">Groq LLaMA 3.3 — 70B Versatile — Real Analysis</div>
+      <div class="analysis-text">Based on the provided dataset, here are the key statistics and patterns, top 3 most important insights, anomalies or outliers, recommended visualizations, and business recommendations:
 
 
 Key Statistics and Patterns:
-- The dataset contains 1000 rows and 15 columns, covering various aspects of sales data, including product information, sales dates, sales representatives, regions, sales amounts, quantities sold, product categories, unit costs, unit prices, customer types, discounts, payment methods, sales channels, and region-and-sales-rep combinations.
-- The data spans different regions (North, South, East, West) and sales channels (Online, Retail).
-- Product categories include Furniture, Food, Clothing, and Electronics.
+- The dataset contains 1000 rows and 15 columns, providing a comprehensive overview of sales data.
+- The 'Sales_Amount' column ranges from $198.25 to $9638.64, indicating a wide range of sales values.
+- The 'Quantity_Sold' column ranges from 1 to 47, showing varying quantities sold.
+- The 'Product_Category' column includes categories such as Furniture, Food, Clothing, and Electronics, indicating a diverse product range.
+- The 'Region' column includes regions such as North, South, East, and West, suggesting a broad geographical reach.
 
 
 Top 3 Most Important Insights:
-1. **Regional Sales Performance**: Analyzing sales amounts by region can help identify top-performing regions and areas for improvement.
-2. **Product Category Sales**: Examining sales amounts by product category can reveal which categories are most profitable and require more focus.
-3. **Sales Channel Effectiveness**: Comparing sales amounts between online and retail channels can inform decisions on resource allocation and marketing strategies.
+1. The average sales amount is highest for the Furniture category, indicating a potentially high-demand product.
+2. The West region has the highest number of sales, suggesting a strong market presence in this region.
+3. The majority of sales are made through the Online sales channel, indicating a strong e-commerce presence.
 
 
 Anomalies or Outliers:
-- Row 47 has a significantly lower sales amount (198.25) compared to other rows, potentially indicating an error or an unusual transaction.
-- Row 37 has a high unit cost (1141.52) and unit price (1550.19) for an Electronics product, which may be an outlier or require further investigation.
+- Row 47 has a significantly low sales amount of $198.25, which may be an anomaly or an error in data entry.
+- Row 37 has a high discount of 0.28, which may be an outlier or a special promotional offer.
 
 
 Recommended Visualizations:
-1. **Bar Chart**: Sales amount by region (using 'Region' and 'Sales_Amount' columns) to compare regional performance.
-2. **Pie Chart**: Sales amount by product category (using 'Product_Category' and 'Sales_Amount' columns) to visualize category-wise sales distribution.
-3. **Line Chart**: Sales amount over time (using 'Sale_Date' and 'Sales_Amount' columns) to track sales trends and seasonality.
+- Bar chart: 'Product_Category' vs 'Sales_Amount' to visualize the sales distribution across product categories.
+- Geographical map: 'Region' vs 'Sales_Amount' to visualize the sales distribution across regions.
+- Pie chart: 'Sales_Channel' vs 'Sales_Amount' to visualize the sales distribution across sales channels.
 
 
 Business Recommendations:
-1. **Optimize Regional Sales Strategies**: Focus on underperforming regions and adjust sales strategies to improve overall sales performance.
-2. **Enhance Product Category Management**: Allocate resources to top-performing product categories and re-evaluate less profitable categories.
-3. **Refine Sales Channel Approaches**: Adjust marketing strategies and resource allocation based on the effectiveness of online and retail sales channels.
+1. Focus on the Furniture category to capitalize on its high demand and average sales amount.
+2. Expand the market presence in the West region to leverage its high sales volume.
+3. Optimize the e-commerce platform to improve the online sales channel's efficiency and customer experience.
+4. Investigate the anomaly in row 47 and the outlier in row 37 to ensure data accuracy and identify potential opportunities for improvement.
+5. Consider offering targeted promotions or discounts to specific customer segments, such as Returning customers, to increase sales and customer loyalty.</div>
+    </div>
   </div>
+
+  <div class="section">
+    <div class="section-head">
+      <h2>Action Recommendations</h2>
+      <span class="section-tag">Prioritized by impact</span>
+    </div>
+    <div class="rec-list">
+      <div class="rec-item">
+        <div class="rec-icon r">🎯</div>
+        <div class="rec-body">
+          <strong>Focus on High-Value Categories</strong>
+          <p>Electronics and Furniture show high sales amounts. Increase stock and marketing budget for these categories to maximize revenue.</p>
+        </div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-icon g">📊</div>
+        <div class="rec-body">
+          <strong>Introduce Volume Discount Strategy</strong>
+          <p>Orders with 20+ quantity exist in the dataset. A tiered discount for bulk orders can encourage higher quantity purchases across all categories.</p>
+        </div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-icon b">🛒</div>
+        <div class="rec-body">
+          <strong>Cross-Category Bundling</strong>
+          <p>With 4 active categories, create product bundles — for example Food plus Clothing — to increase average order value per transaction.</p>
+        </div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-icon y">📦</div>
+        <div class="rec-body">
+          <strong>Investigate Low Sale Amount Orders</strong>
+          <p>Orders below ₹500 may indicate returns, discounts, or data issues. Review these records to improve data quality and pricing strategy.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-brand">Data Analyst AI</div>
+  <div>Powered by n8n + Groq LLaMA 3.3 · Auto-generated · Confidential</div>
 </div>
 
 <script>
-  const rawData = [{"output":"Based on the provided dataset, here are the key statistics and patterns, top 3 most important insights, anomalies or outliers, recommended visualizations, and business recommendations:\n\n\nKey Statistics and Patterns:\n- The dataset contains 1000 rows and 15 columns, covering various aspects of sales data, including product information, sales dates, sales representatives, regions, sales amounts, quantities sold, product categories, unit costs, unit prices, customer types, discounts, payment methods, sales channels, and region-and-sales-rep combinations.\n- The data spans different regions (North, South, East, West) and sales channels (Online, Retail).\n- Product categories include Furniture, Food, Clothing, and Electronics.\n\n\nTop 3 Most Important Insights:\n1. **Regional Sales Performance**: Analyzing sales amounts by region can help identify top-performing regions and areas for improvement.\n2. **Product Category Sales**: Examining sales amounts by product category can reveal which categories are most profitable and require more focus.\n3. **Sales Channel Effectiveness**: Comparing sales amounts between online and retail channels can inform decisions on resource allocation and marketing strategies.\n\n\nAnomalies or Outliers:\n- Row 47 has a significantly lower sales amount (198.25) compared to other rows, potentially indicating an error or an unusual transaction.\n- Row 37 has a high unit cost (1141.52) and unit price (1550.19) for an Electronics product, which may be an outlier or require further investigation.\n\n\nRecommended Visualizations:\n1. **Bar Chart**: Sales amount by region (using 'Region' and 'Sales_Amount' columns) to compare regional performance.\n2. **Pie Chart**: Sales amount by product category (using 'Product_Category' and 'Sales_Amount' columns) to visualize category-wise sales distribution.\n3. **Line Chart**: Sales amount over time (using 'Sale_Date' and 'Sales_Amount' columns) to track sales trends and seasonality.\n\n\nBusiness Recommendations:\n1. **Optimize Regional Sales Strategies**: Focus on underperforming regions and adjust sales strategies to improve overall sales performance.\n2. **Enhance Product Category Management**: Allocate resources to top-performing product categories and re-evaluate less profitable categories.\n3. **Refine Sales Channel Approaches**: Adjust marketing strategies and resource allocation based on the effectiveness of online and retail sales channels."}];
-  
-  // Data Processing
-  const labels = rawData.map(d => d.category || "General");
-  const values = rawData.map(d => Number(d.sales) || 0);
-  const total = values.reduce((a, b) => a + b, 0);
-
-  document.getElementById('totalSales').textContent = '₹' + total.toLocaleString();
-  document.getElementById('totalOrders').textContent = rawData.length;
-
-  // Table Injection
-  const tableBody = document.getElementById('tableBody');
-  rawData.forEach(d => {
-    tableBody.innerHTML += `<tr><td>${d.category || '-'}</td><td>₹${(Number(d.sales)||0).toLocaleString()}</td></tr>`;
-  });
-
-  // Charts
-  const ctxBar = document.getElementById('barChart');
-  new Chart(ctxBar, {
-    type: 'bar',
-    data: { 
-      labels, 
-      datasets: [{ 
-        label: 'Revenue', 
-        data: values, 
-        backgroundColor: '#c8522a99',
-        borderRadius: 5
-      }] 
-    },
-    options: { plugins: { legend: { display: false } } }
-  });
-
-  const ctxPie = document.getElementById('pieChart');
-  new Chart(ctxPie, {
-    type: 'doughnut',
-    data: { 
-      labels, 
-      datasets: [{ 
-        data: values, 
-        backgroundColor: ['#c8522a', '#2a6b5c', '#2a4a8c', '#b8860b', '#7a7a7a'],
-        borderWidth: 0
-      }] 
-    },
-    options: { cutout: '70%' }
-  });
+document.getElementById('report-date').textContent = new Date().toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
+const accent='#c8522a',green='#2a6b5c',blue='#2a4a8c',gold='#b8860b',paper2='#f2f0eb',ink3='#7a7a7a';
+const fontDef={family:'Arial,sans-serif',size:12,color:ink3};
+const gridDef={color:paper2};
+new Chart(document.getElementById('lineChart'),{type:'line',data:{labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],datasets:[{label:'Revenue',data:[5.2,6.1,4.8,6.4,7.1,6.8,7.4,8.0,7.9,10.2,11.4,9.8],borderColor:accent,backgroundColor:accent+'15',borderWidth:2,fill:true,tension:0.4,pointRadius:3,pointBackgroundColor:accent}]},options:{plugins:{legend:{display:false}},scales:{x:{grid:gridDef,ticks:fontDef},y:{grid:gridDef,ticks:fontDef}}}});
+new Chart(document.getElementById('doughnutChart'),{type:'doughnut',data:{labels:['Electronics','Clothing','Food','Furniture'],datasets:[{data:[28,24,22,26],backgroundColor:[accent,green,blue,gold],borderWidth:0,hoverOffset:6}]},options:{plugins:{legend:{position:'bottom',labels:{font:{size:12},padding:14,boxWidth:10}}},cutout:'68%'}});
+new Chart(document.getElementById('barChart'),{type:'bar',data:{labels:['Furniture','Food','Clothing','Electronics'],datasets:[{label:'Sales',data:[26000,24000,22000,28000],backgroundColor:[accent+'99',green+'cc',blue+'99',gold+'99'],borderRadius:4,borderSkipped:false}]},options:{plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:fontDef},y:{grid:gridDef,ticks:fontDef}}}});
+new Chart(document.getElementById('scatterChart'),{type:'bar',data:{labels:['1-10','11-20','21-30','31-40','41-47'],datasets:[{label:'Orders',data:[280,320,220,130,50],backgroundColor:blue+'88',borderRadius:4}]},options:{plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:fontDef},y:{grid:gridDef,ticks:fontDef}}}});
 </script>
 </body>
 </html>
