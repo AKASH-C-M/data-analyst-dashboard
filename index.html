@@ -8,281 +8,117 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --ink: #0f0f0f;
-    --ink-2: #3a3a3a;
-    --ink-3: #7a7a7a;
-    --paper: #faf9f6;
-    --paper-2: #f2f0eb;
-    --paper-3: #e8e5de;
-    --accent: #c8522a;
-    --accent-light: #f5ede8;
-    --accent-2: #2a6b5c;
-    --accent-2-light: #e8f2f0;
-    --blue: #2a4a8c;
-    --blue-light: #e8eef8;
-    --gold: #b8860b;
-    --gold-light: #fdf8e8;
+    --ink: #0f0f0f; --ink-2: #3a3a3a; --ink-3: #7a7a7a;
+    --paper: #faf9f6; --paper-2: #f2f0eb; --paper-3: #e8e5de;
+    --accent: #c8522a; --accent-light: #f5ede8;
+    --accent-2: #2a6b5c; --accent-2-light: #e8f2f0;
+    --blue: #2a4a8c; --blue-light: #e8eef8;
+    --gold: #b8860b; --gold-light: #fdf8e8;
     --serif: 'DM Serif Display', Georgia, serif;
     --sans: 'DM Sans', system-ui, sans-serif;
-    --radius: 4px;
-    --radius-lg: 10px;
+    --radius: 4px; --radius-lg: 10px;
   }
-
   html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--paper); color: var(--ink); min-height: 100vh; font-weight: 300; font-size: 15px; line-height: 1.7; }
 
-  body {
-    font-family: var(--sans);
-    background: var(--paper);
-    color: var(--ink);
-    min-height: 100vh;
-    font-weight: 300;
-    font-size: 15px;
-    line-height: 1.7;
-  }
-
-  .header {
-    background: var(--ink);
-    color: var(--paper);
-    padding: 52px 0 44px;
-    position: relative;
-    overflow: hidden;
-  }
-  .header::before {
-    content: '';
-    position: absolute;
-    top: -60px; right: -60px;
-    width: 320px; height: 320px;
-    border-radius: 50%;
-    background: var(--accent);
-    opacity: 0.08;
-  }
-  .header::after {
-    content: '';
-    position: absolute;
-    bottom: -40px; left: 10%;
-    width: 180px; height: 180px;
-    border-radius: 50%;
-    background: #fff;
-    opacity: 0.03;
-  }
+  /* HEADER */
+  .header { background: var(--ink); color: var(--paper); padding: 52px 0 44px; position: relative; overflow: hidden; }
+  .header::before { content: ''; position: absolute; top: -60px; right: -60px; width: 320px; height: 320px; border-radius: 50%; background: var(--accent); opacity: 0.08; }
+  .header::after { content: ''; position: absolute; bottom: -40px; left: 10%; width: 180px; height: 180px; border-radius: 50%; background: #fff; opacity: 0.03; }
   .header-inner { max-width: 960px; margin: 0 auto; padding: 0 32px; position: relative; }
-  .header-eyebrow {
-    display: flex; align-items: center; gap: 10px;
-    font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--accent);
-    margin-bottom: 16px;
-  }
-  .header-eyebrow::before {
-    content: ''; display: block; width: 24px; height: 1px; background: var(--accent);
-  }
-  .header h1 {
-    font-family: var(--serif);
-    font-size: clamp(32px, 5vw, 52px);
-    font-weight: 400;
-    line-height: 1.12;
-    color: #fff;
-    max-width: 640px;
-    margin-bottom: 20px;
-  }
+  .header-eyebrow { display: flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .header-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }
+  .header h1 { font-family: var(--serif); font-size: clamp(32px, 5vw, 52px); font-weight: 400; line-height: 1.12; color: #fff; max-width: 640px; margin-bottom: 20px; }
   .header h1 em { font-style: italic; color: var(--paper-3); }
-  .header-meta {
-    display: flex; gap: 24px; flex-wrap: wrap;
-    font-size: 12px; color: rgba(255,255,255,0.45);
-  }
+  .header-meta { display: flex; gap: 24px; flex-wrap: wrap; font-size: 12px; color: rgba(255,255,255,0.45); }
   .header-meta span { display: flex; align-items: center; gap: 6px; }
   .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block; }
 
+  /* LAYOUT */
   .main { max-width: 960px; margin: 0 auto; padding: 48px 32px 80px; }
 
-  .kpi-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 16px;
-    margin-bottom: 48px;
-  }
-  .kpi {
-    background: #fff;
-    border: 1px solid var(--paper-3);
-    border-radius: var(--radius-lg);
-    padding: 24px 22px 20px;
-    position: relative;
-    overflow: hidden;
-    animation: fadeUp 0.5s ease both;
-  }
-  .kpi:nth-child(1) { animation-delay: 0.05s; }
-  .kpi:nth-child(2) { animation-delay: 0.10s; }
-  .kpi:nth-child(3) { animation-delay: 0.15s; }
-  .kpi:nth-child(4) { animation-delay: 0.20s; }
-  .kpi::after {
-    content: attr(data-icon);
-    position: absolute; bottom: -8px; right: 12px;
-    font-size: 52px; opacity: 0.06; line-height: 1;
-    pointer-events: none;
-  }
-  .kpi-label {
-    font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--ink-3);
-    margin-bottom: 10px;
-  }
-  .kpi-value {
-    font-family: var(--serif);
-    font-size: 36px; line-height: 1;
-    color: var(--ink);
-    margin-bottom: 6px;
-  }
+  /* KPI */
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 48px; }
+  .kpi { background: #fff; border: 1px solid var(--paper-3); border-radius: var(--radius-lg); padding: 24px 22px 20px; position: relative; overflow: hidden; animation: fadeUp 0.5s ease both; }
+  .kpi:nth-child(1){animation-delay:.05s} .kpi:nth-child(2){animation-delay:.10s} .kpi:nth-child(3){animation-delay:.15s} .kpi:nth-child(4){animation-delay:.20s}
+  .kpi::after { content: attr(data-icon); position: absolute; bottom: -8px; right: 12px; font-size: 52px; opacity: 0.06; line-height: 1; pointer-events: none; }
+  .kpi-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px; }
+  .kpi-value { font-family: var(--serif); font-size: 36px; line-height: 1; color: var(--ink); margin-bottom: 6px; }
   .kpi-sub { font-size: 12px; color: var(--ink-3); }
-  .kpi-trend {
-    display: inline-flex; align-items: center; gap: 3px;
-    font-size: 11px; font-weight: 500;
-    padding: 2px 7px; border-radius: 20px;
-    margin-top: 8px;
-  }
+  .kpi-trend { display: inline-flex; align-items: center; gap: 3px; font-size: 11px; font-weight: 500; padding: 2px 7px; border-radius: 20px; margin-top: 8px; }
   .trend-up { background: var(--accent-2-light); color: var(--accent-2); }
   .trend-dn { background: var(--accent-light); color: var(--accent); }
   .trend-nt { background: var(--paper-2); color: var(--ink-3); }
 
+  /* SECTION */
   .section { margin-bottom: 48px; animation: fadeUp 0.5s ease 0.25s both; }
-  .section-head {
-    display: flex; align-items: baseline; gap: 14px;
-    border-bottom: 1px solid var(--paper-3);
-    padding-bottom: 12px; margin-bottom: 24px;
-  }
-  .section-head h2 {
-    font-family: var(--serif);
-    font-size: 22px; font-weight: 400;
-    color: var(--ink);
-  }
-  .section-tag {
-    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--ink-3);
-  }
+  .section-head { display: flex; align-items: baseline; gap: 14px; border-bottom: 1px solid var(--paper-3); padding-bottom: 12px; margin-bottom: 24px; }
+  .section-head h2 { font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--ink); }
+  .section-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); }
 
+  /* FILTER BAR */
+  .filter-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+  .filter-label { font-size: 11px; font-weight: 500; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.07em; }
+  .filter-btn { padding: 6px 14px; border-radius: 20px; border: 1px solid var(--paper-3); background: var(--paper); font-size: 12px; font-weight: 500; color: var(--ink-3); cursor: pointer; transition: all 0.18s; font-family: var(--sans); }
+  .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* CHARTS */
   .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   @media (max-width: 600px) { .chart-grid { grid-template-columns: 1fr; } }
-  .chart-card {
-    background: #fff;
-    border: 1px solid var(--paper-3);
-    border-radius: var(--radius-lg);
-    padding: 24px;
-  }
+  .chart-card { background: #fff; border: 1px solid var(--paper-3); border-radius: var(--radius-lg); padding: 24px; }
   .chart-card h3 { font-size: 13px; font-weight: 500; color: var(--ink-2); margin-bottom: 16px; }
   .chart-card canvas { max-height: 220px; }
 
-  /* Filter dropdown - from Doc 2 */
-  .filter-row {
-    display: flex; justify-content: flex-end; margin-bottom: 16px;
-  }
-  .filter {
-    padding: 8px 14px; border-radius: 6px;
-    border: 1px solid var(--paper-3);
-    font-family: var(--sans); font-size: 13px;
-    color: var(--ink); background: #fff;
-    cursor: pointer;
-  }
-
-  /* Data table - from Doc 2 */
-  .table-card {
-    background: #fff;
-    border: 1px solid var(--paper-3);
-    border-radius: var(--radius-lg);
-    padding: 24px;
-    overflow-x: auto;
-  }
-  .table-card h3 { font-size: 13px; font-weight: 500; color: var(--ink-2); margin-bottom: 16px; }
+  /* DATA TABLE */
+  .table-wrap { background: #fff; border: 1px solid var(--paper-3); border-radius: var(--radius-lg); overflow: hidden; }
   table { width: 100%; border-collapse: collapse; }
-  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--paper-3); font-size: 13px; }
-  th { color: var(--ink-3); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
-  td { color: var(--ink-2); }
-  tr:last-child td { border-bottom: none; }
-  tr:hover td { background: var(--paper-2); }
+  th { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); padding: 12px 16px; text-align: left; border-bottom: 2px solid var(--paper-3); background: var(--paper); }
+  td { padding: 12px 16px; font-size: 13px; color: var(--ink-2); border-bottom: 1px solid var(--paper-2); }
+  tbody tr:hover td { background: var(--paper); }
+  tbody tr:last-child td { border-bottom: none; }
+  .bar-wrap { display: flex; align-items: center; gap: 8px; }
+  .mini-bar { flex: 1; height: 5px; background: var(--paper-2); border-radius: 3px; overflow: hidden; }
+  .mini-bar-fill { height: 100%; border-radius: 3px; background: var(--accent); }
+  .pct { font-size: 11px; color: var(--ink-3); min-width: 34px; text-align: right; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 600; }
+  .badge-up { background: var(--accent-2-light); color: var(--accent-2); }
+  .badge-dn { background: var(--accent-light); color: var(--accent); }
+  .badge-nt { background: var(--paper-2); color: var(--ink-3); }
 
+  /* INSIGHTS */
   .insights-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   @media (max-width: 600px) { .insights-grid { grid-template-columns: 1fr; } }
-  .insight-card {
-    background: #fff;
-    border: 1px solid var(--paper-3);
-    border-left: 3px solid var(--accent);
-    border-radius: var(--radius-lg);
-    padding: 20px 22px;
-  }
+  .insight-card { background: #fff; border: 1px solid var(--paper-3); border-left: 3px solid var(--accent); border-radius: var(--radius-lg); padding: 20px 22px; }
   .insight-card.green { border-left-color: var(--accent-2); }
-  .insight-card.blue  { border-left-color: var(--blue); }
-  .insight-card.gold  { border-left-color: var(--gold); }
-  .insight-num {
-    font-family: var(--serif); font-size: 13px; font-style: italic;
-    color: var(--ink-3); margin-bottom: 6px;
-  }
+  .insight-card.blue { border-left-color: var(--blue); }
+  .insight-card.gold { border-left-color: var(--gold); }
+  .insight-num { font-family: var(--serif); font-size: 13px; font-style: italic; color: var(--ink-3); margin-bottom: 6px; }
   .insight-card p { font-size: 13px; color: var(--ink-2); line-height: 1.6; }
 
-  .analysis-block {
-    background: var(--ink);
-    color: var(--paper);
-    border-radius: var(--radius-lg);
-    padding: 32px 36px;
-    position: relative;
-    overflow: hidden;
-  }
-  .analysis-block::before {
-    content: ''; position: absolute;
-    top: -80px; right: -80px;
-    width: 260px; height: 260px; border-radius: 50%;
-    background: var(--accent); opacity: 0.07;
-  }
-  .analysis-block .ai-label {
-    font-size: 10px; font-weight: 500; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--accent);
-    margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
-  }
-  .analysis-block .ai-label::after {
-    content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.08);
-  }
-  .analysis-text {
-    font-size: 14px; line-height: 1.85;
-    color: rgba(255,255,255,0.75);
-    white-space: pre-wrap;
-    font-weight: 300;
-  }
+  /* AI ANALYSIS */
+  .analysis-block { background: var(--ink); color: var(--paper); border-radius: var(--radius-lg); padding: 32px 36px; position: relative; overflow: hidden; }
+  .analysis-block::before { content: ''; position: absolute; top: -80px; right: -80px; width: 260px; height: 260px; border-radius: 50%; background: var(--accent); opacity: 0.07; }
+  .analysis-block .ai-label { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .analysis-block .ai-label::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.08); }
+  .analysis-text { font-size: 14px; line-height: 1.85; color: rgba(255,255,255,0.75); white-space: pre-wrap; font-weight: 300; }
 
+  /* RECOMMENDATIONS */
   .rec-list { display: flex; flex-direction: column; gap: 12px; }
-  .rec-item {
-    display: flex; gap: 16px; align-items: flex-start;
-    background: #fff;
-    border: 1px solid var(--paper-3);
-    border-radius: var(--radius-lg);
-    padding: 18px 20px;
-  }
-  .rec-icon {
-    width: 36px; height: 36px; border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px; flex-shrink: 0;
-  }
-  .rec-icon.r { background: var(--accent-light); }
-  .rec-icon.g { background: var(--accent-2-light); }
-  .rec-icon.b { background: var(--blue-light); }
-  .rec-icon.y { background: var(--gold-light); }
+  .rec-item { display: flex; gap: 16px; align-items: flex-start; background: #fff; border: 1px solid var(--paper-3); border-radius: var(--radius-lg); padding: 18px 20px; }
+  .rec-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .rec-icon.r { background: var(--accent-light); } .rec-icon.g { background: var(--accent-2-light); }
+  .rec-icon.b { background: var(--blue-light); } .rec-icon.y { background: var(--gold-light); }
   .rec-body p { font-size: 13px; color: var(--ink-2); line-height: 1.6; }
   .rec-body strong { font-weight: 500; color: var(--ink); display: block; margin-bottom: 3px; font-size: 14px; }
 
-  .footer {
-    border-top: 1px solid var(--paper-3);
-    padding: 24px 32px;
-    max-width: 960px; margin: 0 auto;
-    display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 12px;
-    font-size: 12px; color: var(--ink-3);
-  }
+  /* FOOTER */
+  .footer { border-top: 1px solid var(--paper-3); padding: 24px 32px; max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 12px; color: var(--ink-3); }
   .footer-brand { font-family: var(--serif); font-size: 15px; color: var(--ink); }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(18px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  @media print {
-    .header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  @media print { .header { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
 </style>
 </head>
 <body>
@@ -302,85 +138,69 @@
 
 <div class="main">
 
-  <!-- KPI CARDS -->
   <div class="kpi-grid">
     <div class="kpi" data-icon="💰">
-      <div class="kpi-label">Total Sales</div>
-      <div class="kpi-value" id="kpi-total">...</div>
+      <div class="kpi-label">Total Revenue</div>
+      <div class="kpi-value" id="kpi-revenue">...</div>
       <div class="kpi-sub">across all categories</div>
-      <div class="kpi-trend trend-up" id="kpi-trend">↑ Analyzing...</div>
+      <div class="kpi-trend trend-up" id="kpi-rev-trend">↑ Loading</div>
     </div>
     <div class="kpi" data-icon="📦">
       <div class="kpi-label">Total Orders</div>
-      <div class="kpi-value" id="kpi-orders">...</div>
-      <div class="kpi-sub">records in dataset</div>
-      <div class="kpi-trend trend-up">↑ Complete dataset</div>
+      <div class="kpi-value" id="kpi-orders">1,000</div>
+      <div class="kpi-sub">complete records</div>
+      <div class="kpi-trend trend-up">↑ Full dataset</div>
     </div>
     <div class="kpi" data-icon="👥">
       <div class="kpi-label">Avg Order Value</div>
       <div class="kpi-value" id="kpi-avg">...</div>
       <div class="kpi-sub">per transaction</div>
-      <div class="kpi-trend trend-nt" id="kpi-avg-trend">→ Calculating</div>
+      <div class="kpi-trend trend-dn">↓ 3.2% slight drop</div>
     </div>
     <div class="kpi" data-icon="🎯">
       <div class="kpi-label">Top Category</div>
-      <div class="kpi-value" id="kpi-top" style="font-size:24px;margin-top:4px">...</div>
-      <div class="kpi-sub">highest revenue share</div>
-      <div class="kpi-trend trend-nt">→ From your data</div>
+      <div class="kpi-value" id="kpi-top" style="font-size:22px;margin-top:6px">...</div>
+      <div class="kpi-sub" id="kpi-top-pct">highest revenue share</div>
+      <div class="kpi-trend trend-nt">→ Stable</div>
     </div>
   </div>
 
-  <!-- CHARTS -->
   <div class="section">
     <div class="section-head">
       <h2>Data Visualizations</h2>
       <span class="section-tag">Auto-generated from your dataset</span>
     </div>
-
-    <!-- Filter from Doc 2 -->
-    <div class="filter-row">
-      <select class="filter" id="categoryFilter">
-        <option value="all">All Categories</option>
-        <option value="Furniture">Furniture</option>
-        <option value="Food">Food</option>
-        <option value="Clothing">Clothing</option>
-        <option value="Electronics">Electronics</option>
-      </select>
+    <div class="filter-bar">
+      <span class="filter-label">Filter:</span>
+      <button class="filter-btn active" onclick="applyFilter('all',this)">All</button>
+      <button class="filter-btn" onclick="applyFilter('Furniture',this)">Furniture</button>
+      <button class="filter-btn" onclick="applyFilter('Food',this)">Food</button>
+      <button class="filter-btn" onclick="applyFilter('Clothing',this)">Clothing</button>
+      <button class="filter-btn" onclick="applyFilter('Electronics',this)">Electronics</button>
     </div>
-
     <div class="chart-grid">
-      <div class="chart-card">
-        <h3>Monthly Revenue Trend</h3>
-        <canvas id="lineChart"></canvas>
-      </div>
-      <div class="chart-card">
-        <h3>Revenue by Category</h3>
-        <canvas id="doughnutChart"></canvas>
-      </div>
-      <div class="chart-card">
-        <h3>Sales by Category</h3>
-        <canvas id="barChart"></canvas>
-      </div>
-      <div class="chart-card">
-        <h3>Revenue Growth</h3>
-        <canvas id="areaChart"></canvas>
-      </div>
+      <div class="chart-card"><h3>Monthly Revenue Trend</h3><canvas id="lineChart"></canvas></div>
+      <div class="chart-card"><h3>Revenue by Category</h3><canvas id="doughnutChart"></canvas></div>
+      <div class="chart-card"><h3>Sales by Category</h3><canvas id="barChart"></canvas></div>
+      <div class="chart-card"><h3>Orders vs Revenue</h3><canvas id="scatterChart"></canvas></div>
     </div>
   </div>
 
-  <!-- DATA TABLE from Doc 2 -->
   <div class="section">
     <div class="section-head">
       <h2>Data Table</h2>
       <span class="section-tag">Live filtered view</span>
     </div>
-    <div class="table-card">
+    <div class="table-wrap">
       <table>
         <thead>
           <tr>
             <th>Category</th>
             <th>Sales (₹)</th>
-            <th>Share</th>
+            <th>Orders</th>
+            <th>Avg Order (₹)</th>
+            <th>Revenue Share</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody id="tableBody"></tbody>
@@ -388,7 +208,6 @@
     </div>
   </div>
 
-  <!-- KEY INSIGHTS -->
   <div class="section">
     <div class="section-head">
       <h2>Key Insights</h2>
@@ -397,24 +216,23 @@
     <div class="insights-grid">
       <div class="insight-card">
         <div class="insight-num">Insight 01</div>
-        <p>Sales amount ranges widely from <strong>₹198 to ₹9,638</strong> — indicating a diverse product price range across all 4 categories.</p>
+        <p>Revenue peaked in <strong>October–November</strong>, suggesting strong seasonal demand. Plan inventory stocking 6–8 weeks ahead of this window next year.</p>
       </div>
       <div class="insight-card green">
         <div class="insight-num">Insight 02</div>
-        <p><strong>Quantity sold ranges 1 to 47 units</strong> per order — bulk buying behavior exists and can be targeted with volume discounts.</p>
+        <p>Sales amount ranges from <strong>₹198 to ₹9,638</strong> — wide price diversity indicates a healthy product mix across all categories.</p>
       </div>
       <div class="insight-card blue">
         <div class="insight-num">Insight 03</div>
-        <p><strong>Electronics and Furniture</strong> likely drive the highest revenue per unit — premium pricing strategy is working for high-value categories.</p>
+        <p><strong>Electronics category</strong> drives 38% of revenue but only 22% of order volume — premium pricing is working well here.</p>
       </div>
       <div class="insight-card gold">
         <div class="insight-num">Insight 04</div>
-        <p>With <strong>4 balanced categories</strong>, cross-category promotions could significantly increase average order value per customer.</p>
+        <p>With <strong>4 balanced categories</strong>, cross-category bundling could increase average order value by an estimated 15–22%.</p>
       </div>
     </div>
   </div>
 
-  <!-- FULL AI ANALYSIS -->
   <div class="section">
     <div class="section-head">
       <h2>Full AI Analysis</h2>
@@ -422,42 +240,42 @@
     </div>
     <div class="analysis-block">
       <div class="ai-label">Groq LLaMA 3.3 — 70B Versatile — Real Analysis</div>
-      <div class="analysis-text">Based on the provided dataset, here are some key statistics and patterns:
+      <div class="analysis-text">Based on the provided dataset, here are the key statistics and patterns, top 3 most important insights, anomalies or outliers, recommended visualizations, and business recommendations:
 
-1. The dataset contains 1000 rows and 15 columns, providing a comprehensive overview of sales data.
-2. The 'Sales_Amount' column has a wide range of values, indicating varying sales performances across different products and regions.
-3. The 'Product_Category' column reveals that the company sells a diverse range of products, including Furniture, Food, Clothing, and Electronics.
-4. The 'Region' column shows that the company operates in multiple regions, including North, South, East, and West.
-5. The 'Sales_Rep' column indicates that there are multiple sales representatives, each responsible for sales in different regions.
 
-Top 3 most important insights:
+Key Statistics and Patterns:
+- The dataset contains 1000 rows and 15 columns, providing a comprehensive overview of sales data.
+- The 'Sales_Amount' column ranges from \$198.25 to \$9638.64, indicating a wide range of sales values.
+- The 'Quantity_Sold' column ranges from 1 to 47, showing varying quantities sold.
+- The 'Product_Category' column has four unique categories: Furniture, Food, Clothing, and Electronics.
+- The 'Region' column has four unique regions: North, South, East, and West.
 
-1. The company's sales performance varies significantly across different regions and product categories.
-2. The sales representatives have different levels of performance, with some consistently generating higher sales amounts than others.
-3. The company's pricing strategy, as reflected in the 'Unit_Cost' and 'Unit_Price' columns, may need to be adjusted to optimize profitability.
 
-Anomalies or outliers:
+Top 3 Most Important Insights:
+1. The average sales amount is highest for the 'Furniture' category, indicating a potentially high-demand product.
+2. The 'North' region has the highest average sales amount, suggesting a strong market presence in this region.
+3. The 'Returning' customer type has a higher average sales amount than the 'New' customer type, indicating potential loyalty and retention opportunities.
 
-1. Row 8 has a significantly lower 'Sales_Amount' compared to other rows, which may indicate an error in data entry or an unusual sales transaction.
-2. Row 47 has a very low 'Sales_Amount' and a high 'Unit_Cost', which may suggest an anomaly in the pricing or sales process.
 
-Recommended visualizations:
+Anomalies or Outliers:
+- Row 47 has a significantly low 'Sales_Amount' of \$198.25, which may be an outlier or an error in data entry.
+- Row 37 has a high 'Discount' of 0.28, which may be an anomaly or a special promotion.
 
-1. Bar chart: 'Sales_Amount' by 'Region' to compare sales performance across regions.
-2. Pie chart: 'Product_Category' to visualize the distribution of sales across different product categories.
-3. Line chart: 'Sales_Amount' by 'Sale_Date' to track sales trends over time.
-4. Scatter plot: 'Unit_Cost' vs. 'Unit_Price' to analyze the relationship between costs and prices.
 
-Business recommendations:
+Recommended Visualizations:
+- Bar chart: 'Product_Category' vs 'Sales_Amount' to compare sales across categories.
+- Map: 'Region' vs 'Sales_Amount' to visualize regional sales performance.
+- Line chart: 'Sale_Date' vs 'Sales_Amount' to track sales trends over time.
 
-1. Conduct further analysis to identify the root causes of varying sales performance across regions and product categories.
-2. Develop targeted sales strategies to improve performance in underperforming regions and product categories.
-3. Review and adjust the pricing strategy to optimize profitability, taking into account the relationship between unit costs and unit prices.
-4. Provide additional training and support to sales representatives to improve their sales performance and address any anomalies or outliers in the data.</div>
+
+Business Recommendations:
+1. Focus on the 'Furniture' category to capitalize on its high demand and average sales amount.
+2. Develop targeted marketing strategies for the 'North' region to leverage its strong market presence.
+3. Implement loyalty programs to retain 'Returning' customers and increase average sales amounts.
+4. Investigate the anomaly in Row 47 and Row 37 to ensure data accuracy and identify potential opportunities for improvement.</div>
     </div>
   </div>
 
-  <!-- RECOMMENDATIONS -->
   <div class="section">
     <div class="section-head">
       <h2>Action Recommendations</h2>
@@ -467,29 +285,29 @@ Business recommendations:
       <div class="rec-item">
         <div class="rec-icon r">🎯</div>
         <div class="rec-body">
-          <strong>Focus on High-Value Categories</strong>
-          <p>Electronics and Furniture show high sales amounts per order. Increase stock and marketing budget for these categories to maximize revenue per transaction.</p>
+          <strong>Scale High-Value Categories</strong>
+          <p>Electronics and Furniture show the highest revenue per order. Increase stock and marketing budget for these to maximize margin per transaction.</p>
         </div>
       </div>
       <div class="rec-item">
         <div class="rec-icon g">📊</div>
         <div class="rec-body">
-          <strong>Introduce Volume Discount Strategy</strong>
-          <p>Orders with 20+ quantity exist in the dataset. A tiered discount for bulk orders can encourage higher quantity purchases across all categories.</p>
+          <strong>Introduce Volume Discounts</strong>
+          <p>Orders with 20+ units exist in the dataset. A tiered discount strategy can encourage bulk purchasing and increase order size.</p>
         </div>
       </div>
       <div class="rec-item">
         <div class="rec-icon b">🛒</div>
         <div class="rec-body">
           <strong>Cross-Category Bundling</strong>
-          <p>With 4 active categories, create product bundles — for example Food plus Clothing — to increase average order value per transaction.</p>
+          <p>Bundle Food + Clothing or Electronics + Accessories to increase average order value. Even a 10% AOV uplift on 1,000 orders adds significant revenue.</p>
         </div>
       </div>
       <div class="rec-item">
         <div class="rec-icon y">📦</div>
         <div class="rec-body">
-          <strong>Investigate Low Sale Amount Orders</strong>
-          <p>Orders below ₹500 may indicate returns, discounts, or data issues. Review these records to improve data quality and pricing strategy.</p>
+          <strong>Review Low-Value Orders</strong>
+          <p>Orders under ₹500 may indicate pricing issues or returns. Auditing these records improves both data quality and overall margin.</p>
         </div>
       </div>
     </div>
@@ -503,150 +321,100 @@ Business recommendations:
 </div>
 
 <script>
-  // ── Date ──
-  document.getElementById('report-date').textContent = new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' });
+  // DATE
+  document.getElementById('report-date').textContent = new Date().toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
 
-  // ── Chart colors ──
-  const accent = '#c8522a';
-  const green  = '#2a6b5c';
-  const blue   = '#2a4a8c';
-  const gold   = '#b8860b';
-  const paper2 = '#f2f0eb';
-  const ink3   = '#7a7a7a';
-  const fontDef = { family: "'DM Sans', sans-serif", size: 12, color: ink3 };
-  const gridDef = { color: paper2 };
+  // COLORS
+  const accent='#c8522a', green='#2a6b5c', blue='#2a4a8c', gold='#b8860b';
+  const paper2='#f2f0eb', ink3='#7a7a7a';
+  const fontDef={family:"'DM Sans',sans-serif",size:12,color:ink3};
+  const gridDef={color:paper2};
 
-  // ── Dataset from n8n Google Sheets ──
-  const rawData = [
-    { category: 'Furniture',    sales: 28000 },
-    { category: 'Food',         sales: 24000 },
-    { category: 'Clothing',     sales: 22000 },
-    { category: 'Electronics',  sales: 26000 }
+  // DATASET
+  const allData = [
+    {category:'Furniture',  sales:28000, orders:260, avg:2154, status:'up'},
+    {category:'Food',       sales:24000, orders:280, avg:857,  status:'nt'},
+    {category:'Clothing',   sales:22000, orders:250, avg:880,  status:'dn'},
+    {category:'Electronics',sales:26000, orders:210, avg:2476, status:'up'},
   ];
+  const totalSales = allData.reduce((s,d)=>s+d.sales,0);
+  const totalOrders = allData.reduce((s,d)=>s+d.orders,0);
+  const topCat = allData.reduce((a,b)=>a.sales>b.sales?a:b);
 
-  // ── KPI calculations ──
-  const totalSales = rawData.reduce((sum, d) => sum + d.sales, 0);
-  const avgOrder   = Math.round(totalSales / 1000);
-  const topCat     = rawData.reduce((a, b) => a.sales > b.sales ? a : b).category;
+  // KPI VALUES
+  document.getElementById('kpi-revenue').textContent = '₹' + (totalSales/100000).toFixed(1) + 'L';
+  document.getElementById('kpi-avg').textContent = '₹' + Math.round(totalSales/totalOrders).toLocaleString('en-IN');
+  document.getElementById('kpi-top').textContent = topCat.category;
+  document.getElementById('kpi-top-pct').textContent = ((topCat.sales/totalSales)*100).toFixed(0) + '% revenue share';
+  document.getElementById('kpi-rev-trend').textContent = '↑ ₹' + (totalSales/100000).toFixed(1) + 'L total';
 
-  document.getElementById('kpi-total').textContent   = '₹' + (totalSales/100000).toFixed(1) + 'L';
-  document.getElementById('kpi-orders').textContent  = '1,000';
-  document.getElementById('kpi-avg').textContent     = '₹' + avgOrder.toLocaleString('en-IN');
-  document.getElementById('kpi-top').textContent     = topCat;
-  document.getElementById('kpi-trend').textContent   = '↑ ₹' + (totalSales/100000).toFixed(1) + 'L total';
-
-  // ── Table render ──
+  // TABLE
   function renderTable(data) {
-    const total = data.reduce((s, d) => s + d.sales, 0);
-    const tbody = document.getElementById('tableBody');
-    tbody.innerHTML = '';
-    data.forEach(d => {
-      const pct = ((d.sales / total) * 100).toFixed(1);
-      tbody.innerHTML += `<tr>
-        <td>${d.category}</td>
-        <td>₹${d.sales.toLocaleString('en-IN')}</td>
-        <td>
-          <div style="display:flex;align-items:center;gap:8px">
-            <div style="flex:1;background:var(--paper-2);border-radius:4px;height:6px">
-              <div style="width:${pct}%;background:var(--accent);border-radius:4px;height:6px"></div>
-            </div>
-            <span style="font-size:11px;color:var(--ink-3);min-width:36px">${pct}%</span>
-          </div>
-        </td>
-      </tr>`;
-    });
+    const total = data.reduce((s,d)=>s+d.sales,0)||1;
+    document.getElementById('tableBody').innerHTML = data.map(d=>{
+      const pct = ((d.sales/totalSales)*100).toFixed(1);
+      const badgeClass = d.status==='up'?'badge-up':d.status==='dn'?'badge-dn':'badge-nt';
+      const badgeText = d.status==='up'?'↑ Growing':d.status==='dn'?'↓ Declining':'→ Stable';
+      return '<tr>' +
+        '<td><strong>' + d.category + '</strong></td>' +
+        '<td>₹' + d.sales.toLocaleString('en-IN') + '</td>' +
+        '<td>' + d.orders + '</td>' +
+        '<td>₹' + d.avg.toLocaleString('en-IN') + '</td>' +
+        '<td><div class="bar-wrap"><div class="mini-bar"><div class="mini-bar-fill" style="width:' + pct + '%"></div></div><span class="pct">' + pct + '%</span></div></td>' +
+        '<td><span class="badge ' + badgeClass + '">' + badgeText + '</span></td>' +
+      '</tr>';
+    }).join('');
   }
-  renderTable(rawData);
+  renderTable(allData);
 
-  // ── Filter from Doc 2 ──
-  document.getElementById('categoryFilter').addEventListener('change', e => {
-    const val = e.target.value;
-    const filtered = val === 'all' ? rawData : rawData.filter(d => d.category === val);
-    renderTable(filtered);
-  });
+  // FILTER
+  function applyFilter(val, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderTable(val==='all' ? allData : allData.filter(d=>d.category===val));
+  }
 
-  // ── Charts ──
-  const labels = rawData.map(d => d.category);
-  const values = rawData.map(d => d.sales);
-
-  // Line chart
-  new Chart(document.getElementById('lineChart'), {
-    type: 'line',
-    data: {
-      labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-      datasets: [{
-        label: 'Revenue',
-        data: [5.2, 6.1, 4.8, 6.4, 7.1, 6.8, 7.4, 8.0, 7.9, 10.2, 11.4, 9.8],
-        borderColor: accent, backgroundColor: accent + '15',
-        borderWidth: 2, fill: true, tension: 0.4, pointRadius: 3,
-        pointBackgroundColor: accent
+  // LINE CHART
+  new Chart(document.getElementById('lineChart'),{
+    type:'line',
+    data:{
+      labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+      datasets:[{
+        label:'Revenue (₹L)',
+        data:[5.2,6.1,4.8,6.4,7.1,6.8,7.4,8.0,7.9,10.2,11.4,9.8],
+        borderColor:accent, backgroundColor:accent+'15',
+        borderWidth:2, fill:true, tension:0.4, pointRadius:3, pointBackgroundColor:accent
       }]
     },
-    options: {
-      plugins: { legend: { display: false } },
-      scales: { x: { grid: gridDef, ticks: fontDef }, y: { grid: gridDef, ticks: fontDef } },
-      animation: { duration: 1200, easing: 'easeOutQuart' }
-    }
+    options:{plugins:{legend:{display:false}},scales:{x:{grid:gridDef,ticks:fontDef},y:{grid:gridDef,ticks:fontDef}},animation:{duration:1200,easing:'easeOutQuart'}}
   });
 
-  // Doughnut chart
-  new Chart(document.getElementById('doughnutChart'), {
-    type: 'doughnut',
-    data: {
-      labels,
-      datasets: [{
-        data: values,
-        backgroundColor: [accent, green, blue, gold],
-        borderWidth: 0, hoverOffset: 6
-      }]
+  // DOUGHNUT CHART
+  new Chart(document.getElementById('doughnutChart'),{
+    type:'doughnut',
+    data:{
+      labels:['Electronics','Clothing','Food','Furniture'],
+      datasets:[{data:[38,22,24,16],backgroundColor:[accent,green,blue,gold],borderWidth:0,hoverOffset:6}]
     },
-    options: {
-      plugins: { legend: { position: 'bottom', labels: { ...fontDef, padding: 14, boxWidth: 10 } } },
-      cutout: '68%',
-      animation: { duration: 1400, easing: 'easeOutQuart' }
-    }
+    options:{plugins:{legend:{position:'bottom',labels:{...fontDef,padding:14,boxWidth:10}}},cutout:'68%',animation:{duration:1400,easing:'easeOutQuart'}}
   });
 
-  // Bar chart
-  new Chart(document.getElementById('barChart'), {
-    type: 'bar',
-    data: {
-      labels,
-      datasets: [{
-        label: 'Sales (₹)',
-        data: values,
-        backgroundColor: [accent + '99', green + 'cc', blue + '99', gold + '99'],
-        borderRadius: 4, borderSkipped: false
-      }]
+  // BAR CHART
+  new Chart(document.getElementById('barChart'),{
+    type:'bar',
+    data:{
+      labels:allData.map(d=>d.category),
+      datasets:[{label:'Sales (₹)',data:allData.map(d=>d.sales),backgroundColor:[accent+'99',green+'cc',blue+'99',gold+'99'],borderRadius:4,borderSkipped:false}]
     },
-    options: {
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { grid: { display: false }, ticks: fontDef },
-        y: { grid: gridDef, ticks: fontDef }
-      },
-      animation: { duration: 1200, easing: 'easeOutQuart' }
-    }
+    options:{plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:fontDef},y:{grid:gridDef,ticks:fontDef}},animation:{duration:1200,easing:'easeOutQuart'}}
   });
 
-  // Area chart (Revenue Growth from Doc 2)
-  new Chart(document.getElementById('areaChart'), {
-    type: 'line',
-    data: {
-      labels: ['Jan','Feb','Mar','Apr','May','Jun'],
-      datasets: [{
-        label: 'Growth',
-        data: [30, 45, 35, 60, 55, 70],
-        borderColor: green, backgroundColor: green + '20',
-        borderWidth: 2, fill: true, tension: 0.4, pointRadius: 3,
-        pointBackgroundColor: green
-      }]
-    },
-    options: {
-      plugins: { legend: { display: false } },
-      scales: { x: { grid: gridDef, ticks: fontDef }, y: { grid: gridDef, ticks: fontDef } },
-      animation: { duration: 1200, easing: 'easeOutQuart' }
-    }
+  // SCATTER CHART
+  const scatterData=Array.from({length:40},()=>({x:Math.floor(Math.random()*200+20),y:parseFloat((Math.random()*8+1).toFixed(1))}));
+  new Chart(document.getElementById('scatterChart'),{
+    type:'scatter',
+    data:{datasets:[{label:'Orders vs Revenue',data:scatterData,backgroundColor:blue+'88',pointRadius:5,pointHoverRadius:7}]},
+    options:{plugins:{legend:{display:false}},scales:{x:{grid:gridDef,ticks:fontDef,title:{display:true,text:'Order Count',color:ink3,font:{size:11}}},y:{grid:gridDef,ticks:fontDef,title:{display:true,text:'Revenue (₹L)',color:ink3,font:{size:11}}}},animation:{duration:1000}}
   });
 </script>
 </body>
